@@ -2,7 +2,7 @@
 Java fax library.
 
 ## Introduction
-The <a href="https://github.com/sagiegurari/fax4j">fax4j</a> is a Java fax library.
+The [fax4j](http://sagiegurari.github.io/fax4j/) is a Java fax library.
 <br>
 This library enables Java applications to invoke fax actions such as submitting fax jobs.
 <br>
