@@ -8,6 +8,14 @@
 	</properties>
 
 	<body>
+		<release version="0.43.1" date="2015-04-24" description="Maven site fix">
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Fixed maven site links.
+				]]>
+			</action>
+		</release>
+
 		<release version="0.43.0" date="2015-04-24" description="Migrate To Github">
 			<action dev="Sagie Gur-Ari" type="update">
 				<![CDATA[

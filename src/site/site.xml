@@ -5,7 +5,6 @@
 	<body>
 		<menu name="fax4j">
 			<item name="Overview" href="/index.html"/>
-			<item name="Download" href="https://github.com/sagiegurari/fax4j/releases/latest"/>
 			<item name="JavaDoc/User Guide" href="/apidocs/overview-summary.html#overview_description"/>
 			<item name="Change Log" href="/changes-report.html"/>
 		</menu>
