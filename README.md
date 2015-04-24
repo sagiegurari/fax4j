@@ -20,6 +20,7 @@ Currently fax4j supports the following implementations:<br>
 * Linux native fax API (requires linux efax utility)
 * Mac native fax API
 * HylaFax (via gnu-hylafax library)
+
 And more...
 <br>
 <br>
