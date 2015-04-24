@@ -1,0 +1,979 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+
+	<properties>
+		<title>Change Log</title>
+		<author email="sgurari@yahoo.com">Sagie Gur-Ari</author>
+	</properties>
+
+	<body>
+		<release version="0.43.0" date="2015-04-24" description="Migrate To Github">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Updated docs to remove reference of sourceforge as project is now hosted in github.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.42.9" date="2013-12-13" description="New Functionality">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/hoiio/HoiioFaxClientSpi.html">Hoiio</a> SPI implementation.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					HTTP <a href="apidocs/org/fax4j/spi/http/MultiPartFaxJob2HTTPRequestConverter.html">Multi Part</a> request converter now enables to add additional parameters to the request via configuration.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Added CLIRR report as part of the maven build for the public client classes (not for internal SPI classes).
+				]]>
+			</action>
+		</release>
+
+		<release version="0.42.8" date="2013-12-01" description="New Functionality">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/phaxio/PhaxioFaxClientSpi.html">Phaxio</a> SPI implementation.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New HTTP <a href="apidocs/org/fax4j/spi/http/XMLHTTPResponseHandler.html">XML</a> response handler.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					HTTP <a href="apidocs/org/fax4j/spi/http/JSONHTTPResponseHandler.html">JSON</a> response handler is now the default HTTP response handler.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Fixed windows test case when using JNI.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.42.7" date="2013-11-24" description="New Functionality">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New HTTP <a href="apidocs/org/fax4j/spi/http/MultiPartFaxJob2HTTPRequestConverter.html">Multi Part</a> request converter class used to build multipart HTTP requests for the <a href="apidocs/org/fax4j/spi/http/HTTPFaxClientSpi.html">HTTP</a> fax client SPI.<br>
+					This converter is now the default converter instead of the template based converter.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.42.6" date="2013-10-14" description="New Functionality">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					HTTP <a href="apidocs/org/fax4j/spi/http/JSONHTTPResponseHandler.html">JSON</a> response handler also supports error response detection and handling.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.42.5" date="2013-10-11" description="New Functionality">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Added support for different HTTP methods (POST, GET, PUT) for the <a href="apidocs/org/fax4j/spi/http/HTTPFaxClientSpi.html">HTTP</a> SPI.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Initial support for HTTP <a href="apidocs/org/fax4j/spi/http/JSONHTTPResponseHandler.html">JSON</a> response handling.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.42.4" date="2013-10-11">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Redesign of the <a href="apidocs/org/fax4j/spi/http/HTTPFaxClientSpi.html">HTTP</a> SPI to enable more flexiable implementations (including in the future for REST).
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="remove">
+				<![CDATA[
+					Removed old HTTPTemplateFaxClientSpi SPI as the new implementation supports templates via converter.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.42.3" date="2013-09-09">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Modified fax bridge and flow helper to support the x2fax sub project.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					<a href="apidocs/org/fax4j/spi/vbs/VBSFaxClientSpi.html">VBS</a> SPI refactoring.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.42.2" date="2013-09-02" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Documentation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.42.1" date="2013-09-01" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Documentation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.42.0" date="2013-08-30">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Decoupled the connection factory from the owner fax client SPI.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Fixed default email parser encoding handling.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.41.9" date="2013-08-30">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					VendorPolicy will now automatically listen for fax monitoring events if it implements the fax monitor event listener.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Documentation fixes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.41.8" date="2013-08-27">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor internal improvements.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.41.7" date="2013-08-26">
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Documentation fixes.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Internal refactoring for common configuration handling.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.41.6" date="2013-08-26">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/nextivafax/NextivafaxMailFaxClientSpi.html">nextivafax</a> SPI implementation.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Full C++ build implemented as part of maven build (previously only the fax4j.dll was compiled).
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Ensure native build is fired only once during the full maven build.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Converted many constant inner classes to enums.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.41.5" date="2013-08-23">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor build changes.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Internal refactoring of the windows SPI.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Continued development of JUnit test cases for the fax4j library.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.41.4" date="2013-08-21">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Internal fax bridge implementation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.41.3" date="2013-08-20">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					The <a href="apidocs/org/fax4j/bridge/email/EMail2FaxBridge.html">email2fax</a> bridge now returns the submitted fax job.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.41.2" date="2013-08-19">
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Changed groupId to net.sf.fax4j
+				]]>
+			</action>
+		</release>
+
+		<release version="0.41.1" date="2013-08-18">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Major internal refactoring and code changes to support both frameworks (Fax Client SPI and X2Fax Bridge).<br/>
+					Moved few util classes to common package.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Documentation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.40.9" date="2013-08-18" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Documentation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.40.8" date="2013-08-18">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					<a href="apidocs/org/fax4j/spi/windows/WindowsFaxClientSpi.html">Windows</a> SPI now extracts the fax4j.exe and fax4j.dll from inside the jar (no need to put them in the native path of the system and they are no longer packaged separately as part of the fax4j zip).
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Fixed build shell script for non windows platforms.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					pom.xml changes to support uploading fax4j to maven central.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.40.7" date="2013-08-16">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor build change: fax4j.jar name now contains the fax4j version.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor build change: fax4j javadoc jar is created as part of the maven build.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					pom.xml changes to support uploading fax4j to maven central.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.40.6" date="2013-08-16" description="New Functionality">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/bridge/FaxBridge.html">fax bridge</a> framework to enable to provide x2fax capabilities (such as <a href="apidocs/org/fax4j/bridge/email/EMail2FaxBridge.html">email2fax</a> and others).
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					The fax4j library only throws FaxExceptions.<br/>
+					Other runtime exceptions were replaced.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Major internal refactoring and code changes to support both frameworks (Fax Client SPI and X2Fax Bridge).
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Fixed <a href="apidocs/org/fax4j/spi/http/HTTPFaxClientSpi.html">HTTP</a> SPI (set the setContentChunked as false).
+				]]>
+			</action>
+		</release>
+
+		<release version="0.40.5" date="2013-08-12">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor build changes and code cleanups.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.40.4" date="2013-08-09">
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Fixed <a href="apidocs/org/fax4j/spi/http/HTTPFaxClientSpi.html">HTTP</a> SPI to enable suspend/resume/cancel fax job actions without the fax job object holding a reference to the fax job file.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor build changes and code cleanups.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.40.3" date="2013-08-06" description="Native Build Changes">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					fax4j.dll compilation and JNI header files generation are done as part of the maven build.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Moved fax4j.exe C++ code to fax4j.dll C++ code except the main method entry point (thin exe).
+				]]>
+			</action>
+		</release>
+
+		<release version="0.40.2" date="2013-08-04" description="New Functionality">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Fax events and listeners renamed to FaxClientActionEvent and FaxClientActionEventListener.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New fax monitor events and listeners to enable caller applications to monitor status changes of the submitted fax jobs.<br/>
+					This new monitoring events are currently only supported by the Windows and VBS SPIs.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.40.1" date="2013-08-01" description="Contains Bug Fixes">
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Fixed process execution (used by several SPIs) due to java "bug fix" which broke the Runtime.exec(command) function.<br/>
+					More info can be found at:<br/>
+					<a href="http://www.oracle.com/technetwork/java/javase/6u45-relnotes-1932876.html">http://www.oracle.com/technetwork/java/javase/6u45-relnotes-1932876.html</a>
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					<a href="apidocs/org/fax4j/spi/vbs/VBSFaxClientSpi.html">VBS</a> SPI refactoring.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.39a" date="2013-07-30">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New common connection/factory infrastructure to be used by the internal SPIs as common solution to access third party resources.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					<a href="apidocs/org/fax4j/spi/hylafax/HylaFaxClientSpi.html">HylaFax</a> SPI refactoring (connection setup/release moved to new connection factory solution instead from inside the SPI).
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					<a href="apidocs/org/fax4j/spi/email/MailFaxClientSpi.html">Mail</a> and <a href="apidocs/org/fax4j/spi/comm/CommFaxClientSpi.html">COMM</a> SPI connection refactoring (use new connection factory solution).
+				]]>
+			</action>
+		</release>
+
+		<release version="0.39" date="2013-07-28" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Added maven taglist report.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Documentation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.38" date="2013-07-28" description="Contains Bug Fixes">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Internal refactoring and cleanups to make code more modular and testable.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New fax job property to set fax job file encoding (if not set, system encoding is used).
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/http/HTTPFaxClientSpi.html">HTTP</a> SPI property to set template encoding (if not set, system encoding is used).
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Fixed <a href="apidocs/org/fax4j/spi/java4less/RFaxFaxClientSpi.html">RFax</a> SPI.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New abstract classes for the fax modem adapter.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Continued development of JUnit test cases for the fax4j library with over 150 test cases currently available.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Maven build now runs CheckStyle and generates reports.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Change log modified to new format based on maven standards.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.37" date="2013-07-16">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Cross library quality code changes.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="remove">
+				<![CDATA[
+					Removed unneeded jars from distribution.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="remove">
+				<![CDATA[
+					Removed unneeded reports from site.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Maven build now runs PMD and FindBugs and generates reports.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Added JUnit and EMMA report.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.36" date="2013-07-14">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					fax4j build system moved to maven (as a result several structure changes were done).
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					License changes from LGPL to Apache 2.0 to help closed source project to adopt the library.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Initial development of JUnit test cases for the fax4j library.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="remove">
+				<![CDATA[
+					Direct support for http proxy in the http SPI was removed.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					COMM port SPI now uses RXTX library instead of javax.comm library (due to sun/oracle lack of support).
+				]]>
+			</action>
+		</release>
+
+		<release version="0.34" date="2012-11-10">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Support for COMM port handling via javax.comm API.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor internal changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.33" date="2012-10-17">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor internal changes.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Initial support for direct COMM port SPI.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.32" date="2012-07-20" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Documentation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.31" date="2012-07-15">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					3 new email based SPIs added.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/metrofax/MetroFaxMailFaxClientSpi.html">MetroFax</a> SPI implementation.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/faxage/FaxAgeMailFaxClientSpi.html">FaxAge</a> SPI implementation.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/extremefax/ExtremeFaxMailFaxClientSpi.html">Extreme Fax</a> SPI implementation.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Added <a href="apidocs/org/fax4j/common/ApacheCommonsLogger.html">Apache Commons logger</a> to enable easy integration with existing logger frameworks.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.30" date="2012-07-06" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Documentation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.29" date="2011-11-23">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/efax/EFaxMailFaxClientSpi.html">efax</a> SPI implementation.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Few documentation fixes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.28" date="2011-11-23" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Few documentation fixes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.27" date="2011-03-28">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Enable to extract fax job status via <a href="apidocs/org/fax4j/spi/process/ProcessOutputHandler.html">process output handler</a>.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Added <a href="apidocs/org/fax4j/common/JDKLogger.html">JDK logger</a> to enable easy integration with existing logger frameworks.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.26" date="2011-03-27">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Enable to define a process output validator for the <a href="apidocs/org/fax4j/spi/process/ProcessFaxClientSpi.html">Process</a> and <a href="apidocs/org/fax4j/spi/linux/LinuxFaxClientSpi.html">Linux</a> SPIs.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Added the NONE log level and set it as the default to disable all logging.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.25" date="2011-03-23">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Enable to define a process output handler for the <a href="apidocs/org/fax4j/spi/process/ProcessFaxClientSpi.html">Process</a> and <a href="apidocs/org/fax4j/spi/linux/LinuxFaxClientSpi.html">Linux</a> SPIs.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor C++ changes (linker options, removed unneeded files).
+				]]>
+			</action>
+		</release>
+
+		<release version="0.24" date="2011-03-22">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor C++ compilation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.23" date="2011-03-22" description="Contains Bug Fixes">
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Fixed issues in <a href="apidocs/org/fax4j/spi/windows/WindowsFaxClientSpi.html">Windows</a> SPI.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					<a href="apidocs/org/fax4j/spi/windows/WindowsFaxClientSpi.html">Windows</a> SPI is now set to be the default SPI for windows OS.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.22" date="2011-03-21">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					<a href="apidocs/org/fax4j/spi/windows/WindowsFaxClientSpi.html">Windows</a> SPI now enables to invoke external fax4j executable in addition of using JNI.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor internal API and documentation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.21f" date="2011-01-24" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor internal API and documentation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.21e" date="2011-01-23">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/process/ProcessFaxClientSpi.html">External Process</a> SPI implementation.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/linux/LinuxFaxClientSpi.html">Linux</a> SPI implementation (requires linux efax utility)
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/mac/MacFaxClientSpi.html">Mac</a> SPI implementation
+				]]>
+			</action>
+		</release>
+
+		<release version="0.21d" date="2011-01-17" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor documentation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.21c" date="2011-01-17">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					A new tutorial written. It is located in the <a href="apidocs/index.html">javadocs</a>
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/send2fax/Send2FaxMailFaxClientSpi.html">send2fax</a> SPI implementation.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Updated <a href="apidocs/org/fax4j/spi/vbs/VBSFaxClientSpi.html">VBS</a> SPI error message to hold VBS script text line that failed.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Minor documentation changes.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.21b" date="2009-08-28">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Added support to extract the fax job status (currently only <a href="apidocs/org/fax4j/spi/vbs/VBSFaxClientSpi.html">VBS</a> and <a href="apidocs/org/fax4j/spi/windows/WindowsFaxClientSpi.html">Windows</a> SPIs support it).
+				]]>
+			</action>
+		</release>
+
+		<release version="0.21a" date="2009-07-10">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Added template based <a href="apidocs/org/fax4j/spi/http/HTTPFaxClientSpi.html">HTTP</a> SPI implementation.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Fixed AbstractHTTPFaxClientSpi javadoc.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.20c" date="2009-06-18">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					The FaxEvent source is now the FaxJob and not FaxClientSpi to prevent the SPI from being misused.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Redesign of HTTP SPI to enable better flexibility.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Added HTTP proxy support for <a href="apidocs/org/fax4j/spi/http/HTTPFaxClientSpi.html">HTTP</a> SPI.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Added validation of return http response status code (in case status code is >=400 an error will be thrown).
+				]]>
+			</action>
+		</release>
+
+		<release version="0.20b" date="2009-06-14">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Added support for fax event listeners to be registered.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.20a" date="2009-06-13" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					Fixed the <a href="apidocs/org/fax4j/spi/vbs/VBSFaxClientSpi.html">VBS</a> SPI documentation.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.19d" date="2009-06-13">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					The <a href="apidocs/org/fax4j/spi/windows/WindowsFaxClientSpi.html">Windows</a> SPI now fully supports all FaxClientSpi operations.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.19c" date="2009-05-31">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					All SPIs now validate that the provided fax file is not empty.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					The <a href="apidocs/org/fax4j/spi/vbs/VBSFaxClientSpi.html">VBS</a> SPI formats all fax job data to ensure VBS script does not break due to invalid script structure.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					The <a href="apidocs/org/fax4j/spi/vbs/VBSFaxClientSpi.html">VBS</a> SPI error message is updated in case the fax server active X is not installed to better explain the problem.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Win2000 VBS will check if input is provided before setting the relevant fax field.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.19b" date="2009-05-22">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					The <a href="apidocs/org/fax4j/spi/vbs/VBSFaxClientSpi.html">VBS</a> SPI now fully supports all FaxClientSpi operations when using the windows 2000 VBS API.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					If the org.fax4j.spi.vbs.always.use.win2000.api property is not set the <a href="apidocs/org/fax4j/spi/vbs/VBSFaxClientSpi.html">VBS</a> SPI will default the value to true.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					fax4j.properties updated. Property org.fax4j.spi.vbs.always.use.win2000.api is now set to true.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.18" date="2009-05-19">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					FaxClientSpiProxy can be enabled/disabled based on new fax4j configuration: org.fax4j.proxy.enabled (enabled by default)
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Adapter fax client SPI can override fax4j configuration for internal SPI, see <a href="apidocs/org/fax4j/spi/adapter/AdapterFaxClientSpi.html">javadoc</a> for more info.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					<a href="apidocs/org/fax4j/spi/FaxClientSpiInterceptor.html#postMethodInvocation(java.lang.reflect.Method, java.lang.Object[], java.lang.Object)">postMethodInvocation</a> method in FaxClientSpiInterceptor now also receives the method output.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.17" date="2009-05-18">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/Provider.html">Provider</a> interface.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Updated FaxClient and FaxClientSpi to enable access to the SPI provider.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/FaxClientSpiProxy.html">FaxClientSpiProxy</a> interface used to
+				proxy all fax client SPI method invocations to interceptors.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					New <a href="apidocs/org/fax4j/spi/FaxClientSpiInterceptor.html">FaxClientSpiInterceptor</a> interface used to define fax client SPI method invocation interceptors. These interceptors enable to invoke custom logic before and after the fax client SPI method invocations (such as logging).
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					VBS script exceptions will contain the script output.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.16" date="2009-05-16">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					VBS SPI will validate script execution output for errors.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Adapter SPI now supports 'stable' condition (automatically validated for all SPIs), see <a href="apidocs/org/fax4j/spi/adapter/AdapterFaxClientSpi.html">javadoc</a> for more info.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Every SPI has a new predefined property to support the new 'stable' condition.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.15" date="2009-05-14" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Updated Read Me.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.13" date="2009-05-14" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Updated documentation (including a limitations and dependencies for each SPI).
+				]]>
+			</action>
+		</release>
+
+		<release version="0.12" date="2009-05-13" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Version and build numbers are also defined in MANIFEST file.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Updated documentation (including a configuration table for each SPI).
+				]]>
+			</action>
+		</release>
+
+		<release version="0.11" date="2009-05-12">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Compiled with Java 5 instead of Java 6
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Updated build script to compile source=1.5 and target=1.5
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Moved org.faxj4.FaxJobImpl to org.fax4j.spi package.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Updated internal org.fax4j.spi.adapter.internal.spi.types property to -mail;http;vbs;windows;hylafax;interfax;rfax
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Updated documentation.
+				]]>
+			</action>
+		</release>
+
+		<release version="0.1" date="2009-05-11" description="Initial Release">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					Initial Release
+				]]>
+			</action>
+		</release>
+	</body>
+</document>

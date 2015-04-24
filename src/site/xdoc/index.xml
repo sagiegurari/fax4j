@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<document>
+	<properties>
+		<title>Overview</title>
+	</properties>
+	<body>
+		<section name="Introduction">
+			<p>
+				The <a href="https://github.com/sagiegurari/fax4j">fax4j</a> is a Java fax library.<br/>
+				This library enables Java applications to invoke fax actions such as submitting fax jobs.
+				<br/>
+				You can get the latest version from <a href="https://github.com/sagiegurari/fax4j/releases/latest">here</a>
+			</p>
+		</section>
+
+		<section name="Features">
+			<p>
+				The fax4j provides a standard and consistent faxing API to enable invoking the different fax actions from Java applications.<br/>
+				The fax4j library enables to integrate with fax services via many different SPI (service provider interface) implementations.<br/>
+				Currently fax4j supports the following implementations:<br/>
+				<a href="apidocs/org/fax4j/spi/windows/WindowsFaxClientSpi.html">Windows native fax API</a> (requires windows fax/tapi component installed)<br/>
+				<a href="apidocs/org/fax4j/spi/vbs/VBSFaxClientSpi.html">Windows COM fax API</a> (via VBS called from the Java layer, requires windows fax/tapi component installed)<br/>
+				<a href="apidocs/org/fax4j/spi/email/MailFaxClientSpi.html">Email</a> (via email servers that enable to send fax message based on incoming email messages) including built-in support for many of the leading vendors.<br/>
+				<a href="apidocs/org/fax4j/spi/http/HTTPFaxClientSpi.html">HTTP</a><br/>
+				<a href="apidocs/org/fax4j/spi/process/ProcessFaxClientSpi.html">External Processes</a><br/>
+				<a href="apidocs/org/fax4j/spi/linux/LinuxFaxClientSpi.html">Linux native fax API</a> (requires linux efax utility)<br/>
+				<a href="apidocs/org/fax4j/spi/mac/MacFaxClientSpi.html">Mac native fax API</a><br/>
+				<a href="apidocs/org/fax4j/spi/hylafax/HylaFaxClientSpi.html">HylaFax</a> (via gnu-hylafax library)<br/>
+				And more...
+				<br/>
+				<br/>
+				In addition the fax4j library also provides the fax bridge API which is a context specific faxing API.<br/>
+				The fax bridge enables to transform emails servers, web servers and more into an online fax service.<br/>
+				The <a href="https://github.com/sagiegurari/x2fax">x2fax</a> sub project provides a set of standalone servers and deployable components which enable to provide x2fax services out of the box.<br/>
+				The <a href="https://github.com/sagiegurari/x2fax">x2fax</a> contains built-in email component to enhance email servers to provide email2fax services and HTTP servers and WARs to convert any Java web server into a web2fax bridge.
+			</p>
+		</section>
+
+		<section name="Example Usage">
+			<p>
+				<pre>
+//get new instance of a fax client (based on internal + external fax4j.properties file data)
+FaxClient faxClient=FaxClientFactory.createFaxClient();
+ 
+//create a new fax job
+FaxJob faxJob=faxClient.createFaxJob();
+
+//set fax job values
+faxJob.setFile(new File("./my_document.txt"));
+faxJob.setPriority(FaxJobPriority.HIGH_PRIORITY);
+faxJob.setTargetAddress("555-555");
+faxJob.setTargetName("YourName");
+faxJob.setSenderEmail("myemail@mycompany.com");
+faxJob.setSenderName("MyName");
+
+//submit fax job
+faxClient.submitFaxJob(faxJob);
+
+//print submitted fax job ID (may not be supported by all SPIs)
+System.out.println("Fax job submitted, ID: "+faxJob.getID());
+				</pre>
+				<b>You can see more examples and a tutorial at: <a href="apidocs/overview-summary.html#overview_description">javadoc</a></b>
+			</p>
+		</section>
+
+		<section name="Support">
+			<p>
+				Please checkout the <a href="https://github.com/sagiegurari/fax4j/issues">forums</a> for any questions, comments, bugs, suggestions and so on.
+				<br/>
+				User testimonials are always welcome.
+				<br/><br/>
+				<b>You can also go to the tutorial at: <a href="apidocs/overview-summary.html#overview_description">javadoc</a></b>
+			</p>
+		</section>
+
+		<section name="Building from Sources">
+			<p>
+				The fax4j library comes with a maven pom.xml which can be used to build the Java layer of the library.
+				<br/>
+				On windows, the fax4j.dll will also be built, therefore the path for the msbuild.exe (in the .NET installation) must be set.
+				<br/>
+				While this library supports java 1.5 and up, the build process of this library (not of depended libraries) require java 5/6.
+				<br/>
+				However building this library from source is not required as it provide many extension capabilities via configuration.
+			</p>
+		</section>
+
+		<section name="Requirements">
+			<p>
+				Each SPI has it's requirements.<br/>
+				See the <a href="apidocs/org/fax4j/spi/FaxClientSpi.html">SPI javadoc</a> for more information (each SPI javadoc contains the information relevant for it specifically).
+				<br/><br/>
+				<b>You can also go to the tutorial at: <a href="apidocs/overview-summary.html#overview_description">javadoc</a></b>
+			</p>
+		</section>
+
+		<section name="Installation/Setup">
+			<p>
+				Each SPI has it's installation/setup requirements.<br/>
+				See the <a href="apidocs/org/fax4j/spi/FaxClientSpi.html">SPI javadoc</a> for more information (each SPI javadoc contains the information relevant for it specifically).
+				<br/><br/>
+				<b>You can also go to the tutorial at: <a href="apidocs/overview-summary.html#overview_description">javadoc</a></b>
+			</p>
+		</section>
+
+		<section name="Road Map">
+			<p>
+				Currently this library is in maintenance mode and no future development is currently being planned.
+			</p>
+		</section>
+
+		<section name="License">
+			<p>
+				The fax4j library is distributed under the "The Apache Software License, Version 2.0" license which means that it is possible to distribute this library also in commercial closed source products.<br/>
+				See <a href="license.html">license report</a> for more info.
+			</p>
+		</section>
+
+		<section name="Change Log">
+			<p>
+				See <a href="changes-report.html">Change Log</a> for full report.
+			</p>
+		</section>
+	</body>
+</document>

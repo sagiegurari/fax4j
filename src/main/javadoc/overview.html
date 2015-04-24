@@ -1,0 +1,2296 @@
+<HTML>
+  <body>
+  	<h2>Overview:</h2>
+    The fax4j library is a standard on which java based applications can communicate with
+    fax devices in order to submit new faxes or perform other related actions.<br>
+    The fax4j starting point is the org.fax4j.FaxClientFactory which enables to return a
+    new instance of the org.fax4j.FaxClient used to perform the fax actions.<br>
+    
+  	<h2>Installing fax4j:</h2>
+  	As any java library, the fax4j.jar must be located in the application classpath in order to be used.<br>
+  	Some SPIs (will be explained in more detail later on), require additional third party jars or native libraries.<br>
+  	All are found in the lib directory as part of the fax4j distribution package.<br>
+	<br>
+	In addition to any jar/native lib needed, the fax4j also accepts external configuration file (fax4j.properties, will be explained in more details later on) which also, if defined, is required to be located in the application classpath in order to be used.<br>
+	<br>
+	For maven projects, all that is needed to include the fax4j in your project is to declare it as a dependency as defined in the following report: <a href="../dependency-info.html">dependency-info</a>
+	
+	<h2>Coding with fax4j:</h2>
+	This following section will provide general details on how to code with the fax4j API.<br>
+	<br>
+	The first part before doing any fax related action is getting a fax client instance.<br>
+	Typical applications would only create 1 single instance of the fax client and reuse it throughout the lifetime of the process.<br>
+	Fax clients are thread safe and can be used in multi threaded applications.<br>
+	To get an instance of the fax client, use the fax client factory as follows:
+	<pre>
+    //get new instance of a fax client (based on internal + external fax4j.properties file data)
+    FaxClient faxClient=FaxClientFactory.createFaxClient();
+	</pre>
+	It is possible to also provide additional fax4j configuration and request a specific implementation
+	during the fax client creation via fax client factory method: createFaxClient(String type,Properties configuration).<br>
+	For example:
+	<pre>
+    //get new instance of a fax client with windows SPI and using also configuration defined in myProperties
+    FaxClient faxClient=FaxClientFactory.createFaxClient("windows",myProperties);
+	</pre>
+	With the fax client instance all fax actions are possible.<br>
+	The fax client is thread safe therefore you can create only one instance of it and reuse it throughout your application
+	lifetime and in a multi threaded scenarios.<br>
+	<br>
+	The next step is to create a fax job instance.<br>
+	The fax job object holds all data related to any future or existing fax job.<br>
+	It is used by the fax client to invoke any fax related action such as submitting a new fax, canceling existing fax and so on.<br>
+	To create a fax job use the following code:
+	<pre>
+    //create a new fax job
+    FaxJob faxJob=faxClient.createFaxJob();
+	</pre>
+	
+	<h3>Sending a Fax:</h3>
+	After acquiring a fax client and creating a fax job, you will need to populate all relevant fax info in the fax job.<br>
+	For example:
+	<pre>
+    //set fax job values
+    faxJob.setFile(new File("./my_document.txt"));
+    faxJob.setPriority(FaxJobPriority.HIGH_PRIORITY);
+    faxJob.setTargetAddress("555-555");
+    faxJob.setTargetName("YourName");
+    faxJob.setSenderEmail("myemail@mycompany.com");
+    faxJob.setSenderName("MyName");
+	</pre>
+	Once the fax job contains all the needed info, you submit it via fax client:
+	<pre>
+    //submit fax job
+    faxClient.submitFaxJob(faxJob);
+	</pre>
+	The submitFaxJob may than update the fax job object (for example may populate the fax job ID) so it is important to keep this instance
+	and reuse it for any fax activity relevant for this job (for example if you later on would like to cancel the fax submission).
+	
+	<h3>Additional Fax Activities:</h3>
+	After submitting a fax job, you can use the fax job instance to invoke additional activities such as: suspending, resuming and
+	canceling the fax job.<br>
+	These activities will only have effect if the fax job was not sent yet by the fax server and is still in submitted status.<br>
+	Here is sample code to suspend a fax job:
+	<pre>
+    //suspend fax job
+    faxClient.suspendFaxJob(faxJob);
+    </pre>
+    The faxClient.getFaxJobStatus method enables you to get the current status of the fax job and holds the following values:
+    <ul>
+    	<li>PENDING - The 'Pending' status is returned in case fax job has not been submitted yet by the fax server but
+    		 it is still in the queue.<br>Suspended fax jobs are also considered as pending.
+    	<li>IN_PROGRESS - The 'In Progress' status is returned in case the fax server is currently handling the fax job.
+    	<li>ERROR - The 'Error' status is returned in case there was an error during the fax server attempt to submit the fax job.
+    	<li>UNKNOWN - In case the status is unknown
+    </ul>
+    
+    <h3>Fax Events:</h3>
+    It possible to add listeners on the fax client to monitor for any fax event.<br>
+	There are 2 types of events: client actions events and monitoring events.<br>
+    Simply implement the FaxClientActionEventListener or FaxMonitorEventListener interface and invoke the relevant FaxClient add listener method with 
+    an instance of the listener.<br>
+    The client action listener picks up events based on actions invoked on the fax client and not based on the status changes of the actual fax job.<br>
+    For example if a fax job is submitted via fax client, than the faxJobSubmitted event method will be invoked.<br>
+    However the fax job itself might still be pending transmission by the actual fax modem/server.<br>
+	On the other hand, the fax monitor events enable to listen on status change events coming from the remote fax modem (not supported by all SPIs).<br>
+	The basic implementation of the fax monitoring events is based on polling for status changes by the SPI which could increase the load on the system, therefore it is re commanded to listen to such event only when needed.<br>
+	Also fax jobs will be monitored only if there are active listeners registered.<br>
+	If the listeners are added after a fob job was submitted, that fax job would not be monitored.
+	
+    <h3>Fax Interceptors:</h3>
+	It is possible to define interceptors that will get invoked for all fax activities.<br>
+	Unlike the fax events the interceptors are created by the fax4j library via configuration and not manually and in addition
+	it enables you to modify the input/output.<br>
+	One possible use for the interceptors is logging, for example the built in fax4j logging interceptor org.fax4j.spi.LogFaxClientSpiInterceptor
+	enables to log the input/output of every method.<br>
+	Another possible use is to push common data to the fax job before submitting the fax.<br>
+	For example if you have a common return email or if you want to update the fax content with some common company logo you can create an 
+	interceptor that will update the fax job object before the submit fax job method is invoked.<br>
+	<br>
+	To implement an interceptor you must implement the org.fax4j.spi.FaxClientSpiInterceptor interface (or extend org.fax4j.spi.AbstractFaxClientSpiInterceptor).<br>
+	In addition you will have to update the fax4j configuration as follows:
+	<ul>
+		<li>org.fax4j.proxy.enabled=true (this is already defaulted to this value in the internal fax4j properties)
+		<li>org.fax4j.proxy.interceptor.list=aaa;bbb (The interceptor list (separated by ';'), for example the default value is: org.fax4j.proxy.interceptor.list=log)
+		<li>for every interceptor in the interceptor list you must define the following:<br>
+		org.fax4j.proxy.interceptor.type.aaa=MyAAAInterceptor<br>
+		org.fax4j.proxy.interceptor.type.bbb=MyBBBInterceptor<br>
+		For example the default log interceptor is defined as follows:<br>
+		#The interceptor class name for type log<br>
+		org.fax4j.proxy.interceptor.type.log=org.fax4j.spi.LogFaxClientSpiInterceptor
+	</ul>
+	
+    <h3>Fax Bridges:</h3>
+	The fax bridge is a wrapper to the fax client used to create X2Fax bridges.<br>
+	It enables for example to create email2fax or web2fax applications easily.<br>
+	While the fax client has a generic, standard API to invoke fax actions, the fax bridge has different API per context.<br>
+	For example, an <a href="org/fax4j/bridge/email/EMail2FaxBridge.html">email2fax</a> bridge would have an email as an input with very limited amount of data.<br>
+	Another example is the <a href="org/fax4j/bridge/http/HTTP2FaxBridge.html">web2fax</a> bridge would have a HTTP request as input.
+	<br>
+	To implement a bridge you must implement the <a href="org/fax4j/bridge/FaxBridge.html">FaxBridge</a> interface (or extend <a href="org/fax4j/bridge/AbstractFaxBridge.html">AbstractFaxBridge</a>).<br>
+	In the caller code you must first create an instance of the bridge and initialize it.<br>
+	Typical applications would only create one single instance of the fax bridge and reuse it throughout the lifetime of the process.<br>
+	The <a href="https://github.com/sagiegurari/x2fax">x2fax</a> subproject already comes with built-in email component to enhance email servers to provide email2fax services and HTTP servers and WARs to convert any web server to a web2fax bridge.
+	
+    <h3>Vendor Policy:</h3>
+	The vendor policy enables vendors to hook into the fax submitting flow,
+	enabling to restrict access, bill customers and so on, before/after the fax is submitted.<br>
+	Vendor policy is only relevant for flows going via fax bridge and not through the fax client, therefore applications not using fax bridges
+	can ignore this class.
+	
+	<h2>Configuring fax4j:</h2>
+	The configuration of the fax4j framework is made up of 3 layers.<br>
+	The configuration is based on simple properties.<br>
+	Each layer overrides the lower layers by adding/changing the property values.<br>
+	<br>
+	The first layer is the internal fax4j.properties file located in the fax4j jar.<br>
+	This layer contains the pre-configured values for the fax4j framework and can be changed
+	by updating these properties in the higher layers.<br>
+	This layer is part of the fax4j and should not be tempered with directly.<br>
+	The second layer is the external <b>fax4j.properties</b> file that is located on the classpath.<br>
+	This file is optional and provides the ability to override the internal configuration for the
+	entire fax4j framework.<br>
+	The top most layer is the optional java.util.Properties object provided by the external classes
+	when creating a new fax client (via FaxClientFactory.createFaxClient method).<br>
+	These properties enable to override the configuration of the lower 2 layers.<br>
+	<br>
+	Below table describes the basic configuration values,
+	for SPI specific configuration, see the relevant SPI class javadoc (and later sections).<br>
+	
+	<h3>Configuration:</h3>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.type.map.xxx</td>
+			<td>For each SPI type, there is a property that (with prefix: org.fax4j.spi.type.map. 
+				and type name for example: org.fax4j.spi.type.map.adapter) which defines the SPI class name
+				for the given SPI type.<br>
+				For example:<br>
+				org.fax4j.spi.type.map.adapter=org.fax4j.spi.adapter.AdapterFaxClientSpi<br>
+				Means that for SPI type adapter, the SPI class to be used is org.fax4j.spi.adapter.AdapterFaxClientSpi</td>
+			<td>
+				org.fax4j.spi.type.map.adapter=org.fax4j.spi.adapter.AdapterFaxClientSpi<br>
+				org.fax4j.spi.type.map.windows=org.fax4j.spi.windows.WindowsFaxClientSpi<br>
+				org.fax4j.spi.type.map.vbs=org.fax4j.spi.vbs.VBSFaxClientSpi<br>
+				org.fax4j.spi.type.map.mail=org.fax4j.spi.email.MailFaxClientSpi<br>
+				org.fax4j.spi.type.map.http=org.fax4j.spi.http.HTTPFaxClientSpi<br>
+				org.fax4j.spi.type.map.process=org.fax4j.spi.process.ProcessFaxClientSpi<br>
+				org.fax4j.spi.type.map.linux=org.fax4j.spi.linux.LinuxFaxClientSpi<br>
+				org.fax4j.spi.type.map.mac=org.fax4j.spi.mac.MacFaxClientSpi<br>
+				org.fax4j.spi.type.map.hylafax=org.fax4j.spi.hylafax.HylaFaxClientSpi<br>
+				org.fax4j.spi.type.map.comm=org.fax4j.spi.comm.CommFaxClientSpi<br>
+				org.fax4j.spi.type.map.interfax=org.fax4j.spi.interfax.InterfaxMailFaxClientSpi<br>
+				org.fax4j.spi.type.map.nextivafax=org.fax4j.spi.nextivafax.NextivafaxMailFaxClientSpi<br>
+				org.fax4j.spi.type.map.send2fax=org.fax4j.spi.send2fax.Send2FaxMailFaxClientSpi<br>
+				org.fax4j.spi.type.map.metrofax=org.fax4j.spi.metrofax.MetroFaxMailFaxClientSpi<br>
+				org.fax4j.spi.type.map.faxage=org.fax4j.spi.faxage.FaxAgeMailFaxClientSpi<br>
+				org.fax4j.spi.type.map.extremefax=org.fax4j.spi.extremefax.ExtremeFaxMailFaxClientSpi<br>
+				org.fax4j.spi.type.map.efax=org.fax4j.spi.efax.EFaxMailFaxClientSpi<br>
+				org.fax4j.spi.type.map.phaxio=org.fax4j.spi.phaxio.PhaxioFaxClientSpi<br>
+				org.fax4j.spi.type.map.hoiio=org.fax4j.spi.hoiio.HoiioFaxClientSpi<br>
+				org.fax4j.spi.type.map.rfax=org.fax4j.spi.java4less.RFaxFaxClientSpi
+			</td>
+			<td>NA</td>
+			<td>NA</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.default.type</td>
+			<td>In case the SPI type was not provided in the createFaxClientSpi method, the type will be taken from
+				this property value.</td>
+			<td>adapter</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.logger.class.name</td>
+			<td>Defines the internal fax4j logger class name.<br>
+				The logger must implement the org.fax4j.common.Logger interface and have an empty constructor.<br>
+				This property can only be set in the internal fax4j.properties and the fax4j.properties on the classpath,
+				providing these values as part of the java.util.Properties input of the createFaxClientSpi will have no affect.
+			</td>
+			<td>org.fax4j.common.SimpleLogger</td>
+			<td>org.fax4j.common.SimpleLogger</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.logger.log.level</td>
+			<td>Defines the internal fax4j logger log level.<br>
+				The possible values are: DEBUG, INFO and ERROR.<br>
+				This property can only be set in the internal fax4j.properties and the fax4j.properties on the classpath,
+				providing these values as part of the java.util.Properties input of the createFaxClientSpi will have no effect.
+			</td>
+			<td>ERROR</td>
+			<td>ERROR</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.client.class.name</td>
+			<td>Defines the fax client class name.<br>
+				Since the fax client redirects the operations to the SPI (the engine) classes, creating a
+				custom fax client is not required.
+			</td>
+			<td>org.fax4j.FaxClient</td>
+			<td>org.fax4j.FaxClient</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+  	
+  	<h2>The Logger:</h2>
+  	The default fax4j logger is the org.fax4j.common.SimpleLogger which simply writes to the standard output/errput streams, 
+  	based if it is a debug/info or error log message.<br>
+  	It is possible to use a custom logger which can proxy to the application logger by implementing org.fax4j.common.Logger
+  	(or extending the default org.fax4j.common.SimpleLogger) and then pointing to the custom logger in the external 
+  	log4j.properties file via org.fax4j.logger.class.name property.<br>
+  	The log level is also configured in the fax4j.properties and can be modified in the external log4j.properties by setting the
+  	org.fax4j.logger.log.level property value to DEBUG, INFO or ERROR.<br>
+
+  	<h2>Error Handling:</h2>
+	<ul>
+		<li>For any error that requires more information than what the default logs/exceptions provide, you can turn on full debug logging by
+		following the below steps:
+		<ol>
+			<li>Create a fax4j.properties file (if you don't have one already) and put it in your classpath
+			<li>Write the following line in the file: org.fax4j.logger.log.level=DEBUG
+		</ol>
+		With this configuration full logging is enabled.
+		<li>"No internal SPI available." error thrown - This error means that the fax4j was unable to find a suitable SPI for your platform/configuration.<br>
+		To solve you will have to either configure the relevant SPI correctly or select a specific SPI when creating the fax client.<br>
+		For example:<br>
+    	//get new instance of a fax client with Windows SPI<br>
+    	FaxClient faxClient=FaxClientFactory.createFaxClient("windows",null);
+    	<li>"Error while invoking fax action process, exit code: 128" error thrown when running with Windows SPI on windows - 
+    		This error may be due to missing windows dll from the windows installation.<br>
+    		In order to find out which dll is missing you can run the fax4j.exe (found inside the fax4j.jar, so first extract it and the fax4j.dll to some temporary folder) with your values as follows:<br>
+    		fax4j.exe -action "submit" -target_address "555-555" -target_name "YourName" -sender_name "MyName" -file "./my_document.txt"<br>
+    		In case of a missing dll, windows will show an error dialog with the name of the missing dll (for example: "missing msvcr100.dll") 
+    	<li>"The data is invalid." error thrown when running with VBS SPI on windows - This VBS error can have multiple root causes:
+		<ol>
+			<li>The file to be faxed is empty.
+			<li>The file to be faxed must have the "print" option enabled when right clicking on the file in windows.<br>
+			If it does not, you must associate the file extension with a program that support the print action.<br>
+			For example, you can associate .txt files with notepad to enable the print option.
+			<li>The java process does not have the required permissions to invoke fax actions.<br>
+			This may happen if you run the java process as a windows service but did not provide the user credentials to the windows service definition.
+		</ol>
+	</ul>
+  	
+  	<h2>The SPIs:</h2>
+	The engine behind the fax client is the fax client SPI which is used internally.<br>
+	Each SPI provides a different means to invoke the fax actions and may be suited for different platforms and needs.<br>
+	For example the VBSFaxClientSpi and WindowsFaxClientSpi use the windows APIs to invoke fax actions and do not require
+	any third parties however they are only available on windows platforms.<br>
+	The MailFaxClientSpi is available on all platforms but it is using email servers that are able to convert emails to faxes so 
+	it is depended on that support in the email server.<br>
+	The SPIs are not used directly by the application code, instead they are used internally by the fax4j library.<br>
+	However the application code using fax4j is required to configure the fax4j.properties or request via code a specific SPI that suites
+	its needs.<br>
+	The following section will go over all SPIs in general.<br>
+	
+	<h3>org.fax4j.spi.adapter.AdapterFaxClientSpi</h3>
+	This implementation will proxy the requests to another internal SPI.<br>
+	The internal SPI created will be based on configuration in the fax4j properties.<br>
+	The configuration contains conditions such as OS, availability of java classes, availability of native libraries, availability
+	of executables or validation that a certain fax4j property is defined and contains a value.<br>
+	Once all conditions are met the internal SPI is created, otherwise the next SPI configuration is used.<br>
+	If no SPI conditions are met, an exception will be thrown.<br>
+	This SPI is the default SPI in fax4j as it has the "ability" (based on configuration) to find the most appropriate SPI based on the
+	platform and configuration the application is running on.<br>
+	For example with default fax4j configuration and if running on windows, the adapter SPI will automatically select the WindowsFaxClientSpi
+	SPI.<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.adapter.internal.spi.types</td>
+			<td>A ';' separated list of SPI types.<br>
+				This SPI will go over the list one by one based on the configured order and will validate the type
+				conditions.<br>
+				Once an SPI is found for which all conditions are met, the adapter SPI will create an instance
+				of it and use it to proxy all fax operations to.
+			</td>
+			<td>mail;http;process;phaxio;hoiio;windows;vbs;linux;mac;hylafax;comm;interfax;nextivafax;send2fax;metrofax;faxage;extremefax;efax;rfax</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.adapter.internal.spi.condition.xxx</td>
+			<td>For each type defined in the org.fax4j.spi.adapter.internal.spi.types property, you can define custom
+				conditions to validate.<br>
+				These conditions include:<br>
+				property - checks a fax4j property is defined and contains a value<br>
+				OS - checks OS name contains the value (case insensitive)<br>
+				java-class - checks that java class can be loaded<br>
+				native-lib - checks that native lib can be loaded<br>
+				executable - checks executable is on system path<br>
+				stable - checks for a fax4j property org.fax4j.spi.xxx.stable is defined and equals true, where xxx is the SPI key (for example: org.fax4j.spi.adapter.stable=true)<br>
+				Conditions are separated by a ';' character and the condition type and value are separated by the ':' 
+				character, for example:<br>
+				org.fax4j.spi.adapter.internal.spi.condition.vbs=OS:windows;executable:cscript.exe<br>
+				The following conditions are always checked (even if not defined):<br>
+				<ul>
+					<li>property:org.fax4j.spi.type.map.xxx where xxx is the SPI key (for example: org.fax4j.spi.type.map.adapter)
+					<li>java-class:xxx where xxx is the SPI class name based on the fax4j mapping (for example: org.fax4j.spi.type.map.adapter=org.fax4j.spi.adapter.AdapterFaxClientSpi)
+					<li>stable
+				</ul>
+			</td>
+			<td>
+					org.fax4j.spi.adapter.internal.spi.condition.windows=OS:windows;native-lib:winfax<br>
+					org.fax4j.spi.adapter.internal.spi.condition.vbs=OS:windows;executable:cscript.exe<br>
+					org.fax4j.spi.adapter.internal.spi.condition.mail=property:org.fax4j.spi.mail.connection.factory.class.name;property:org.fax4j.spi.mail.address.template;property:org.fax4j.spi.mail.subject.template;property:org.fax4j.spi.mail.user.name;property:org.fax4j.spi.mail.password;property:mail.host;java-class:javax.mail.Transport<br>
+					org.fax4j.spi.adapter.internal.spi.condition.http=property:org.fax4j.spi.http.client.class.name;property:org.fax4j.spi.http.host.name;property:org.fax4j.spi.http.faxjob2request.converter.class.name;property:org.fax4j.spi.http.response.handler.class.name<br>
+					org.fax4j.spi.adapter.internal.spi.condition.process=property:org.fax4j.spi.process.submit.template.command<br>
+					org.fax4j.spi.adapter.internal.spi.condition.linux=OS:linux;executable:efax;property:org.fax4j.spi.linux.submit.template.command<br>
+					org.fax4j.spi.adapter.internal.spi.condition.mac=OS:mac;property:org.fax4j.spi.mac.print.queue.name<br>
+					org.fax4j.spi.adapter.internal.spi.condition.hylafax=property:org.fax4j.spi.hylafax.host;property:org.fax4j.spi.hylafax.user;property:org.fax4j.spi.hylafax.mode;property:org.fax4j.spi.hylafax.type;property:org.fax4j.spi.hylafax.connection.factory.class.name;java-class:gnu.hylafax.HylaFAXClient<br>
+					org.fax4j.spi.adapter.internal.spi.condition.comm=property:org.fax4j.spi.comm.port.name;property:org.fax4j.spi.comm.connection.factory.class.name;property:org.fax4j.spi.comm.fax.modem.class.name<br>
+					org.fax4j.spi.adapter.internal.spi.condition.interfax=property:org.fax4j.spi.mail.connection.factory.class.name;property:org.fax4j.spi.mail.user.name;property:org.fax4j.spi.mail.password;property:mail.host;java-class:javax.mail.Transport<br>
+					org.fax4j.spi.adapter.internal.spi.condition.nextivafax=property:org.fax4j.spi.mail.connection.factory.class.name;property:org.fax4j.spi.mail.user.name;property:org.fax4j.spi.mail.password;property:mail.host;java-class:javax.mail.Transport<br>
+					org.fax4j.spi.adapter.internal.spi.condition.send2fax=property:org.fax4j.spi.mail.connection.factory.class.name;property:org.fax4j.spi.mail.user.name;property:org.fax4j.spi.mail.password;property:mail.host;java-class:javax.mail.Transport<br>
+					org.fax4j.spi.adapter.internal.spi.condition.metrofax=property:org.fax4j.spi.mail.connection.factory.class.name;property:org.fax4j.spi.mail.user.name;property:org.fax4j.spi.mail.password;property:mail.host;java-class:javax.mail.Transport
+					org.fax4j.spi.adapter.internal.spi.condition.faxage=property:org.fax4j.spi.mail.connection.factory.class.name;property:org.fax4j.spi.mail.user.name;property:org.fax4j.spi.mail.password;property:mail.host;java-class:javax.mail.Transport
+					org.fax4j.spi.adapter.internal.spi.condition.extremefax=property:org.fax4j.spi.mail.connection.factory.class.name;property:org.fax4j.spi.mail.user.name;property:org.fax4j.spi.mail.password;property:mail.host;java-class:javax.mail.Transport
+					org.fax4j.spi.adapter.internal.spi.condition.efax=property:org.fax4j.spi.mail.connection.factory.class.name;property:org.fax4j.spi.mail.user.name;property:org.fax4j.spi.mail.password;property:mail.host;java-class:javax.mail.Transport<br>
+					org.fax4j.spi.adapter.internal.spi.condition.phaxio=property:org.fax4j.spi.phaxio.api.key;property:org.fax4j.spi.phaxio.api.secret;java-class:org.json.JSONObject<br>
+					org.fax4j.spi.adapter.internal.spi.condition.hoiio=property:org.fax4j.spi.hoiio.app.id;property:org.fax4j.spi.hoiio.access.token;java-class:org.json.JSONObject<Br>
+					org.fax4j.spi.adapter.internal.spi.condition.rfax=property:org.fax4j.spi.rfax.port.name;property:org.fax4j.spi.rfax.fax.class;java-class:com.java4less.rfax.FaxModem
+			</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.adapter.configuration.override.xxx</td>
+			<td>The adapter SPI enables to override the fax4j configuration for the internal SPI,<br>
+				by defining org.fax4j.spi.adapter.configuration.override.xxx properties where xxx is the original property name for example:<br>
+				org.fax4j.spi.adapter.configuration.override.<b>org.fax4j.proxy.enabled</b>=false overrides the org.fax4j.proxy.enabled property for
+				the internal SPI.
+			</td>
+			<td>
+				org.fax4j.spi.adapter.configuration.override.org.fax4j.proxy.enabled=false
+			</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+	</table>
+	
+	<h3>org.fax4j.spi.windows.WindowsFaxClientSpi</h3>
+	This implementation will proxy the requests to windows native fax API.<br>
+	When running on windows and in case no fax4j configuration was changed, this would be the default SPI used.<br>
+	It is possible to see all faxes submitted from this SPI in the windows fax window available from the 
+	Start&#8594;Settings&#8594;Printers and Faxes&#8594;Fax
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.windows.server.name</td>
+			<td>The fax server host name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.windows.use.jni</td>
+			<td>True to use JNI, false to use the external fax4j.exe</td>
+			<td>false</td>
+			<td>false</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>This SPI will only work on Windows OS (windows 2000 and up).
+		<li>See windows fax/tapi limitations.
+		<li>JNI set to true only supports 32 bit JVMs (Windows OS can be 64 bit).
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>Required native libraries: winfax.dll
+		<li>Windows OS (windows 2000 and up) - see <a href="http://msdn.microsoft.com/en-us/library/ms692855(VS.85).aspx">http://msdn.microsoft.com/en-us/library/ms692855(VS.85).aspx</a> for more info.
+		<li>Windows fax component installed.
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.vbs.VBSFaxClientSpi</h3>
+	This implementation will proxy the requests to VB scripts that will invoke the windows fax API.<br>
+	<b>It is highly re commanded that the windows SPI will be used instead of this SPI.</b><br>
+	It is possible to see all faxes submitted from this SPI in the windows fax window available from the 
+	Start&#8594;Settings&#8594;Printers and Faxes&#8594;Fax<br>
+	The executable used to invoke the VBS is defaulted to cscript. 
+	It is possible to set a different executable by setting the <b>org.fax4j.spi.vbs.exe.path property</b>.<br>
+	By default the windows 2000 vbs API will be used on all platforms.<br> 
+	In order for other platforms (other then windows 2000) to invoke the windows XP API, 
+	the <b>org.fax4j.spi.vbs.always.use.win2000.api</b> property must be set to false.<br>
+	However it is recommended not to change this property and keep using the windows 2000 API as the windows XP API does
+	not enable to extract the fax job ID.<br>
+	In which case it would be than impossible to invoke other fax actions on the specific fax job.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.vbs.server.name</td>
+			<td>The fax server host name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.vbs.exe.path</td>
+			<td>The VBS executable.</td>
+			<td>cscript.exe</td>
+			<td>cscript.exe</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.vbs.always.use.win2000.api</td>
+			<td>By default the windows 2000 vbs API will be used on all platforms.<br> 
+				In order for other platforms (other then windows 2000) to invoke the windows XP API,
+				this property must be set to false.
+			</td>
+			<td>true</td>
+			<td>true</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>This SPI will only work on Windows OS (windows 2000 and up).
+		<li>See windows fax/tapi limitations.
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>Required native executable: cscript.exe
+		<li>Windows OS (windows 2000 and up) - see <a href="http://msdn.microsoft.com/en-us/library/ms692855(VS.85).aspx">http://msdn.microsoft.com/en-us/library/ms692855(VS.85).aspx</a> for more info.
+		<li>Windows fax component installed.
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.email.MailFaxClientSpi</h3>
+	This implementation will invoke the requests by sending emails to a mail server that supports
+	conversion between email messages and fax messages.<br>
+	The mail SPI supports persistent connection to enable to reuse the same connection for all fax
+	operation invocations or to create a new connection for each fax operation invocation.<br>
+	By default the SPI will create a new connection for each operation invocation however the 
+	<b>org.fax4j.spi.mail.persistent.connection</b> set to true will enable to reuse the connection.<br>
+	To set the user/password values of the mail connection the following 2 properties must be defined:
+	<b>org.fax4j.spi.mail.user.name</b> and <b>org.fax4j.spi.mail.password</b><br>
+	All properties defined in the fax4j configuration will be passed to the mail connection therefore it is
+	possible to define mail specific properties (see java mail for more info) in the fax4j properties.<br>
+	This SPI only supports to submit new fax jobs.<br>
+	The SPI supports embedding the target destination number into the TO address field and subject field by setting the
+	<b>org.fax4j.spi.mail.address.template</b> and <b>org.fax4j.spi.mail.subject.template</b> properties.<br>
+	For example: org.fax4j.spi.mail.address.template={0}@myprovider.com<br>
+	For example: org.fax4j.spi.mail.subject.template=fax:{0}<br>
+	The {0} will be replaced with the destination number.<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.address.template</td>
+			<td>The address template used when sending the mail message.<br>
+				In order to provide the target fax number as part of the email address you must
+				specify {0} in the template.<br>
+				For example: org.fax4j.spi.mail.address.template={0}@myprovider.com
+			</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.subject.template</td>
+			<td>The subject template used when sending the mail message.<br>
+				In order to provide the target fax number as part of the email subject line you must
+				specify {0} in the template.<br>
+				For example: org.fax4j.spi.mail.subject.template=fax:{0}
+			</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.persistent.connection</td>
+			<td>True to reuse the same mail connection for all fax activities, false to create a
+				new mail connection for each fax activity.</td>
+			<td>false</td>
+			<td>false</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.connection.factory.class.name</td>
+			<td>The connection factory class name</td>
+			<td>org.fax4j.spi.email.MailConnectionFactoryImpl</td>
+			<td>org.fax4j.spi.email.MailConnectionFactoryImpl</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.user.name</td>
+			<td>The mail account user name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.password</td>
+			<td>The mail account password.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>javax mail properties</td>
+			<td>Any of the javax mail properties can be defined in the fax4j properties.<br>
+				These properties will be passed to the java mail framework.</td>
+			<td>mail.transport.protocol=smtp<br>
+				mail.smtp.port=25</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>This SPI is based on the java mail infrastructure, therefore this SPI cannot connect to mail servers through a proxy server.
+		<li>Currently this SPI only supports submitting new fax jobs.
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>Required jar files: mail-1.4.jar, activation-1.1.jar (they are distributed as part of the fax4j, 
+		but required to be set in the application classpath)
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.process.ProcessFaxClientSpi</h3>
+	This implementation will invoke the requests by executing an external process (executable/script) that enables
+	to invoke the fax action.<br>
+	This class will use request templates to construct the process command.<br> 
+	The template parameters are updated with the values from the fax4j configuration or FaxJob data.<br>
+	All template parameters are defined as ${templatename} variables, for example: myexe.exe -target <b>${target.address}</b> -file <b>${file}</b><br>
+	<br>
+	Below table describes the template parameters.<br>
+	<b>Template Parameters:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Template Parameter</td>
+			<td>Description</td>
+		</tr>
+		<tr>
+			<td>file</td>
+			<td>The fax job file content (in case of template) or name (in case of resource or URL parameters)</td>
+		</tr>
+		<tr>
+			<td>target.address</td>
+			<td>The fax job target address</td>
+		</tr>
+		<tr>
+			<td>target.name</td>
+			<td>The fax job target name</td>
+		</tr>
+		<tr>
+			<td>sender.name</td>
+			<td>The fax job sender name</td>
+		</tr>
+		<tr>
+			<td>sender.fax.number</td>
+			<td>The fax job sender fax number</td>
+		</tr>
+		<tr>
+			<td>sender.email</td>
+			<td>The fax job sender email</td>
+		</tr>
+		<tr>
+			<td>fax.job.id</td>
+			<td>The fax job ID</td>
+		</tr>
+	</table>
+	<br>
+	In case there is no template defined for a certain fax action, this class will throw an UnsupportedOperationException exception.<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.process.submit.template.command</td>
+			<td>The submit fax job template command.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.process.suspend.template.command</td>
+			<td>The suspend fax job template command.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.process.resume.template.command</td>
+			<td>The resume fax job template command.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.process.cancel.template.command</td>
+			<td>The cancel fax job template command.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.process.get.status.template.command</td>
+			<td>The get status fax job template command.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.process.output.validator</td>
+			<td>The process output validator class name.</td>
+			<td>org.fax4j.spi.process.ExitCodeProcessOutputValidator</td>
+			<td>org.fax4j.spi.process.ExitCodeProcessOutputValidator</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.process.output.handler</td>
+			<td>The process output handler class name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.process.use.windows.command.prefix</td>
+			<td>True to add a windows command prefix to the command template.</td>
+			<td>false</td>
+			<td>false</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.process.windows.command.prefix</td>
+			<td>True to add a windows command prefix to the command template.</td>
+			<td>rundll32 SHELL32.DLL,ShellExec_RunDLL</td>
+			<td>rundll32 SHELL32.DLL,ShellExec_RunDLL</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>External executable/script must be available
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.linux.LinuxFaxClientSpi</h3>
+	This implementation will proxy the requests to linux native fax commands.<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.linux.submit.template.command</td>
+			<td>The linux submit fax job template command.</td>
+			<td>efax -d /dev/modem -t ${target.address} ${file}</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.linux.suspend.template.command</td>
+			<td>The suspend fax job template command.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.linux.resume.template.command</td>
+			<td>The resume fax job template command.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.linux.cancel.template.command</td>
+			<td>The cancel fax job template command.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.linux.get.status.template.command</td>
+			<td>The get status fax job template command.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.linux.output.validator</td>
+			<td>The process output validator class name.</td>
+			<td>org.fax4j.spi.process.ExitCodeProcessOutputValidator</td>
+			<td>org.fax4j.spi.process.ExitCodeProcessOutputValidator</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.linux.output.handler</td>
+			<td>The process output handler class name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>This SPI will only work on linux OS.
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>Required linux efax utility.
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.mac.MacFaxClientSpi</h3>
+	This implementation will proxy the requests to mac native fax commands.<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mac.submit.command</td>
+			<td>The submit fax job command</td>
+			<td>lp</td>
+			<td>lp</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mac.print.queue.parameter</td>
+			<td>The print queue parameter</td>
+			<td>-d</td>
+			<td>-d</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mac.print.queue.name</td>
+			<td>The print queue name</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mac.general.parameters</td>
+			<td>The general parameters</td>
+			<td>-o</td>
+			<td>-o</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mac.phone.parameter</td>
+			<td>The phone parameter</td>
+			<td>phone</td>
+			<td>phone</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mac.fax.to.parameter</td>
+			<td>The fax to parameter</td>
+			<td>faxTo</td>
+			<td>faxTo</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>This SPI will only work on Mac OS.
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.hylafax.HylaFaxClientSpi</h3>
+	This implementation is based on the open source hylafax project.<br>
+	It implements the hylafax protocol used by the open source hylafax fax server.<br>
+	See <a href="http://sourceforge.net/projects/gnu-hylafax/">http://sourceforge.net/projects/gnu-hylafax/</a> for more info.<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.hylafax.connection.factory.class.name</td>
+			<td>The connection factory class name</td>
+			<td>org.fax4j.spi.hylafax.HylaFAXClientConnectionFactoryImpl</td>
+			<td>org.fax4j.spi.hylafax.HylaFAXClientConnectionFactoryImpl</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.hylafax.host</td>
+			<td>See gnu-hylafax project for more info.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.hylafax.port</td>
+			<td>See gnu-hylafax project for more info.</td>
+			<td>none</td>
+			<td>gnu.hylafax.HylaFAXClientProtocol.DEFAULT_PORT</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.hylafax.user</td>
+			<td>See gnu-hylafax project for more info.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.hylafax.password</td>
+			<td>See gnu-hylafax project for more info.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.hylafax.admin</td>
+			<td>See gnu-hylafax project for more info.</td>
+			<td>false</td>
+			<td>false</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.hylafax.mode</td>
+			<td>See gnu-hylafax project for more info.</td>
+			<td>Z</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.hylafax.type</td>
+			<td>See gnu-hylafax project for more info.</td>
+			<td>A</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>See <a href="http://sourceforge.net/projects/gnu-hylafax/">http://sourceforge.net/projects/gnu-hylafax/</a> web site.
+		<li>Works only with HylaFax fax servers.
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>Hylafax jar files (they are distributed as part of the fax4j, but required to be set in the application classpath)
+		<li>See <a href="http://sourceforge.net/projects/gnu-hylafax/">http://sourceforge.net/projects/gnu-hylafax/</a> web site.
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.comm.CommFaxClientSpi</h3>
+	This implementation will invoke the requests by sending the data via COMM ports to the fax modem.<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.comm.port.name</td>
+			<td>The COMM port name (COM1, ...) property key</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.comm.connection.factory.class.name</td>
+			<td>The connection factory class name</td>
+			<td>org.fax4j.spi.comm.CommPortConnectionFactoryImpl</td>
+			<td>org.fax4j.spi.comm.CommPortConnectionFactoryImpl</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.comm.fax.modem.class.name</td>
+			<td>The fax modem class name</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.comm.connection.timeout</td>
+			<td>The timeout value when trying to own a COMM port</td>
+			<td>1500</td>
+			<td>1500</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>See the relevant COMM connection and fax modem documentation.
+	</ul>
+	<br>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>See the relevant COMM connection and fax modem documentation.
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.http.HTTPFaxClientSpi</h3>
+	This implementation will invoke the requests by sending HTTP requests to a web server that supports
+	sending fax messages.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.client.class.name</td>
+			<td>The HTTP client class name used to submit the HTTP requests</td>
+			<td>org.fax4j.spi.http.ApacheHTTPClient</td>
+			<td>org.fax4j.spi.http.ApacheHTTPClient</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.faxjob2request.converter.class.name</td>
+			<td>The fax job to HTTP request converter class name used to convert the fax job data into the relevant HTTP request.</td>
+			<td>org.fax4j.spi.http.MultiPartFaxJob2HTTPRequestConverter</td>
+			<td>org.fax4j.spi.http.MultiPartFaxJob2HTTPRequestConverter</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.response.handler.class.name</td>
+			<td>The HTTP response handler class name used to update the fax job data based on the HTTP response.</td>
+			<td>org.fax4j.spi.http.JSONHTTPResponseHandler</td>
+			<td>org.fax4j.spi.http.JSONHTTPResponseHandler</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.host.name</td>
+			<td>The target (service provider) host name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.port</td>
+			<td>The target port number.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.ssl</td>
+			<td>True to use SSL (HTTPS), false for simple HTTP</td>
+			<td>false</td>
+			<td>false</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.submit.resource</td>
+			<td>The default HTTP resource of the submit fax job request</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.suspend.resource</td>
+			<td>The default HTTP resource of the suspend fax job request</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.resume.resource</td>
+			<td>The default HTTP resource of the resume fax job request</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.cancel.resource</td>
+			<td>The default HTTP resource of the cancel fax job request</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.get.status.resource</td>
+			<td>The default HTTP resource of the get fax job status request</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.url.parameters</td>
+			<td>The default HTTP URL parameters of the request</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.submit.method</td>
+			<td>The HTTP method for the submit action</td>
+			<td>POST</td>
+			<td>POST</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.suspend.method</td>
+			<td>The HTTP method for the suspend action</td>
+			<td>POST</td>
+			<td>POST</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.resume.method</td>
+			<td>The HTTP method for the resume action</td>
+			<td>POST</td>
+			<td>POST</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.cancel.method</td>
+			<td>The HTTP method for the cancel action</td>
+			<td>POST</td>
+			<td>POST</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.get.status.method</td>
+			<td>The HTTP method for the get fax job status action</td>
+			<td>POST</td>
+			<td>POST</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<h4>org.fax4j.spi.http.faxjob2request.converter.class.name - org.fax4j.spi.http.MultiPartFaxJob2HTTPRequestConverter</h4>
+	This class will construct a multi part HTTP requests.<br> 
+	The parameter names are set in the fax4j configuration and their values are extracted from the fax job.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.submit.file.content.parameter</td>
+			<td>The submit fax action, file content parameter name.</td>
+			<td>file</td>
+			<td>file</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.submit.file.name.parameter</td>
+			<td>The submit fax action, file name parameter name.</td>
+			<td>filename</td>
+			<td>filename</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.submit.target.address.parameter</td>
+			<td>The submit fax action, target address parameter name.</td>
+			<td>targetaddress</td>
+			<td>targetaddress</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.submit.target.name.parameter</td>
+			<td>The submit fax action, target name parameter name.</td>
+			<td>targetname</td>
+			<td>targetname</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.submit.sender.name.parameter</td>
+			<td>The submit fax action, sender name parameter name.</td>
+			<td>sendername</td>
+			<td>sendername</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.submit.sender.fax.number.parameter</td>
+			<td>The submit fax action, sender fax number parameter name.</td>
+			<td>senderfaxnumber</td>
+			<td>senderfaxnumber</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.submit.sender.email.parameter</td>
+			<td>The submit fax action, sender email parameter name.</td>
+			<td>senderemail</td>
+			<td>senderemail</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.suspend.fax.job.id.parameter</td>
+			<td>The suspend fax action, fax job ID parameter name.</td>
+			<td>faxjobid</td>
+			<td>faxjobid</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.resume.fax.job.id.parameter</td>
+			<td>The resume fax action, fax job ID parameter name.</td>
+			<td>faxjobid</td>
+			<td>faxjobid</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.cancel.fax.job.id.parameter</td>
+			<td>The cancel fax action, fax job ID parameter name.</td>
+			<td>faxjobid</td>
+			<td>faxjobid</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.get.status.fax.job.id.parameter</td>
+			<td>The get fax job status fax action, fax job ID parameter name.</td>
+			<td>faxjobid</td>
+			<td>faxjobid</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.parameter.key.X</td>
+			<td>The additional parameter to submit where X is the parameter key and the property value is the parameter value,<br>
+				For example org.fax4j.spi.http.multi.part.parameter.key.my.property=my_value<br>
+				This converter will also send parameter my.property with value my_value
+			</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.multi.part.add.file.name.as.part</td>
+			<td>The add the file name as a separate part property key.</td>
+			<td>true</td>
+			<td>true</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<h4>org.fax4j.spi.http.faxjob2request.converter.class.name - org.fax4j.spi.http.TemplateFaxJob2HTTPRequestConverter</h4>
+	This class will use request templates to construct the HTTP requests.<br> 
+	Only the HTTP resource, URL parameters and HTTP content accept template parameters.<br>
+	The HTTP resource is the URL part after the domain, for example http://www.mydomain.com/<b>myresource</b>.<br>
+	The HTTP URL parameters is the URL part after the ?, for example http://www.mydomain.com/myresource?<b>param1=value1</b>.<br>
+	The HTTP content is not part of the URL and contains the POST information.<br>
+	The template parameters are than updated with the values from the fax4j configuration or FaxJob data.<br>
+	All template parameters are defined as ${templatename} variables, for example: http://www.mydomain.com/myresource?faxnum=<b>${target.address}</b><br>
+	<br>
+	Below table describes the template parameters.<br>
+	<b>Template Parameters:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Template Parameter</td>
+			<td>Description</td>
+		</tr>
+		<tr>
+			<td>file</td>
+			<td>The fax job file content (in case of template) or name (in case of resource or URL parameters)</td>
+		</tr>
+		<tr>
+			<td>target.address</td>
+			<td>The fax job target address</td>
+		</tr>
+		<tr>
+			<td>target.name</td>
+			<td>The fax job target name</td>
+		</tr>
+		<tr>
+			<td>sender.name</td>
+			<td>The fax job sender name</td>
+		</tr>
+		<tr>
+			<td>sender.fax.number</td>
+			<td>The fax job sender fax number</td>
+		</tr>
+		<tr>
+			<td>sender.email</td>
+			<td>The fax job sender email</td>
+		</tr>
+	</table>
+	<br>
+	In case there is no template defined for a certain fax action, this class will return null.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+				<td>org.fax4j.spi.http.template.encoding</td>
+				<td>The template encoding, if encoding is not defined, the default system encoding is used.</td>
+				<td>none</td>
+				<td>The default system encoding</td>
+				<td>false</td>
+		</tr>
+		<tr>
+				<td>org.fax4j.spi.http.submit.template.url</td>
+				<td>The URL pointing to the submit fax job template.</td>
+				<td>none</td>
+				<td>none</td>
+				<td>false</td>
+		</tr>
+		<tr>
+				<td>org.fax4j.spi.http.suspend.template.url</td>
+				<td>The URL pointing to the suspend fax job template.</td>
+				<td>none</td>
+				<td>none</td>
+				<td>false</td>
+		</tr>
+		<tr>
+				<td>org.fax4j.spi.http.resume.template.url</td>
+				<td>The URL pointing to the resume fax job template.</td>
+				<td>none</td>
+				<td>none</td>
+				<td>false</td>
+		</tr>
+		<tr>
+				<td>org.fax4j.spi.http.cancel.template.url</td>
+				<td>The URL pointing to the cancel fax job template.</td>
+				<td>none</td>
+				<td>none</td>
+				<td>false</td>
+		</tr>
+		<tr>
+				<td>org.fax4j.spi.http.get.status.template.url</td>
+				<td>The URL pointing to the get fax job status template.</td>
+				<td>none</td>
+				<td>none</td>
+				<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<h4>org.fax4j.spi.http.response.handler.class.name - org.fax4j.spi.http.JSONHTTPResponseHandler</h4>
+	This class provides a JSON based implementation of the HTTP response handler interface.<br>
+	This class expects to get JSON response data and will update the fax job as needed.<br>
+	This class only supports extracting the fax job ID and fax job status from the JSON response object,
+	or in case of errors, extract the error message.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.response.data.encoding</td>
+			<td>The response data encoding, if encoding is not defined, the default system encoding is used.</td>
+			<td>none</td>
+			<td>The default system encoding</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.submit.json.output.path</td>
+			<td>The submit JSON output path used to locate the fax job ID from the submit fax job response.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.suspend.json.output.path</td>
+			<td>The suspend JSON output path used to locate the fax job ID from the suspend fax job response.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.resume.json.output.path</td>
+			<td>The resume JSON output path used to locate the fax job ID from the resume fax job response.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.cancel.json.output.path</td>
+			<td>The cancel JSON output path used to locate the fax job ID from the cancel fax job response.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.get.status.json.output.path</td>
+			<td>The get fax job status JSON output path used to locate the fax job status string value from the response.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.json.pending.status.mappings</td>
+			<td>The mapping between the output fax status string value to the fax4j FaxJobStatus.PENDING enum value (format is: value1;value2;value3).</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.json.inprogress.status.mappings</td>
+			<td>The mapping between the output fax status string value to the fax4j FaxJobStatus.IN_PROGRESS enum value (format is: value1;value2;value3).</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.json.error.status.mappings</td>
+			<td>The mapping between the output fax status string value to the fax4j FaxJobStatus.ERROR enum value (format is: value1;value2;value3).</td>
+			<td>none</td>
+			<td>none</td>
+		<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.json.error.detection.path</td>
+			<td>The error detection path. If defined the handler will search for values in the defined path.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.json.error.detection.value</td>
+			<td>If detection path and value are defined, the value in the path is searched within the configured value. If value is not defined, all values are considered as errors.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.json.error.message.path</td>
+			<td>The path to the error message if errors are detected. If this property is not defined, the value found at org.fax4j.spi.http.json.error.detection.path will be used instead.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<h4>org.fax4j.spi.http.response.handler.class.name - org.fax4j.spi.http.XMLHTTPResponseHandler</h4>
+	This class provides a XML based implementation of the HTTP response handler interface.<br>
+	This class expects to get XML response data and will update the fax job as needed.<br>
+	This class only supports extracting the fax job ID and fax job status from the XML response object,
+	or in case of errors, extract the error message.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.response.data.encoding</td>
+			<td>The response data encoding, if encoding is not defined, the default system encoding is used.</td>
+			<td>none</td>
+			<td>The default system encoding</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.submit.xml.output.path</td>
+			<td>The submit XML output path used to locate the fax job ID from the submit fax job response.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.suspend.xml.output.path</td>
+			<td>The suspend XML output path used to locate the fax job ID from the suspend fax job response.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.resume.xml.output.path</td>
+			<td>The resume XML output path used to locate the fax job ID from the resume fax job response.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.cancel.xml.output.path</td>
+			<td>The cancel XML output path used to locate the fax job ID from the cancel fax job response.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.get.status.xml.output.path</td>
+			<td>The get fax job status XML output path used to locate the fax job status string value from the response.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.xml.pending.status.mappings</td>
+			<td>The mapping between the output fax status string value to the fax4j FaxJobStatus.PENDING enum value (format is: value1;value2;value3).</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.xml.inprogress.status.mappings</td>
+			<td>The mapping between the output fax status string value to the fax4j FaxJobStatus.IN_PROGRESS enum value (format is: value1;value2;value3).</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.xml.error.status.mappings</td>
+			<td>The mapping between the output fax status string value to the fax4j FaxJobStatus.ERROR enum value (format is: value1;value2;value3).</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.xml.error.detection.path</td>
+			<td>The error detection path. If defined the handler will search for values in the defined path.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.xml.error.detection.value</td>
+			<td>If detection path and value are defined, the value in the path is searched within the configured value. If value is not defined, all values are considered as errors.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.http.xml.error.message.path</td>
+			<td>The path to the error message if errors are detected. If this property is not defined, the value found at org.fax4j.spi.http.xml.error.detection.path will be used instead.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>HTTP client required jars (they are distributed as part of the fax4j, but required to be set in the application classpath).
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.interfax.InterfaxMailFaxClientSpi</h3>
+	This implementation simply extends the MailFaxClientSpi and provides predefined configuration to support
+	sending faxes via mail servers using the interfax commercial service.<br>
+	This implementation is not meant to promote the commercial service but to serve as a service provider interface for it.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.persistent.connection</td>
+			<td>True to reuse the same mail connection for all fax activities, false to create a
+				new mail connection for each fax activity.</td>
+			<td>false</td>
+			<td>false</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.user.name</td>
+			<td>The mail account user name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.password</td>
+			<td>The mail account password.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>javax mail properties</td>
+			<td>Any of the javax mail properties can be defined in the fax4j properties.<br>
+				These properties will be passed to the java mail framework.</td>
+			<td>mail.transport.protocol=smtp<br>
+				mail.smtp.port=25</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.nextivafax.NextivafaxMailFaxClientSpi</h3>
+	This implementation simply extends the MailFaxClientSpi and provides predefined configuration to support
+	sending faxes via mail servers using the nextivafax commercial service.<br>
+	This implementation is not meant to promote the commercial service but to serve as a service provider interface for it.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.persistent.connection</td>
+			<td>True to reuse the same mail connection for all fax activities, false to create a
+				new mail connection for each fax activity.</td>
+			<td>false</td>
+			<td>false</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.user.name</td>
+			<td>The mail account user name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.password</td>
+			<td>The mail account password.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>javax mail properties</td>
+			<td>Any of the javax mail properties can be defined in the fax4j properties.<br>
+				These properties will be passed to the java mail framework.</td>
+			<td>mail.transport.protocol=smtp<br>
+				mail.smtp.port=25</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.send2fax.Send2FaxMailFaxClientSpi</h3>
+	This implementation simply extends the MailFaxClientSpi and provides predefined configuration to support
+	sending faxes via mail servers using the send2fax commercial service.<br>
+	This implementation is not meant to promote the commercial service but to serve as a service provider interface for it.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.persistent.connection</td>
+			<td>True to reuse the same mail connection for all fax activities, false to create a
+				new mail connection for each fax activity.</td>
+			<td>false</td>
+			<td>false</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.user.name</td>
+			<td>The mail account user name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.password</td>
+			<td>The mail account password.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>javax mail properties</td>
+			<td>Any of the javax mail properties can be defined in the fax4j properties.<br>
+				These properties will be passed to the java mail framework.</td>
+			<td>mail.transport.protocol=smtp<br>
+				mail.smtp.port=25</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.metrofax.MetroFaxMailFaxClientSpi</h3>
+	This implementation simply extends the MailFaxClientSpi and provides predefined configuration to support
+	sending faxes via mail servers using the MetroFax commercial service.<br>
+	This implementation is not meant to promote the commercial service but to serve as a service provider interface for it.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.persistent.connection</td>
+			<td>True to reuse the same mail connection for all fax activities, false to create a
+				new mail connection for each fax activity.</td>
+			<td>false</td>
+			<td>false</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.user.name</td>
+			<td>The mail account user name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.password</td>
+			<td>The mail account password.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>javax mail properties</td>
+			<td>Any of the javax mail properties can be defined in the fax4j properties.<br>
+				These properties will be passed to the java mail framework.</td>
+			<td>mail.transport.protocol=smtp<br>
+				mail.smtp.port=25</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.faxage.FaxAgeMailFaxClientSpi</h3>
+	This implementation simply extends the MailFaxClientSpi and provides predefined configuration to support
+	sending faxes via mail servers using the FaxAge commercial service.<br>
+	This implementation is not meant to promote the commercial service but to serve as a service provider interface for it.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.persistent.connection</td>
+			<td>True to reuse the same mail connection for all fax activities, false to create a
+				new mail connection for each fax activity.</td>
+			<td>false</td>
+			<td>false</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.user.name</td>
+			<td>The mail account user name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.password</td>
+			<td>The mail account password.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>javax mail properties</td>
+			<td>Any of the javax mail properties can be defined in the fax4j properties.<br>
+				These properties will be passed to the java mail framework.</td>
+			<td>mail.transport.protocol=smtp<br>
+				mail.smtp.port=25</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.extremefax.ExtremeFaxMailFaxClientSpi</h3>
+	This implementation simply extends the MailFaxClientSpi and provides predefined configuration to support
+	sending faxes via mail servers using the Extreme Fax commercial service.<br>
+	This implementation is not meant to promote the commercial service but to serve as a service provider interface for it.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.persistent.connection</td>
+			<td>True to reuse the same mail connection for all fax activities, false to create a
+				new mail connection for each fax activity.</td>
+			<td>false</td>
+			<td>false</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.user.name</td>
+			<td>The mail account user name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.password</td>
+			<td>The mail account password.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>javax mail properties</td>
+			<td>Any of the javax mail properties can be defined in the fax4j properties.<br>
+				These properties will be passed to the java mail framework.</td>
+			<td>mail.transport.protocol=smtp<br>
+				mail.smtp.port=25</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.efax.EFaxMailFaxClientSpi</h3>
+	This implementation simply extends the MailFaxClientSpi and provides predefined configuration to support
+	sending faxes via mail servers using the efax commercial service.<br>
+	This implementation is not meant to promote the commercial service but to serve as a service provider interface for it.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.persistent.connection</td>
+			<td>True to reuse the same mail connection for all fax activities, false to create a
+				new mail connection for each fax activity.</td>
+			<td>false</td>
+			<td>false</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.user.name</td>
+			<td>The mail account user name.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.mail.password</td>
+			<td>The mail account password.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>javax mail properties</td>
+			<td>Any of the javax mail properties can be defined in the fax4j properties.<br>
+				These properties will be passed to the java mail framework.</td>
+			<td>mail.transport.protocol=smtp<br>
+				mail.smtp.port=25</td>
+			<td>none</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>See MailFaxClientSpi SPI
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.phaxio.PhaxioFaxClientSpi</h3>
+	This class implements the fax client service provider interface.<br>
+	This implementation will invoke the requests by sending HTTP requests to a Phaxio service.<br>
+	This implementation is not meant to promote the Phaxio commercial product but to serve
+	as a service provider interface for those using this product.<br>
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.phaxio.client.class.name</td>
+			<td>The HTTP client class name used to submit the HTTP requests</td>
+			<td>org.fax4j.spi.http.ApacheHTTPClient</td>
+			<td>org.fax4j.spi.http.ApacheHTTPClient</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.phaxio.api.key</td>
+			<td>The phaxio API key</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.phaxio.api.secret</td>
+			<td>The phaxio API secret</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+	</table>
+	<br>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>HTTP client required jars.
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.hoiio.HoiioFaxClientSpi</h3>
+	This class implements the fax client service provider interface.<br>
+	This implementation will invoke the requests by sending HTTP requests to a Hoiio service.<br>
+	This implementation is not meant to promote the Hoiio commercial product but to serve
+	as a service provider interface for those using this product.<br>
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.hoiio.client.class.name</td>
+			<td>The HTTP client class name used to submit the HTTP requests</td>
+			<td>org.fax4j.spi.http.ApacheHTTPClient</td>
+			<td>org.fax4j.spi.http.ApacheHTTPClient</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.hoiio.app.id</td>
+			<td>The hoiio Application ID</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.hoiio.access.token</td>
+			<td>The hoiio access token</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+	</table>
+	<br>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>HTTP client required jars.
+	</ul>
+	<br>
+	
+	<h3>org.fax4j.spi.java4less.RFaxFaxClientSpi</h3>
+	This class implements the fax client service provider interface.<br>
+	This implementation is based on the java4less commercial product.<br>
+	This implementation is not meant to promote the java4less commercial product but to serve
+	as a service provider interface for those using this product.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.rfax.port.name</td>
+			<td>See java4less website for more info.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.spi.rfax.fax.class</td>
+			<td>See java4less website for more info.</td>
+			<td>none</td>
+			<td>none</td>
+			<td>true</td>
+		</tr>
+	</table>
+	<br>
+	<b>Limitations:</b><br>
+	<ul>
+		<li>See java4less web site.
+		<li>Currently this SPI only supports submitting new fax jobs.
+	</ul>
+	<b>Dependencies:</b><br>
+	<ul>
+		<li>See java4less web site.
+	</ul>
+	<br>
+
+  	<h2>The Fax Bridges:</h2>
+	The following section describes the fax4j built in fax bridges.<br>
+
+	<h3>org.fax4j.bridge.email.EMail2FaxBridge</h3>
+	This interface defines the email2fax capabilities of the fax bridge.<br>
+	Email based bridge would probably not have much information to provide the fax client
+	and therefore has email specific bridge capabilities.<br>
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.vendor.policy.class.name</td>
+			<td>The vendor policy class name.</td>
+			<td>org.fax4j.bridge.EmptyVendorPolicy</td>
+			<td>org.fax4j.bridge.EmptyVendorPolicy</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.mail.message.parser.class.name</td>
+			<td>The mail message parser class name used to convert the mail message to fax job data.</td>
+			<td>org.fax4j.bridge.email.DefaultMailMessageParser</td>
+			<td>org.fax4j.bridge.email.DefaultMailMessageParser</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<br>
+	This default parser expects the mail message as follows:<br>
+	<ul>
+		<li>Subject line: fax:[number] where number is the target address
+		<li>From email address would be used as sender email
+		<li>First attachment (or in case of none, the body text) would be used as the fax data
+	</ul>
+	<br>
+  	
+	<h3>org.fax4j.bridge.http.HTTP2FaxBridge</h3>
+	This interface defines the http2fax capabilities of the fax bridge.<br>
+	HTTP based bridges should be accessed by web servers via http servlet or similar.<br>
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.vendor.policy.class.name</td>
+			<td>The vendor policy class name.</td>
+			<td>org.fax4j.bridge.EmptyVendorPolicy</td>
+			<td>org.fax4j.bridge.EmptyVendorPolicy</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.http.request.parser.class.name</td>
+			<td>The HTTP request parser class name used to convert the HTTP request to fax job data.</td>
+			<td>org.fax4j.bridge.http.MultiPartHTTPRequestParser</td>
+			<td>org.fax4j.bridge.http.MultiPartHTTPRequestParser</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<h4>org.fax4j.bridge.http.request.parser.class.name - org.fax4j.bridge.http.MultiPartHTTPRequestParser</h4>
+	This parser expects a multi part HTTP request.
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.http.request.parser.multi.part.file.content.parameter</td>
+			<td>The file content parameter name.</td>
+			<td>file</td>
+			<td>file</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.http.request.parser.multi.part.file.name.parameter</td>
+			<td>The file name parameter name.</td>
+			<td>filename</td>
+			<td>filename</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.http.request.parser.multi.part.priority.parameter</td>
+			<td>The priority parameter name.</td>
+			<td>priority</td>
+			<td>priority</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.http.request.parser.multi.part.target.address.parameter</td>
+			<td>The target address parameter name.</td>
+			<td>targetaddress</td>
+			<td>targetaddress</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.http.request.parser.multi.part.target.name.parameter</td>
+			<td>The target name parameter name.</td>
+			<td>targetname</td>
+			<td>targetname</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.http.request.parser.multi.part.sender.name.parameter</td>
+			<td>The sender name parameter name.</td>
+			<td>sendername</td>
+			<td>sendername</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.http.request.parser.multi.part.sender.fax.number.parameter</td>
+			<td>The sender fax number parameter name.</td>
+			<td>senderfaxnumber</td>
+			<td>senderfaxnumber</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.http.request.parser.multi.part.sender.email.parameter</td>
+			<td>The sender email parameter name.</td>
+			<td>senderemail</td>
+			<td>senderemail</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	<h4>org.fax4j.bridge.http.request.parser.class.name - org.fax4j.bridge.http.SimpleHTTPRequestParser</h4>
+	This parser expects the HTTP request as follows:<br>
+	URL parameters:<br>
+	<ul>
+		<li>file [file name without path]
+		<li>priority [priority value as defined in the enum]
+		<li>target_address [target address]
+		<li>target_name [target name]
+		<li>sender_name [sender name]
+		<li>sender_fax_number [sender fax number]
+		<li>sender_email [sender email]
+		<li>property:[property name] [property value]
+	</ul>
+	The request Payload should hold the file content only.
+	<br>
+  	
+	<h3>org.fax4j.bridge.process.Process2FaxBridge</h3>
+	This interface defines the process2fax capabilities of the fax bridge.<br>
+	Process based bridges can be exposed as standalone java applications.<br>
+	<br>
+	Below table describes the configuration values relevant for this class.<br>
+	<b>Configuration:</b>
+	<table summary="" border="1">
+		<tr>
+			<td>Name</td>
+			<td>Description</td>
+			<td>Preconfigured Value</td>
+			<td>Default Value</td>
+			<td>Mandatory</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.vendor.policy.class.name</td>
+			<td>The vendor policy class name.</td>
+			<td>org.fax4j.bridge.EmptyVendorPolicy</td>
+			<td>org.fax4j.bridge.EmptyVendorPolicy</td>
+			<td>false</td>
+		</tr>
+		<tr>
+			<td>org.fax4j.bridge.process.command.parser.class.name</td>
+			<td>The command line parser class name used to convert the command line arguments to fax job data.</td>
+			<td>org.fax4j.bridge.process.DefaultCommandLineArgumentsParser</td>
+			<td>org.fax4j.bridge.process.DefaultCommandLineArgumentsParser</td>
+			<td>false</td>
+		</tr>
+	</table>
+	<br>
+	The default command line arguments parser expects the command line arguments as follows:<br>
+	<ul>
+		<li>-file [full file name]
+		<li>-priority [priority value as defined in the enum]
+		<li>-target_address [target address]
+		<li>-target_name [target name]
+		<li>-sender_name [sender name]
+		<li>-sender_fax_number [sender fax number]
+		<li>-sender_email [sender email]
+		<li>-property:[property name] [property value]
+	</ul>
+	<br>
+  	
+	<br>
+
+	@author	Sagie Gur-Ari
+  </body>
+</HTML>
