@@ -8,6 +8,16 @@ This library enables Java applications to invoke fax actions such as submitting 
 <br>
 You can get the latest version from <a href="https://github.com/sagiegurari/fax4j/releases/latest">here</a>
 
+Or if you are using maven, simply add the following to your pom.xml:
+
+```xml
+<dependency>
+  <groupId>net.sf.fax4j</groupId>
+  <artifactId>fax4j</artifactId>
+  <version>0.43.0</version>
+</dependency>
+```
+
 ## Features
 The fax4j provides a standard and consistent faxing API to enable invoking the different fax actions from Java applications.<br>
 The fax4j library enables to integrate with fax services via many different SPI (service provider interface) implementations.<br>
