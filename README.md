@@ -73,9 +73,11 @@ While this library supports java 1.5 and up, the build process of this library (
 However building this library from source is not required as it provide many extension capabilities via configuration.
 
 ## Road Map
-This project started at 2009 and was hosted originally on sourceforge.
+This project started at 2009 and was hosted originally on sourceforge (This is also the reason why the groupId starts with net.sf).
 
 Currently this library is in maintenance mode and no future development is currently being planned.
+
+For historical forum posts which are not in github please see the original sourceforge project discussion page.
 
 ## License
 The fax4j library is distributed under the "The Apache Software License, Version 2.0" license which means that it is possible to distribute this library also in commercial closed source products.
