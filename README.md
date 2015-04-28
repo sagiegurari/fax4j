@@ -6,7 +6,7 @@ The [fax4j](http://sagiegurari.github.io/fax4j/) is a Java fax library.
 <br>
 This library enables Java applications to invoke fax actions such as submitting fax jobs.
 <br>
-You can get the latest version from <a href="https://github.com/sagiegurari/fax4j/releases/latest">here</a>
+You can get the latest version from <a href="https://github.com/sagiegurari/fax4j/releases/latest">here</a> - pick the fax4j-0.43.1-full.zip to get the binary distribution with all dependencies and documents
 
 Or if you are using maven, simply add the following to your pom.xml:
 
