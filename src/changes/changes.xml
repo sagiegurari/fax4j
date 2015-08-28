@@ -4,10 +4,18 @@
 
 	<properties>
 		<title>Change Log</title>
-		<author email="sgurari@yahoo.com">Sagie Gur-Ari</author>
+		<author email="sagiegurari@gmail.com">Sagie Gur-Ari</author>
 	</properties>
 
 	<body>
+		<release version="0.43.2" date="2015-08-28" description="Documentation Only Release">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Documentation changes.
+				]]>
+			</action>
+		</release>
+
 		<release version="0.43.1" date="2015-04-24" description="Maven site fix">
 			<action dev="Sagie Gur-Ari" type="fix">
 				<![CDATA[
