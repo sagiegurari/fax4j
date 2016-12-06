@@ -105,7 +105,7 @@ FAX4J_API LPCTSTR convertCharArrayToLPCTSTR(char* text);
  * 			The file to fax
  * @return	The fax job ID (null in case of an error)
  */
-FAX4J_API Response submitFaxJobNative(LPCTSTR serverName,LPCTSTR targetAddress,LPCTSTR targetName,LPCTSTR senderName,LPCTSTR fileName);
+FAX4J_API Response submitFaxJobNative(LPCTSTR serverName,LPCTSTR targetAddress,LPCTSTR targetName,LPCTSTR senderName,LPCTSTR fileName,LPCTSTR documentName);
 
 /**
  * This function will suspend an existing fax job.
