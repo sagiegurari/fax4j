@@ -160,7 +160,7 @@ JNIEXPORT void JNICALL Java_org_fax4j_spi_windows_WindowsJNIFaxClientSpi_setDebu
  * 			The file to fax
  * @return	The fax job ID (null in case of an error)
  */
-JNIEXPORT jint JNICALL Java_org_fax4j_spi_windows_WindowsJNIFaxClientSpi_submitFaxJobNative(JNIEnv* jniEnv,jclass classDefinition,jstring serverName,jstring targetAddress,jstring targetName,jstring senderName,jstring fileName)
+JNIEXPORT jint JNICALL Java_org_fax4j_spi_windows_WindowsJNIFaxClientSpi_submitFaxJobNative(JNIEnv* jniEnv,jclass classDefinition,jstring serverName,jstring targetAddress,jstring targetName,jstring senderName,jstring fileName,jstring documentName)
 {
 	logDebug("Invoking JNI submitFaxJobNative");
 
@@ -176,9 +176,11 @@ JNIEXPORT jint JNICALL Java_org_fax4j_spi_windows_WindowsJNIFaxClientSpi_submitF
 	LPCTSTR cSenderName=convertToStr(cConstSenderName);
 	const char* cConstFileName=getString(jniEnv,fileName);
 	LPCTSTR cFileName=convertToStr(cConstFileName);
+	const char* cConstDocumentName=getString(jniEnv,documentName);
+	LPCTSTR cDocumentName=convertToStr(cConstDocumentName);
 
 	//submit fax job
-	Response response=submitFaxJobNative(cServerName,cTargetAddress,cTargetName,cSenderName,cFileName);
+	Response response=submitFaxJobNative(cServerName,cTargetAddress,cTargetName,cSenderName,cFileName,cDocumentName);
 
 	logDebug("Releasing jni data types.");
 	releaseString(jniEnv,serverName,cConstServerName);
@@ -186,6 +188,7 @@ JNIEXPORT jint JNICALL Java_org_fax4j_spi_windows_WindowsJNIFaxClientSpi_submitF
 	releaseString(jniEnv,targetName,cConstTargetName);
 	releaseString(jniEnv,senderName,cConstSenderName);
 	releaseString(jniEnv,fileName,cConstFileName);
+	releaseString(jniEnv,documentName,cConstDocumentName);
 
 	jint faxJobID=0;
 	if(response.result)
