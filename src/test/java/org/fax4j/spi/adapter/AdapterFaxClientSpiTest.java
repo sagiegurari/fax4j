@@ -308,6 +308,9 @@ public class AdapterFaxClientSpiTest
 	@Test
 	public void windowsConditionConfigurationTest() throws Exception
 	{
+		boolean isCI = ("true".equals(System.getenv("CI")));
+		Assume.assumeTrue(TestUtil.isWindowsOS() && (!isCI));
+
 		Properties configuration=new Properties();
 		configuration.setProperty("org.fax4j.proxy.enabled","false");
 		configuration.setProperty("org.fax4j.spi.adapter.internal.spi.types","windows");
@@ -318,7 +321,7 @@ public class AdapterFaxClientSpiTest
 		if(!TestUtil.isWindowsOS())
 		{
 			condition=condition.replace("OS:windows","OS:"+System.getProperty("os.name"));
-			condition=condition.replace("native-lib:winfax","");
+			condition=condition.replace("native-lib:winfax","native-lib:jawt");
 			configuration.setProperty("org.fax4j.spi.adapter.internal.spi.condition.windows",condition);
 		}
 		
