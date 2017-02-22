@@ -30,6 +30,7 @@ import org.fax4j.test.TestUtil;
 import org.fax4j.test.TestUtil.EmptyFaxClientSpi;
 import org.fax4j.test.TestUtil.TestFaxModemAdapter;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
