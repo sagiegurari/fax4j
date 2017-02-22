@@ -20,7 +20,8 @@ deploy:
     name: fax4j
 
 #environment variables
-#environment:
+environment:
+  CI: CI
 
 #branches to build
 branches:

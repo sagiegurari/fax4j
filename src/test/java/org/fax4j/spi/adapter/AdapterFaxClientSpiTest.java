@@ -318,7 +318,7 @@ public class AdapterFaxClientSpiTest
 		if(!TestUtil.isWindowsOS())
 		{
 			condition=condition.replace("OS:windows","OS:"+System.getProperty("os.name"));
-			condition=condition.replace("native-lib:winfax","native-lib:jawt");
+			condition=condition.replace("native-lib:winfax","");
 			configuration.setProperty("org.fax4j.spi.adapter.internal.spi.condition.windows",condition);
 		}
 		
