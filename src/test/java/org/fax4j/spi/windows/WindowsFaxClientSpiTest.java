@@ -123,7 +123,7 @@ public class WindowsFaxClientSpiTest
 	 */
 	public void nativeFlowTest() throws Exception
 	{
-		boolean isCI = ("true".equals(System.getEnv("CI")));
+		boolean isCI = ("true".equals(System.getenv("CI")));
 		Assume.assumeTrue(TestUtil.isWindowsOS() && (!isCI));
 
 		File file=File.createTempFile("temp_",".txt");
