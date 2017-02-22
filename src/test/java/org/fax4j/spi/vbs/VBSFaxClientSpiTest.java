@@ -216,7 +216,8 @@ public class VBSFaxClientSpiTest
 	@Test
 	public void nativeFlowTest() throws Exception
 	{
-		Assume.assumeTrue(TestUtil.isWindowsOS() && (!'CI'.equals(System.getEnv('CI'))));
+		boolean isCI = ("true".equals(System.getEnv("CI")));
+		Assume.assumeTrue(TestUtil.isWindowsOS() && (!ci));
 
 		File file=File.createTempFile("temp_",".txt");
 		file.deleteOnExit();

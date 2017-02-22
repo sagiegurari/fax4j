@@ -21,7 +21,7 @@ deploy:
 
 #environment variables
 environment:
-  CI: CI
+  CI: true
 
 #branches to build
 branches:
