@@ -15,9 +15,7 @@ artifacts:
   - path: 'target\fax4j-*-full.zip'
 
 deploy:
-    #Deploying to a named environment
-  - provider: Environment
-    name: fax4j
+  - provider: Local
 
 #environment variables
 environment:
