@@ -14,9 +14,6 @@ build_script:
 artifacts:
   - path: 'target\fax4j-*-full.zip'
 
-deploy:
-  - provider: Local
-
 #environment variables
 environment:
   CI: true
