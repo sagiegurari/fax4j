@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -15,7 +13,7 @@
 
 	<name>fax4j</name>
 	<description>
-		The fax4j is a Java fax library.&lt;br&gt;This library enables Java applications to invoke fax actions such as submitting fax jobs. 
+		The fax4j is a Java fax library.&lt;br&gt;This library enables Java applications to invoke fax actions such as submitting fax jobs.
 	</description>
 	<url>https://github.com/sagiegurari/fax4j</url>
 	<organization>
@@ -127,7 +125,14 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<build>
 		<resources>
 			<resource>
@@ -176,7 +181,7 @@
 						</manifest>
 						<manifestEntries>
 							<Built-By>${project.name}</Built-By>
-						</manifestEntries> 
+						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>
@@ -260,6 +265,17 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -434,52 +450,52 @@
 									<exportAntProperties>true</exportAntProperties>
 									<target unless="fax4j.native.build.done">
 										<!-- create directory -->
-										<mkdir dir="${project.build.directory}/native/windows/dll"/>
+										<mkdir dir="${project.build.directory}/native/windows/dll" />
 										<!-- run javah -->
-										<javah destdir="${project.build.directory}/native/windows/dll" classpath="${project.build.outputDirectory}" class="org.fax4j.spi.windows.WindowsJNIFaxClientSpi"/>
+										<javah destdir="${project.build.directory}/native/windows/dll" classpath="${project.build.outputDirectory}" class="org.fax4j.spi.windows.WindowsJNIFaxClientSpi" />
 
 										<!-- copy native dll resources -->
 										<copy todir="${project.build.directory}/native/windows/dll">
-											<fileset dir="${basedir}/src/main/native/windows/dll"/>
+											<fileset dir="${basedir}/src/main/native/windows/dll" />
 											<filterset>
-												<filter token="JAVA_HOME" value="${java.home}"/>
-												<filter token="FAX4J_WINDOWS_NATIVE_ROOT_DIR" value="${project.build.directory}\native\windows"/>
+												<filter token="JAVA_HOME" value="${java.home}" />
+												<filter token="FAX4J_WINDOWS_NATIVE_ROOT_DIR" value="${project.build.directory}\native\windows" />
 											</filterset>
 										</copy>
 										<!-- run native build to create dll -->
 										<exec executable="msbuild.exe" failonerror="true" dir="${project.build.directory}/native/windows/dll">
-											<arg value="fax4j_dll.sln"/>
-											<arg value="/p:Configuration=Release"/>
+											<arg value="fax4j_dll.sln" />
+											<arg value="/p:Configuration=Release" />
 										</exec>
 										<!-- copy dll -->
-										<mkdir dir="${project.build.directory}/native/windows/lib"/>
-										<copy todir="${project.build.directory}/native/windows/lib" file="${project.build.directory}/native/windows/dll/Release/fax4j.dll"/>
+										<mkdir dir="${project.build.directory}/native/windows/lib" />
+										<copy todir="${project.build.directory}/native/windows/lib" file="${project.build.directory}/native/windows/dll/Release/fax4j.dll" />
 
 										<!-- create directory -->
-										<mkdir dir="${project.build.directory}/native/windows/exe"/>
+										<mkdir dir="${project.build.directory}/native/windows/exe" />
 										<!-- copy native exe resources -->
 										<copy todir="${project.build.directory}/native/windows/exe">
-											<fileset dir="${basedir}/src/main/native/windows/exe"/>
+											<fileset dir="${basedir}/src/main/native/windows/exe" />
 											<filterset>
-												<filter token="JAVA_HOME" value="${java.home}"/>
-												<filter token="FAX4J_WINDOWS_NATIVE_ROOT_DIR" value="${project.build.directory}\native\windows"/>
+												<filter token="JAVA_HOME" value="${java.home}" />
+												<filter token="FAX4J_WINDOWS_NATIVE_ROOT_DIR" value="${project.build.directory}\native\windows" />
 											</filterset>
 										</copy>
 										<!-- run native build to create exe -->
 										<exec executable="msbuild.exe" failonerror="true" dir="${project.build.directory}/native/windows/exe">
-											<arg value="fax4j_exe.sln"/>
-											<arg value="/p:Configuration=Release"/>
+											<arg value="fax4j_exe.sln" />
+											<arg value="/p:Configuration=Release" />
 										</exec>
 										<!-- copy exe -->
-										<copy todir="${project.build.directory}/native/windows/lib" file="${project.build.directory}/native/windows/exe/Release/fax4j.exe"/>
+										<copy todir="${project.build.directory}/native/windows/lib" file="${project.build.directory}/native/windows/exe/Release/fax4j.exe" />
 
 										<!-- copy all native resources to class directory so it will be packaged inside the jar -->
 										<copy todir="${project.build.outputDirectory}/org/fax4j/spi/windows">
-											<fileset dir="${project.build.directory}/native/windows/lib"/>
+											<fileset dir="${project.build.directory}/native/windows/lib" />
 										</copy>
 
 										<!-- set flag to prevent multiple builds -->
-										<property name="fax4j.native.build.done" value="true"/>
+										<property name="fax4j.native.build.done" value="true" />
 									</target>
 								</configuration>
 								<goals>
@@ -503,7 +519,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.4</version>
+						<version>1.5</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
