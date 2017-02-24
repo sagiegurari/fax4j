@@ -8,7 +8,7 @@
 	</properties>
 
 	<body>
-		<release version="0.43.3" date="2017-02-22" description="Cloud Based Build">
+		<release version="0.43.4" date="2017-02-24" description="Cloud Based Build">
 			<action dev="Sagie Gur-Ari" type="update">
 				<![CDATA[
 					Work on support for cloud based build.
