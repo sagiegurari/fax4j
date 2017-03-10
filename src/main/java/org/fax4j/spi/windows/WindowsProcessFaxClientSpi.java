@@ -65,7 +65,7 @@ import org.fax4j.util.IOHelper;
  * <br>
  * 
  * @author 	Sagie Gur-Ari
- * @version 1.02
+ * @version 1.03
  * @since	0.41.5
  */
 public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi
@@ -117,7 +117,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi
 	 * This class holds the fax4j exe constants.
 	 * 
 	 * @author 	Sagie Gur-Ari
-	 * @version 1.0
+	 * @version 1.01
 	 * @since	0.22
 	 */
 	public enum Fax4jExeConstants
@@ -152,6 +152,8 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi
 		SENDER_NAME_FAX4J_EXE_COMMAND_LINE_ARGUMENT("-sender_name"),
 		/**fax4j.exe command line argument constant*/
 		FILE_NAME_FAX4J_EXE_COMMAND_LINE_ARGUMENT("-file"),
+		/**fax4j.exe command line argument constant*/
+		DOCUMENT_NAME_FAX4J_EXE_COMMAND_LINE_ARGUMENT("-document_name"),
 		/**The fax operation done text*/
 		OPERATION_OUTPUT_DONE("fax.operation.done=true"),
 		/**The fax job ID output prefix*/
@@ -352,6 +354,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi
 		{
 			throw new FaxException("Unable to extract canonical path from file: "+file,exception);
 		}
+		String documentName=faxJob.getProperty(WindowsFaxClientSpi.FaxJobExtendedPropertyConstants.DOCUMENT_NAME_PROPERTY_KEY.toString(), null);
 		
 		//init buffer
 		StringBuilder buffer=new StringBuilder();
@@ -363,6 +366,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi
 		this.addCommandLineArgument(buffer,Fax4jExeConstants.TARGET_NAME_FAX4J_EXE_COMMAND_LINE_ARGUMENT.toString(),targetName);
 		this.addCommandLineArgument(buffer,Fax4jExeConstants.SENDER_NAME_FAX4J_EXE_COMMAND_LINE_ARGUMENT.toString(),senderName);
 		this.addCommandLineArgument(buffer,Fax4jExeConstants.FILE_NAME_FAX4J_EXE_COMMAND_LINE_ARGUMENT.toString(),fileName);
+		this.addCommandLineArgument(buffer,Fax4jExeConstants.DOCUMENT_NAME_FAX4J_EXE_COMMAND_LINE_ARGUMENT.toString(),documentName);
 		
 		//get text
 		String commandArguments=buffer.toString();

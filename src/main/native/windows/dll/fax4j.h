@@ -103,9 +103,11 @@ FAX4J_API LPCTSTR convertCharArrayToLPCTSTR(char* text);
  * 			The fax job sender name
  * @param	fileName
  * 			The file to fax
+ * @param	documentName
+ * 			Document name
  * @return	The fax job ID (null in case of an error)
  */
-FAX4J_API Response submitFaxJobNative(LPCTSTR serverName,LPCTSTR targetAddress,LPCTSTR targetName,LPCTSTR senderName,LPCTSTR fileName);
+FAX4J_API Response submitFaxJobNative(LPCTSTR serverName,LPCTSTR targetAddress,LPCTSTR targetName,LPCTSTR senderName,LPCTSTR fileName,LPCTSTR documentName);
 
 /**
  * This function will suspend an existing fax job.
@@ -169,9 +171,11 @@ FAX4J_API char* getLastErrorMessageDLL();
  * 			The fax job sender name
  * @param	fileName
  * 			The file to fax
+ * @param	documentName
+ * 			Document name
  * @return	The fax job ID (null in case of an error)
  */
-FAX4J_API DWORD submitFaxJobDLL(char* serverName,char* targetAddress,char* targetName,char* senderName,char* fileName);
+FAX4J_API DWORD submitFaxJobDLL(char* serverName,char* targetAddress,char* targetName,char* senderName,char* fileName,char* documentName);
 
 /**
  * This function will suspend an existing fax job.

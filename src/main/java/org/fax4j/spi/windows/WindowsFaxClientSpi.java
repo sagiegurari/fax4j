@@ -70,11 +70,49 @@ import org.fax4j.spi.adapter.AbstractAdapterFaxClientSpi;
  * <br>
  * 
  * @author 	Sagie Gur-Ari
- * @version 1.14
+ * @version 1.15
  * @since	0.1
  */
 public class WindowsFaxClientSpi extends AbstractAdapterFaxClientSpi
 {
+	/**
+	 * This class holds the fax job extended properties.
+	 * 
+	 * @author 	Sagie Gur-Ari
+	 * @version 1.0
+	 * @since	0.43.5
+	 */
+	public enum FaxJobExtendedPropertyConstants
+	{
+		/**Document name*/
+		DOCUMENT_NAME_PROPERTY_KEY("document.name");
+
+		/**The string value*/
+		private String value;
+
+		/**
+		 * This is the class constructor.
+		 * 
+		 * @param	value
+		 * 			The string value
+		 */
+		private FaxJobExtendedPropertyConstants(String value)
+		{
+			this.value=value;
+		}
+		
+		/**
+		 * This function returns the string value.
+		 * 
+		 * @return	The string value
+		 */
+		@Override
+		public final String toString()
+		{
+			return this.value;
+		}
+	}
+
 	/**
 	 * This class holds the SPI configuration constants.
 	 * 

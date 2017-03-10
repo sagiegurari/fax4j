@@ -66,7 +66,7 @@ import org.fax4j.spi.AbstractFax4JClientSpi;
  * <br>
  * 
  * @author 	Sagie Gur-Ari
- * @version 1.0
+ * @version 1.01
  * @since	0.41.5
  */
 public class WindowsJNIFaxClientSpi extends AbstractFax4JClientSpi
@@ -158,9 +158,10 @@ public class WindowsJNIFaxClientSpi extends AbstractFax4JClientSpi
 		{
 			throw new FaxException("Unable to extract canonical path from file: "+file,exception);
 		}
+		String documentName=faxJob.getProperty(WindowsFaxClientSpi.FaxJobExtendedPropertyConstants.DOCUMENT_NAME_PROPERTY_KEY.toString(), "");
 		
 		//invoke fax action
-		int faxJobIDInt=this.winSubmitFaxJob(this.faxServerName,targetAddress,targetName,senderName,filePath);
+		int faxJobIDInt=this.winSubmitFaxJob(this.faxServerName,targetAddress,targetName,senderName,filePath,documentName);
 		
 		//validate fax job ID
 		WindowsFaxClientSpiHelper.validateFaxJobID(faxJobIDInt);
@@ -257,9 +258,11 @@ public class WindowsJNIFaxClientSpi extends AbstractFax4JClientSpi
 	 * 			The fax job sender name
 	 * @param	fileName
 	 * 			The file to fax
+	 * @param	documentName
+	 * 			Document name
 	 * @return	The fax job ID (null in case of an error)
 	 */
-	private int winSubmitFaxJob(String serverName,String targetAddress,String targetName,String senderName,String fileName)
+	private int winSubmitFaxJob(String serverName,String targetAddress,String targetName,String senderName,String fileName,String documentName)
 	{
 		int faxJobID=0;
 		synchronized(WindowsFaxClientSpiHelper.NATIVE_LOCK)
@@ -268,7 +271,7 @@ public class WindowsJNIFaxClientSpi extends AbstractFax4JClientSpi
 			this.preNativeCall();
 			
 			//invoke native
-			faxJobID=WindowsJNIFaxClientSpi.submitFaxJobNative(serverName,targetAddress,targetName,senderName,fileName);
+			faxJobID=WindowsJNIFaxClientSpi.submitFaxJobNative(serverName,targetAddress,targetName,senderName,fileName,documentName);
 		}
 		
 		return faxJobID;
@@ -380,9 +383,11 @@ public class WindowsJNIFaxClientSpi extends AbstractFax4JClientSpi
 	 * 			The fax job sender name
 	 * @param	fileName
 	 * 			The file to fax
+	 * @param	documentName
+	 * 			Document name
 	 * @return	The fax job ID (null in case of an error)
 	 */
-	private static native int submitFaxJobNative(String serverName,String targetAddress,String targetName,String senderName,String fileName);
+	private static native int submitFaxJobNative(String serverName,String targetAddress,String targetName,String senderName,String fileName,String documentName);
 	
 	/**
 	 * This function will suspend an existing fax job.

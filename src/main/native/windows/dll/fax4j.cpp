@@ -327,9 +327,11 @@ Response getFaxJobStatus(LPCTSTR serverName,DWORD faxJobID)
  * 			The fax job sender name
  * @param	fileName
  * 			The file to fax
+ * @param	documentName
+ * 			Document name
  * @return	The response object
  */
-FAX4J_API Response submitFaxJobNative(LPCTSTR serverName,LPCTSTR targetAddress,LPCTSTR targetName,LPCTSTR senderName,LPCTSTR fileName)
+FAX4J_API Response submitFaxJobNative(LPCTSTR serverName,LPCTSTR targetAddress,LPCTSTR targetName,LPCTSTR senderName,LPCTSTR fileName,LPCTSTR documentName)
 {
 	logDebug("Invoking submitFaxJobNative");
 
@@ -400,6 +402,13 @@ FAX4J_API Response submitFaxJobNative(LPCTSTR serverName,LPCTSTR targetAddress,L
 	faxJobParameters->SenderName=senderName;
 	faxJobParameters->ScheduleAction=JSA_NOW;
 	faxJobParameters->DeliveryReportType=DRT_NONE;
+	if((documentName!=NULL)&&(strcmp(documentName,"")!=0))
+	{
+		logDebug("Setting Doucment Name:");
+		logDebug(documentName);
+		
+		faxJobParameters->DocumentName=documentName;
+	}
 
 	//send fax
 	DWORD faxJobID;
@@ -561,9 +570,11 @@ FAX4J_API char* getLastErrorMessageDLL()
  * 			The fax job sender name
  * @param	fileName
  * 			The file to fax
+ * @param	documentName
+ * 			Document name
  * @return	The fax job ID (null in case of an error)
  */
-FAX4J_API DWORD submitFaxJobDLL(char* serverName,char* targetAddress,char* targetName,char* senderName,char* fileName)
+FAX4J_API DWORD submitFaxJobDLL(char* serverName,char* targetAddress,char* targetName,char* senderName,char* fileName,char* documentName)
 {
 	//get values
 	LPCTSTR serverNameStr=NULL;
@@ -571,6 +582,7 @@ FAX4J_API DWORD submitFaxJobDLL(char* serverName,char* targetAddress,char* targe
 	LPCTSTR targetNameStr=NULL;
 	LPCTSTR senderNameStr=NULL;
 	LPCTSTR fileNameStr=NULL;
+	LPCTSTR documentNameStr="";
 	if(serverName!=NULL)
 	{
 		serverNameStr=convertCharArrayToLPCTSTR(serverName);
@@ -591,9 +603,13 @@ FAX4J_API DWORD submitFaxJobDLL(char* serverName,char* targetAddress,char* targe
 	{
 		fileNameStr=convertCharArrayToLPCTSTR(fileName);
 	}
+	if(documentName!=NULL)
+	{
+		documentNameStr=convertCharArrayToLPCTSTR(documentName);
+	}
 
 	//invoke fax action
-	Response response=submitFaxJobNative(serverNameStr,targetAddressStr,targetNameStr,senderNameStr,fileNameStr);
+	Response response=submitFaxJobNative(serverNameStr,targetAddressStr,targetNameStr,senderNameStr,fileNameStr,documentNameStr);
 	
 	//get output
 	DWORD faxJobID=0;
@@ -721,6 +737,7 @@ FAX4J_API int runCLI(int argc,const char* argv[])
 	char* targetName=NULL;
 	char* senderName=NULL;
 	char* fileName=NULL;
+	char* documentName=NULL;
 
 	bool donePrinted=false;
 	if(argc>1)
@@ -766,6 +783,10 @@ FAX4J_API int runCLI(int argc,const char* argv[])
 			{
 				fileName=value;
 			}
+			else if(strcmp(argument,"-document_name")==0)
+			{
+				documentName=value;
+			}
 		}
 		
 		logDebug("Read input:");
@@ -783,6 +804,8 @@ FAX4J_API int runCLI(int argc,const char* argv[])
 		logDebug(senderName);
 		logDebug("File:");
 		logDebug(fileName);
+		logDebug("Document Name:");
+		logDebug(documentName);
 
 		if(actionType!=NULL)
 		{
@@ -792,7 +815,7 @@ FAX4J_API int runCLI(int argc,const char* argv[])
 			if(strcmp(actionType,"submit")==0)
 			{
 				//invoke fax action
-				faxJobID=submitFaxJobDLL(server,targetAddress,targetName,senderName,fileName);
+				faxJobID=submitFaxJobDLL(server,targetAddress,targetName,senderName,fileName,documentName);
 			}
 			else if(strcmp(actionType,"suspend")==0)
 			{

@@ -8,6 +8,14 @@
 	</properties>
 
 	<body>
+		<release version="0.43.5" date="2017-03-10" description="New Functionality">
+			<action dev="Sagie Gur-Ari" type="add">
+				<![CDATA[
+					<a href="apidocs/org/fax4j/spi/windows/WindowsFaxClientSpi.html">Windows</a> SPI now supports Document Name property for fax jobs.
+				]]>
+			</action>
+		</release>
+
 		<release version="0.43.4" date="2017-02-24" description="Cloud Based Build">
 			<action dev="Sagie Gur-Ari" type="update">
 				<![CDATA[

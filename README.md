@@ -1,5 +1,8 @@
 # fax4j
-Java fax library.
+
+[![Maven Version](https://img.shields.io/maven-central/v/net.sf.fax4j/fax4j.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22net.sf.fax4j%22) [![Build Status](https://ci.appveyor.com/api/projects/status/github/sagiegurari/fax4j?svg=true)](https://ci.appveyor.com/project/sagiegurari/fax4j) [![License](https://img.shields.io/github/license/sagiegurari/fax4j.svg?style=flat)](https://github.com/sagiegurari/fax4j/blob/master/LICENSE.txt)
+
+> Java fax library.
 
 ## Introduction
 The [fax4j](http://sagiegurari.github.io/fax4j/) is a Java fax library.
@@ -14,7 +17,7 @@ Or if you are using maven, simply add the following to your pom.xml:
 <dependency>
   <groupId>net.sf.fax4j</groupId>
   <artifactId>fax4j</artifactId>
-  <version>0.43.4</version>
+  <version>0.43.5</version>
 </dependency>
 ```
 
