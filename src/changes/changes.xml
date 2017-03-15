@@ -8,7 +8,7 @@
 	</properties>
 
 	<body>
-		<release version="0.43.6" date="2017-03-15">
+		<release version="0.44.0" date="2017-03-15">
 			<action dev="Sagie Gur-Ari" type="update">
 				<![CDATA[
 					Code Formatting
