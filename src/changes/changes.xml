@@ -8,6 +8,14 @@
 	</properties>
 
 	<body>
+		<release version="0.43.6" date="2017-03-15">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Code Formatting
+				]]>
+			</action>
+		</release>
+
 		<release version="0.43.5" date="2017-03-10" description="New Functionality">
 			<action dev="Sagie Gur-Ari" type="add">
 				<![CDATA[
