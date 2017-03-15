@@ -11,49 +11,49 @@ import java.util.EventListener;
  * However the fax job itself might still be pending transmission by the actual
  * fax modem/server.
  * 
- * @author 	Sagie Gur-Ari
+ * @author  Sagie Gur-Ari
  * @version 1.02
- * @since	0.20b
+ * @since   0.20b
  */
 public interface FaxClientActionEventListener extends EventListener
 {
-	/**
-	 * This function is invoked after a new fax job is created.
-	 * 
-	 * @param 	event
-	 * 			The fax event
-	 */
-	public void faxJobCreated(FaxClientActionEvent event);
+    /**
+     * This function is invoked after a new fax job is created.
+     * 
+     * @param   event
+     *          The fax event
+     */
+    public void faxJobCreated(FaxClientActionEvent event);
 
-	/**
-	 * This function is invoked after a fax job is submitted.
-	 * 
-	 * @param 	event
-	 * 			The fax event
-	 */
-	public void faxJobSubmitted(FaxClientActionEvent event);
+    /**
+     * This function is invoked after a fax job is submitted.
+     * 
+     * @param   event
+     *          The fax event
+     */
+    public void faxJobSubmitted(FaxClientActionEvent event);
 
-	/**
-	 * This function is invoked after a fax job is suspended.
-	 * 
-	 * @param 	event
-	 * 			The fax event
-	 */
-	public void faxJobSuspended(FaxClientActionEvent event);
+    /**
+     * This function is invoked after a fax job is suspended.
+     * 
+     * @param   event
+     *          The fax event
+     */
+    public void faxJobSuspended(FaxClientActionEvent event);
 
-	/**
-	 * This function is invoked after a fax job is resumed.
-	 * 
-	 * @param 	event
-	 * 			The fax event
-	 */
-	public void faxJobResumed(FaxClientActionEvent event);
+    /**
+     * This function is invoked after a fax job is resumed.
+     * 
+     * @param   event
+     *          The fax event
+     */
+    public void faxJobResumed(FaxClientActionEvent event);
 
-	/**
-	 * This function is invoked after a fax job is cancelled.
-	 * 
-	 * @param 	event
-	 * 			The fax event
-	 */
-	public void faxJobCancelled(FaxClientActionEvent event);
+    /**
+     * This function is invoked after a fax job is cancelled.
+     * 
+     * @param   event
+     *          The fax event
+     */
+    public void faxJobCancelled(FaxClientActionEvent event);
 }

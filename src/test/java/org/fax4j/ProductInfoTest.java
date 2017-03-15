@@ -5,19 +5,19 @@ import org.junit.Test;
 /**
  * Test Class 
  * 
- * @author 	Sagie Gur-Ari
+ * @author  Sagie Gur-Ari
  */
 public class ProductInfoTest
 {
-	/**
-	 * Test 
-	 * 
-	 * @throws 	Exception
-	 * 			Any exception
-	 */
-	@Test
-	public void printProductInfoTest() throws Exception
-	{
-		ProductInfo.printProductInfo();
-	}
+    /**
+     * Test 
+     * 
+     * @throws  Exception
+     *          Any exception
+     */
+    @Test
+    public void printProductInfoTest() throws Exception
+    {
+        ProductInfo.printProductInfo();
+    }
 }

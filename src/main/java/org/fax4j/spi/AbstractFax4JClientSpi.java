@@ -28,171 +28,171 @@ import org.fax4j.common.Fax4JProvider;
  * <br>
  * For SPI specific configuration, see the relevant SPI class javadoc.
  * 
- * @author 	Sagie Gur-Ari
+ * @author  Sagie Gur-Ari
  * @version 1.03
- * @since	0.17
+ * @since   0.17
  */
 public abstract class AbstractFax4JClientSpi extends AbstractFaxClientSpi
 {
-	/**
-	 * This is the default constructor.
-	 */
-	public AbstractFax4JClientSpi()
-	{
-		super();
-	}
+    /**
+     * This is the default constructor.
+     */
+    public AbstractFax4JClientSpi()
+    {
+        super();
+    }
 
-	/**
-	 * This function returns the provider.
-	 * 
-	 * @return	The provider
-	 */
-	public final Provider getProvider()
-	{
-		return Fax4JProvider.FAX4J_PROVIDER;
-	}
-	
-	/**
-	 * This function returns true if the fax monitor events are supported by this SPI.
-	 * 
-	 * @return	True if the fax monitor events are supported by this SPI
-	 */
-	public boolean isFaxMonitorEventsSupported()
-	{
-		return false;
-	}
+    /**
+     * This function returns the provider.
+     * 
+     * @return  The provider
+     */
+    public final Provider getProvider()
+    {
+        return Fax4JProvider.FAX4J_PROVIDER;
+    }
+    
+    /**
+     * This function returns true if the fax monitor events are supported by this SPI.
+     * 
+     * @return  True if the fax monitor events are supported by this SPI
+     */
+    public boolean isFaxMonitorEventsSupported()
+    {
+        return false;
+    }
 
-	/**
-	 * This function polls the new statues for the provided fax jobs.
-	 * 
-	 * @param 	faxJobs
-	 * 			The fax jobs to poll
-	 * @return	The fax job statues
-	 */
-	public final FaxJobStatus[] pollForFaxJobStatues(FaxJob[] faxJobs)
-	{
-		FaxJobStatus[] faxJobStatuses=null;
-		if((faxJobs!=null)&&(faxJobs.length>0)&&(this.isFaxMonitorEventsSupported()))
-		{
-			faxJobStatuses=this.pollForFaxJobStatuesImpl(faxJobs);
-		}
+    /**
+     * This function polls the new statues for the provided fax jobs.
+     * 
+     * @param   faxJobs
+     *          The fax jobs to poll
+     * @return  The fax job statues
+     */
+    public final FaxJobStatus[] pollForFaxJobStatues(FaxJob[] faxJobs)
+    {
+        FaxJobStatus[] faxJobStatuses=null;
+        if((faxJobs!=null)&&(faxJobs.length>0)&&(this.isFaxMonitorEventsSupported()))
+        {
+            faxJobStatuses=this.pollForFaxJobStatuesImpl(faxJobs);
+        }
 
-		return faxJobStatuses;
-	}
-	
-	/**
-	 * This function will submit a new fax job.<br>
-	 * The fax job ID may be populated by this method in the provided
-	 * fax job object.
-	 * 
-	 * @param 	faxJob
-	 * 			The fax job object containing the needed information
-	 */
-	@Override
-	protected void submitFaxJobImpl(FaxJob faxJob)
-	{
-		this.throwUnsupportedException();
-	}
-	
-	/**
-	 * This function will suspend an existing fax job.
-	 * 
-	 * @param 	faxJob
-	 * 			The fax job object containing the needed information
-	 */
-	@Override
-	protected void suspendFaxJobImpl(FaxJob faxJob)
-	{
-		this.throwUnsupportedException();
-	}
-	
-	/**
-	 * This function will resume an existing fax job.
-	 * 
-	 * @param 	faxJob
-	 * 			The fax job object containing the needed information
-	 */
-	@Override
-	protected void resumeFaxJobImpl(FaxJob faxJob)
-	{
-		this.throwUnsupportedException();
-	}
-	
-	/**
-	 * This function will cancel an existing fax job.
-	 * 
-	 * @param 	faxJob
-	 * 			The fax job object containing the needed information
-	 */
-	@Override
-	protected void cancelFaxJobImpl(FaxJob faxJob)
-	{
-		this.throwUnsupportedException();
-	}
-	
-	/**
-	 * This function returns the fax job status.<br>
-	 * Not all SPIs support extraction of the fax job status.<br>
-	 * In case the SPI is unable to extract or does not support extracting
-	 * of the fax job status, it will return the UNKNOWN status.
-	 * 
-	 * @param 	faxJob
-	 * 			The fax job object containing the needed information
-	 * @return	The fax job status
-	 */
-	@Override
-	protected FaxJobStatus getFaxJobStatusImpl(FaxJob faxJob)
-	{
-		return FaxJobStatus.UNKNOWN;
-	}
+        return faxJobStatuses;
+    }
+    
+    /**
+     * This function will submit a new fax job.<br>
+     * The fax job ID may be populated by this method in the provided
+     * fax job object.
+     * 
+     * @param   faxJob
+     *          The fax job object containing the needed information
+     */
+    @Override
+    protected void submitFaxJobImpl(FaxJob faxJob)
+    {
+        this.throwUnsupportedException();
+    }
+    
+    /**
+     * This function will suspend an existing fax job.
+     * 
+     * @param   faxJob
+     *          The fax job object containing the needed information
+     */
+    @Override
+    protected void suspendFaxJobImpl(FaxJob faxJob)
+    {
+        this.throwUnsupportedException();
+    }
+    
+    /**
+     * This function will resume an existing fax job.
+     * 
+     * @param   faxJob
+     *          The fax job object containing the needed information
+     */
+    @Override
+    protected void resumeFaxJobImpl(FaxJob faxJob)
+    {
+        this.throwUnsupportedException();
+    }
+    
+    /**
+     * This function will cancel an existing fax job.
+     * 
+     * @param   faxJob
+     *          The fax job object containing the needed information
+     */
+    @Override
+    protected void cancelFaxJobImpl(FaxJob faxJob)
+    {
+        this.throwUnsupportedException();
+    }
+    
+    /**
+     * This function returns the fax job status.<br>
+     * Not all SPIs support extraction of the fax job status.<br>
+     * In case the SPI is unable to extract or does not support extracting
+     * of the fax job status, it will return the UNKNOWN status.
+     * 
+     * @param   faxJob
+     *          The fax job object containing the needed information
+     * @return  The fax job status
+     */
+    @Override
+    protected FaxJobStatus getFaxJobStatusImpl(FaxJob faxJob)
+    {
+        return FaxJobStatus.UNKNOWN;
+    }
 
-	/**
-	 * This function polls the new statues for the provided fax jobs.
-	 * 
-	 * @param 	faxJobs
-	 * 			The fax jobs to poll
-	 * @return	The fax job statues
-	 */
-	protected FaxJobStatus[] pollForFaxJobStatuesImpl(FaxJob[] faxJobs)
-	{
-		//get amount
-		int amount=faxJobs.length;
-		
-		//init array
-		FaxJobStatus[] faxJobStatuses=new FaxJobStatus[amount];
+    /**
+     * This function polls the new statues for the provided fax jobs.
+     * 
+     * @param   faxJobs
+     *          The fax jobs to poll
+     * @return  The fax job statues
+     */
+    protected FaxJobStatus[] pollForFaxJobStatuesImpl(FaxJob[] faxJobs)
+    {
+        //get amount
+        int amount=faxJobs.length;
+        
+        //init array
+        FaxJobStatus[] faxJobStatuses=new FaxJobStatus[amount];
 
-		FaxJob faxJob=null;
-		FaxJobStatus faxJobStatus=null;
-		for(int index=0;index<amount;index++)
-		{
-			//get next fax job
-			faxJob=faxJobs[index];
-			
-			//set default
-			faxJobStatus=FaxJobStatus.UNKNOWN;
+        FaxJob faxJob=null;
+        FaxJobStatus faxJobStatus=null;
+        for(int index=0;index<amount;index++)
+        {
+            //get next fax job
+            faxJob=faxJobs[index];
+            
+            //set default
+            faxJobStatus=FaxJobStatus.UNKNOWN;
 
-			if(faxJob!=null)
-			{
-				try
-				{
-					faxJobStatus=this.getFaxJobStatus(faxJob);
-				}
-				catch(RuntimeException exception)
-				{
-					//ignore errors as this method should not throw any exception
-				}
-			}
+            if(faxJob!=null)
+            {
+                try
+                {
+                    faxJobStatus=this.getFaxJobStatus(faxJob);
+                }
+                catch(RuntimeException exception)
+                {
+                    //ignore errors as this method should not throw any exception
+                }
+            }
 
-			//set default
-			if(faxJobStatus==null)
-			{
-				faxJobStatus=FaxJobStatus.UNKNOWN;
-			}
-			
-			//put in output array
-			faxJobStatuses[index]=faxJobStatus;
-		}
-		
-		return faxJobStatuses;
-	}
+            //set default
+            if(faxJobStatus==null)
+            {
+                faxJobStatus=FaxJobStatus.UNKNOWN;
+            }
+            
+            //put in output array
+            faxJobStatuses[index]=faxJobStatus;
+        }
+        
+        return faxJobStatuses;
+    }
 }

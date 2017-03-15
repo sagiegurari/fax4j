@@ -24,113 +24,113 @@ import org.fax4j.common.Logger;
  * Below table describes the configuration values relevant for this class.<br>
  * <b>Configuration:</b>
  * <table summary="" border="1">
- * 	<tr>
- * 		<td>Name</td>
- * 		<td>Description</td>
- * 		<td>Preconfigured Value</td>
- * 		<td>Default Value</td>
- * 		<td>Mandatory</td>
+ *  <tr>
+ *      <td>Name</td>
+ *      <td>Description</td>
+ *      <td>Preconfigured Value</td>
+ *      <td>Default Value</td>
+ *      <td>Mandatory</td>
  * </tr>
- * 	<tr>
- * 		<td>org.fax4j.proxy.interceptor.list</td>
- * 		<td>A list of interceptor types, separated by a ';' character.<br>
- * 			Each type must have a matching org.fax4j.proxy.interceptor.type.xxx property.
- * 		</td>
- * 		<td>log</td>
- * 		<td>none</td>
- * 		<td>false</td>
+ *  <tr>
+ *      <td>org.fax4j.proxy.interceptor.list</td>
+ *      <td>A list of interceptor types, separated by a ';' character.<br>
+ *          Each type must have a matching org.fax4j.proxy.interceptor.type.xxx property.
+ *      </td>
+ *      <td>log</td>
+ *      <td>none</td>
+ *      <td>false</td>
  * </tr>
- * 	<tr>
- * 		<td>org.fax4j.proxy.interceptor.type.xxx</td>
- * 		<td>The interceptor type to class name mapping.</td>
- * 		<td>org.fax4j.proxy.interceptor.type.log=org.fax4j.spi.LogFaxClientSpiInterceptor</td>
- * 		<td>none</td>
- * 		<td>false</td>
+ *  <tr>
+ *      <td>org.fax4j.proxy.interceptor.type.xxx</td>
+ *      <td>The interceptor type to class name mapping.</td>
+ *      <td>org.fax4j.proxy.interceptor.type.log=org.fax4j.spi.LogFaxClientSpiInterceptor</td>
+ *      <td>none</td>
+ *      <td>false</td>
  * </tr>
  * </table>
  * <br>
  * 
- * @author 	Sagie Gur-Ari
+ * @author  Sagie Gur-Ari
  * @version 1.02
- * @since	0.17
+ * @since   0.17
  */
 public abstract class AbstractFaxClientSpiInterceptor implements FaxClientSpiInterceptor
 {
-	/**The initialized flag*/
-	private boolean initialized;
-	/**The fax client SPI*/
-	private FaxClientSpi faxClientSpiInstance;
-	
-	/**
-	 * This is the default constructor.
-	 */
-	public AbstractFaxClientSpiInterceptor()
-	{
-		super();
-		
-		//set flag
-		this.initialized=false;
-	}
+    /**The initialized flag*/
+    private boolean initialized;
+    /**The fax client SPI*/
+    private FaxClientSpi faxClientSpiInstance;
+    
+    /**
+     * This is the default constructor.
+     */
+    public AbstractFaxClientSpiInterceptor()
+    {
+        super();
+        
+        //set flag
+        this.initialized=false;
+    }
 
-	/**
-	 * This function initializes the fax client SPI interceptor.<br>
-	 * This method is called by the FaxClientSpiFactory.
-	 * 
-	 * @param	faxClientSpi
-	 * 			The fax client SPI
-	 */
-	public final void initialize(FaxClientSpi faxClientSpi)
-	{
-		if(this.initialized)
-		{
-			throw new FaxException("Fax client SPI interceptor already initialized.");
-		}
-		
-		//set flag
-		this.initialized=true;
-		
-		//get configuration
-		this.faxClientSpiInstance=faxClientSpi;
-		
-		//initialize
-		this.initializeImpl();
-	}
-	
-	/**
-	 * This function returns the fax client SPI.
-	 *  
-	 * @return	The fax client SPI
-	 */
-	protected final FaxClientSpi getFaxClientSpi()
-	{
-		return this.faxClientSpiInstance;
-	}
-	
-	/**
-	 * Returns the value from the SPI configuration based on the provided 
-	 * configuration key.
-	 *  
-	 * @param 	key
-	 * 			The configuration key
-	 * @return	The value
-	 */
-	public final String getConfigurationValue(String key)
-	{
-		return this.faxClientSpiInstance.getConfigurationValue(key);
-	}
-	
-	/**
-	 * Returns the internal logger.
-	 *  
-	 * @return	The internal logger
-	 */
-	public final Logger getLogger()
-	{
-		return this.faxClientSpiInstance.getLogger();
-	}
-	
-	/**
-	 * This function initializes the fax client SPI interceptor.
-	 */
-	protected abstract void initializeImpl();
+    /**
+     * This function initializes the fax client SPI interceptor.<br>
+     * This method is called by the FaxClientSpiFactory.
+     * 
+     * @param   faxClientSpi
+     *          The fax client SPI
+     */
+    public final void initialize(FaxClientSpi faxClientSpi)
+    {
+        if(this.initialized)
+        {
+            throw new FaxException("Fax client SPI interceptor already initialized.");
+        }
+        
+        //set flag
+        this.initialized=true;
+        
+        //get configuration
+        this.faxClientSpiInstance=faxClientSpi;
+        
+        //initialize
+        this.initializeImpl();
+    }
+    
+    /**
+     * This function returns the fax client SPI.
+     *  
+     * @return  The fax client SPI
+     */
+    protected final FaxClientSpi getFaxClientSpi()
+    {
+        return this.faxClientSpiInstance;
+    }
+    
+    /**
+     * Returns the value from the SPI configuration based on the provided 
+     * configuration key.
+     *  
+     * @param   key
+     *          The configuration key
+     * @return  The value
+     */
+    public final String getConfigurationValue(String key)
+    {
+        return this.faxClientSpiInstance.getConfigurationValue(key);
+    }
+    
+    /**
+     * Returns the internal logger.
+     *  
+     * @return  The internal logger
+     */
+    public final Logger getLogger()
+    {
+        return this.faxClientSpiInstance.getLogger();
+    }
+    
+    /**
+     * This function initializes the fax client SPI interceptor.
+     */
+    protected abstract void initializeImpl();
 }

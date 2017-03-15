@@ -36,124 +36,124 @@ import org.fax4j.spi.email.MailFaxClientSpi;
  * Below table describes the configuration values relevant for this class.<br>
  * <b>Configuration:</b>
  * <table summary="" border="1">
- * 	<tr>
- * 		<td>Name</td>
- * 		<td>Description</td>
- * 		<td>Preconfigured Value</td>
- * 		<td>Default Value</td>
- * 		<td>Mandatory</td>
+ *  <tr>
+ *      <td>Name</td>
+ *      <td>Description</td>
+ *      <td>Preconfigured Value</td>
+ *      <td>Default Value</td>
+ *      <td>Mandatory</td>
  * </tr>
- * 	<tr>
- * 		<td>org.fax4j.spi.mail.persistent.connection</td>
- * 		<td>True to reuse the same mail connection for all fax activites, false to create a
- * 			new mail connection for each fax activity.</td>
- * 		<td>false</td>
- * 		<td>false</td>
- * 		<td>false</td>
+ *  <tr>
+ *      <td>org.fax4j.spi.mail.persistent.connection</td>
+ *      <td>True to reuse the same mail connection for all fax activites, false to create a
+ *          new mail connection for each fax activity.</td>
+ *      <td>false</td>
+ *      <td>false</td>
+ *      <td>false</td>
  * </tr>
- * 	<tr>
- * 		<td>org.fax4j.spi.mail.user.name</td>
- * 		<td>The mail account user name.</td>
- * 		<td>none</td>
- * 		<td>none</td>
- * 		<td>false</td>
+ *  <tr>
+ *      <td>org.fax4j.spi.mail.user.name</td>
+ *      <td>The mail account user name.</td>
+ *      <td>none</td>
+ *      <td>none</td>
+ *      <td>false</td>
  * </tr>
- * 	<tr>
- * 		<td>org.fax4j.spi.mail.password</td>
- * 		<td>The mail account password.</td>
- * 		<td>none</td>
- * 		<td>none</td>
- * 		<td>false</td>
+ *  <tr>
+ *      <td>org.fax4j.spi.mail.password</td>
+ *      <td>The mail account password.</td>
+ *      <td>none</td>
+ *      <td>none</td>
+ *      <td>false</td>
  * </tr>
- * 	<tr>
- * 		<td>javax mail properties</td>
- * 		<td>Any of the javax mail properties can be defined in the fax4j properties.<br>
- * 			These properties will be passed to the java mail framework.</td>
- * 		<td>mail.transport.protocol=smtp<br>
- * 			mail.smtp.port=25</td>
- * 		<td>none</td>
- * 		<td>false</td>
+ *  <tr>
+ *      <td>javax mail properties</td>
+ *      <td>Any of the javax mail properties can be defined in the fax4j properties.<br>
+ *          These properties will be passed to the java mail framework.</td>
+ *      <td>mail.transport.protocol=smtp<br>
+ *          mail.smtp.port=25</td>
+ *      <td>none</td>
+ *      <td>false</td>
  * </tr>
  * </table>
  * <br>
  * <b>Limitations:</b><br>
  * <ul>
- * 	<li>This SPI is based on the java mail infrastructure, therefore this SPI cannot
- * 		connect to mail servers through a proxy server.
- * 	<li>Currently this SPI only supports submitting new fax jobs.
+ *  <li>This SPI is based on the java mail infrastructure, therefore this SPI cannot
+ *      connect to mail servers through a proxy server.
+ *  <li>Currently this SPI only supports submitting new fax jobs.
  * </ul>
  * <br>
  * <b>Dependencies:</b><br>
  * <ul>
- * 	<li>Required jar files: mail-1.4.jar, activation-1.1.jar
+ *  <li>Required jar files: mail-1.4.jar, activation-1.1.jar
  * </ul>
  * <br>
  * 
  * 
- * @author 	Sagie Gur-Ari
+ * @author  Sagie Gur-Ari
  * @version 1.02
- * @since	0.21c
+ * @since   0.21c
  */
 public class Send2FaxMailFaxClientSpi extends MailFaxClientSpi
 {
-	/**
-	 * This class holds the SPI configuration constants.
-	 * 
-	 * @author 	Sagie Gur-Ari
-	 * @version 1.02
-	 * @since	0.21c
-	 */
-	public enum FaxClientSpiConfigurationConstants
-	{
-		/**The mail address template value*/
-		MAIL_ADDRESS_TEMPLATE_VALUE("{0}@fax.send2fax.com"),
-		/**The mail subject template value*/
-		MAIL_SUBJECT_TEMPLATE_VALUE("fax");
+    /**
+     * This class holds the SPI configuration constants.
+     * 
+     * @author  Sagie Gur-Ari
+     * @version 1.02
+     * @since   0.21c
+     */
+    public enum FaxClientSpiConfigurationConstants
+    {
+        /**The mail address template value*/
+        MAIL_ADDRESS_TEMPLATE_VALUE("{0}@fax.send2fax.com"),
+        /**The mail subject template value*/
+        MAIL_SUBJECT_TEMPLATE_VALUE("fax");
 
-		/**The string value*/
-		private String value;
+        /**The string value*/
+        private String value;
 
-		/**
-		 * This is the class constructor.
-		 * 
-		 * @param	value
-		 * 			The string value
-		 */
-		private FaxClientSpiConfigurationConstants(String value)
-		{
-			this.value=value;
-		}
-		
-		/**
-		 * This function returns the string value.
-		 * 
-		 * @return	The string value
-		 */
-		@Override
-		public final String toString()
-		{
-			return this.value;
-		}
-	}
-	
-	/**
-	 * This is the default constructor.
-	 */
-	public Send2FaxMailFaxClientSpi()
-	{
-		super();
-	}
-	
-	/**
-	 * This function initializes the mail templates.
-	 */
-	@Override
-	protected void initializeMailTemplates()
-	{
-		//mail address template
-		this.mailAddressTemplate=FaxClientSpiConfigurationConstants.MAIL_ADDRESS_TEMPLATE_VALUE.toString();
+        /**
+         * This is the class constructor.
+         * 
+         * @param   value
+         *          The string value
+         */
+        private FaxClientSpiConfigurationConstants(String value)
+        {
+            this.value=value;
+        }
+        
+        /**
+         * This function returns the string value.
+         * 
+         * @return  The string value
+         */
+        @Override
+        public final String toString()
+        {
+            return this.value;
+        }
+    }
+    
+    /**
+     * This is the default constructor.
+     */
+    public Send2FaxMailFaxClientSpi()
+    {
+        super();
+    }
+    
+    /**
+     * This function initializes the mail templates.
+     */
+    @Override
+    protected void initializeMailTemplates()
+    {
+        //mail address template
+        this.mailAddressTemplate=FaxClientSpiConfigurationConstants.MAIL_ADDRESS_TEMPLATE_VALUE.toString();
 
-		//mail subject template
-		this.mailSubjectTemplate=FaxClientSpiConfigurationConstants.MAIL_SUBJECT_TEMPLATE_VALUE.toString();
-	}
+        //mail subject template
+        this.mailSubjectTemplate=FaxClientSpiConfigurationConstants.MAIL_SUBJECT_TEMPLATE_VALUE.toString();
+    }
 }

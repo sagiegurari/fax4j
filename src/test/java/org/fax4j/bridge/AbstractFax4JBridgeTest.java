@@ -12,53 +12,53 @@ import org.junit.Test;
 /**
  * Test Class 
  * 
- * @author 	Sagie Gur-Ari
+ * @author  Sagie Gur-Ari
  */
 public class AbstractFax4JBridgeTest
 {
-	/**The fax bridge to test*/
-	private AbstractFax4JBridge faxBridge;
+    /**The fax bridge to test*/
+    private AbstractFax4JBridge faxBridge;
 
-	/**
-	 * Sets up the test objects.
-	 * 
-	 * @throws 	Exception
-	 * 			Any exception
-	 */
-	@Before
-	public void setUp() throws Exception
-	{
-		this.faxBridge=new AbstractFax4JBridge()
-		{
-			@Override
-			protected void updateFaxJobWithFileInfo(FaxJob faxJob,FileInfo fileInfo)
-			{
-				//empty
-			}
-			@Override
-			protected VendorPolicy createVendorPolicy()
-			{
-				return new EmptyVendorPolicy();
-			}
-		};
+    /**
+     * Sets up the test objects.
+     * 
+     * @throws  Exception
+     *          Any exception
+     */
+    @Before
+    public void setUp() throws Exception
+    {
+        this.faxBridge=new AbstractFax4JBridge()
+        {
+            @Override
+            protected void updateFaxJobWithFileInfo(FaxJob faxJob,FileInfo fileInfo)
+            {
+                //empty
+            }
+            @Override
+            protected VendorPolicy createVendorPolicy()
+            {
+                return new EmptyVendorPolicy();
+            }
+        };
 
-		Properties configuration=new Properties();
-		configuration.setProperty("org.fax4j.proxy.enabled","false");
-		configuration.setProperty("org.fax4j.spi.type.map.test",EmptyFaxClientSpi.class.getName());
-		this.faxBridge.initialize("test",configuration,new Object());
-	}
+        Properties configuration=new Properties();
+        configuration.setProperty("org.fax4j.proxy.enabled","false");
+        configuration.setProperty("org.fax4j.spi.type.map.test",EmptyFaxClientSpi.class.getName());
+        this.faxBridge.initialize("test",configuration,new Object());
+    }
 
-	/**
-	 * Test 
-	 * 
-	 * @throws 	Exception
-	 * 			Any exception
-	 */
-	@Test
-	public void getProviderTest() throws Exception
-	{
-		Provider output=this.faxBridge.getProvider();
-		Assert.assertNotNull(output);
-		Assert.assertEquals(Fax4JProvider.FAX4J_PROVIDER,output);
-	}
+    /**
+     * Test 
+     * 
+     * @throws  Exception
+     *          Any exception
+     */
+    @Test
+    public void getProviderTest() throws Exception
+    {
+        Provider output=this.faxBridge.getProvider();
+        Assert.assertNotNull(output);
+        Assert.assertEquals(Fax4JProvider.FAX4J_PROVIDER,output);
+    }
 }

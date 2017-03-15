@@ -25,137 +25,137 @@ import java.lang.reflect.Method;
  * Below table describes the configuration values relevant for this class.<br>
  * <b>Configuration:</b>
  * <table summary="" border="1">
- * 	<tr>
- * 		<td>Name</td>
- * 		<td>Description</td>
- * 		<td>Preconfigured Value</td>
- * 		<td>Default Value</td>
- * 		<td>Mandatory</td>
+ *  <tr>
+ *      <td>Name</td>
+ *      <td>Description</td>
+ *      <td>Preconfigured Value</td>
+ *      <td>Default Value</td>
+ *      <td>Mandatory</td>
  * </tr>
- * 	<tr>
- * 		<td>org.fax4j.proxy.enabled</td>
- * 		<td>True to enable the fax client SPI proxy.</td>
- * 		<td>true</td>
- * 		<td>true</td>
- * 		<td>false</td>
+ *  <tr>
+ *      <td>org.fax4j.proxy.enabled</td>
+ *      <td>True to enable the fax client SPI proxy.</td>
+ *      <td>true</td>
+ *      <td>true</td>
+ *      <td>false</td>
  * </tr>
- * 	<tr>
- * 		<td>org.fax4j.proxy.class.name</td>
- * 		<td>Defines the fax client SPI proxy class name.</td>
- * 		<td>org.fax4j.spi.FaxClientSpiProxyImpl</td>
- * 		<td>org.fax4j.spi.FaxClientSpiProxyImpl</td>
- * 		<td>false</td>
+ *  <tr>
+ *      <td>org.fax4j.proxy.class.name</td>
+ *      <td>Defines the fax client SPI proxy class name.</td>
+ *      <td>org.fax4j.spi.FaxClientSpiProxyImpl</td>
+ *      <td>org.fax4j.spi.FaxClientSpiProxyImpl</td>
+ *      <td>false</td>
  * </tr>
- * 	<tr>
- * 		<td>org.fax4j.proxy.interceptor.list</td>
- * 		<td>A list of interceptor types, separated by a ';' character.<br>
- * 			Each type must have a matching org.fax4j.proxy.interceptor.type.xxx property.
- * 		</td>
- * 		<td>log</td>
- * 		<td>none</td>
- * 		<td>false</td>
+ *  <tr>
+ *      <td>org.fax4j.proxy.interceptor.list</td>
+ *      <td>A list of interceptor types, separated by a ';' character.<br>
+ *          Each type must have a matching org.fax4j.proxy.interceptor.type.xxx property.
+ *      </td>
+ *      <td>log</td>
+ *      <td>none</td>
+ *      <td>false</td>
  * </tr>
- * 	<tr>
- * 		<td>org.fax4j.proxy.interceptor.type.xxx</td>
- * 		<td>The interceptor type to class name mapping.</td>
- * 		<td>org.fax4j.proxy.interceptor.type.log=org.fax4j.spi.LogFaxClientSpiInterceptor</td>
- * 		<td>none</td>
- * 		<td>false</td>
+ *  <tr>
+ *      <td>org.fax4j.proxy.interceptor.type.xxx</td>
+ *      <td>The interceptor type to class name mapping.</td>
+ *      <td>org.fax4j.proxy.interceptor.type.log=org.fax4j.spi.LogFaxClientSpiInterceptor</td>
+ *      <td>none</td>
+ *      <td>false</td>
  * </tr>
  * </table>
  * <br>
  * 
- * @author 	Sagie Gur-Ari
+ * @author  Sagie Gur-Ari
  * @version 1.02
- * @since	0.17
+ * @since   0.17
  */
 public class FaxClientSpiProxyImpl extends AbstractFaxClientSpiProxy
 {
-	/**
-	 * This is the default constructor.
-	 */
-	public FaxClientSpiProxyImpl()
-	{
-		super();
-	}
+    /**
+     * This is the default constructor.
+     */
+    public FaxClientSpiProxyImpl()
+    {
+        super();
+    }
 
-	/**
-	 * This function initializes the fax client SPI proxy.
-	 */
-	@Override
-	protected void initializeImpl()
-	{
-		//empty implementation
-	}
+    /**
+     * This function initializes the fax client SPI proxy.
+     */
+    @Override
+    protected void initializeImpl()
+    {
+        //empty implementation
+    }
 
-	/**
-	 * This function invokes the interceptor for the given event.
-	 * 
-	 * @param 	eventType
-	 * 			The event type
-	 * @param 	method
-	 * 			The method invoked
-	 * @param 	arguments
-	 * 			The method arguments
-	 * @param 	output
-	 * 			The method output
-	 * @param	throwable
-	 * 			The throwable while invoking the method
-	 */
-	@Override
-	protected void invokeInterceptors(FaxClientSpiProxyEventType eventType,Method method,Object[] arguments,Object output,Throwable throwable)
-	{
-		try
-		{
-			this.invokeInterceptorsImpl(eventType,method,arguments,output,throwable);
-		}
-		catch(Throwable ignore)
-		{
-			//ignore
-		}
-	}
-	
-	/**
-	 * This function invokes the interceptor for the given event.
-	 * 
-	 * @param 	eventType
-	 * 			The event type
-	 * @param 	method
-	 * 			The method invoked
-	 * @param 	arguments
-	 * 			The method arguments
-	 * @param 	output
-	 * 			The method output
-	 * @param	throwable
-	 * 			The throwable while invoking the method
-	 */
-	protected void invokeInterceptorsImpl(FaxClientSpiProxyEventType eventType,Method method,Object[] arguments,Object output,Throwable throwable)
-	{
-		//get interceptors
-		FaxClientSpiInterceptor[] interceptors=this.getFaxClientSpiInterceptors();
-		
-		//get interceptors amount
-		int amount=interceptors.length;
-		
-		FaxClientSpiInterceptor interceptor=null;
-		for(int index=0;index<amount;index++)
-		{
-			//get next interceptor
-			interceptor=interceptors[index];
-			
-			//invoke interceptor
-			if(eventType==FaxClientSpiProxyEventType.PRE_EVENT_TYPE)
-			{
-				interceptor.preMethodInvocation(method,arguments);
-			}
-			else if(eventType==FaxClientSpiProxyEventType.POST_EVENT_TYPE)
-			{
-				interceptor.postMethodInvocation(method,arguments,output);
-			}
-			else
-			{
-				interceptor.onMethodInvocationError(method,arguments,throwable);
-			}
-		}
-	}
+    /**
+     * This function invokes the interceptor for the given event.
+     * 
+     * @param   eventType
+     *          The event type
+     * @param   method
+     *          The method invoked
+     * @param   arguments
+     *          The method arguments
+     * @param   output
+     *          The method output
+     * @param   throwable
+     *          The throwable while invoking the method
+     */
+    @Override
+    protected void invokeInterceptors(FaxClientSpiProxyEventType eventType,Method method,Object[] arguments,Object output,Throwable throwable)
+    {
+        try
+        {
+            this.invokeInterceptorsImpl(eventType,method,arguments,output,throwable);
+        }
+        catch(Throwable ignore)
+        {
+            //ignore
+        }
+    }
+    
+    /**
+     * This function invokes the interceptor for the given event.
+     * 
+     * @param   eventType
+     *          The event type
+     * @param   method
+     *          The method invoked
+     * @param   arguments
+     *          The method arguments
+     * @param   output
+     *          The method output
+     * @param   throwable
+     *          The throwable while invoking the method
+     */
+    protected void invokeInterceptorsImpl(FaxClientSpiProxyEventType eventType,Method method,Object[] arguments,Object output,Throwable throwable)
+    {
+        //get interceptors
+        FaxClientSpiInterceptor[] interceptors=this.getFaxClientSpiInterceptors();
+        
+        //get interceptors amount
+        int amount=interceptors.length;
+        
+        FaxClientSpiInterceptor interceptor=null;
+        for(int index=0;index<amount;index++)
+        {
+            //get next interceptor
+            interceptor=interceptors[index];
+            
+            //invoke interceptor
+            if(eventType==FaxClientSpiProxyEventType.PRE_EVENT_TYPE)
+            {
+                interceptor.preMethodInvocation(method,arguments);
+            }
+            else if(eventType==FaxClientSpiProxyEventType.POST_EVENT_TYPE)
+            {
+                interceptor.postMethodInvocation(method,arguments,output);
+            }
+            else
+            {
+                interceptor.onMethodInvocationError(method,arguments,throwable);
+            }
+        }
+    }
 }
