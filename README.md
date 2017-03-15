@@ -18,7 +18,7 @@ Or if you are using maven, simply add the following to your pom.xml:
 <dependency>
   <groupId>net.sf.fax4j</groupId>
   <artifactId>fax4j</artifactId>
-  <version>0.44.0</version>
+  <version>0.44.1</version>
 </dependency>
 ```
 
