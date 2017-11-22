@@ -8,6 +8,14 @@
 	</properties>
 
 	<body>
+		<release version="0.44.2" date="2017-11-22">
+			<action dev="Sagie Gur-Ari" type="fix">
+				<![CDATA[
+					VBS SPI cint overflow (github issue #6)
+				]]>
+			</action>
+		</release>
+
 		<release version="0.44.1" date="2017-03-15">
 			<action dev="Sagie Gur-Ari" type="update">
 				<![CDATA[

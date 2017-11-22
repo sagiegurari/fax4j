@@ -2,7 +2,7 @@
 Dim faxJobIDStr
 faxJobIDStr="{1}"
 Dim faxJob
-faxJob=cint(faxJobIDStr)
+faxJob=clng(faxJobIDStr)
 Dim status
 status=faxGetFaxJobStatusWin2k("{0}",faxJob)
 

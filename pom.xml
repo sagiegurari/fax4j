@@ -4,7 +4,7 @@
 
 	<groupId>net.sf.fax4j</groupId>
 	<artifactId>fax4j</artifactId>
-	<version>0.44.1</version>
+	<version>0.44.2</version>
 	<packaging>jar</packaging>
 
 	<properties>
