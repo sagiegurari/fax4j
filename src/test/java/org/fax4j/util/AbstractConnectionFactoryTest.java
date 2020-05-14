@@ -11,70 +11,65 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class AbstractConnectionFactoryTest
-{
-    /**The connection factory to test*/
+public class AbstractConnectionFactoryTest {
+    /** The connection factory to test */
     private AbstractConnectionFactory<TestResource> connectionFactory;
 
     /**
      * Sets up the test objects.
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Before
-    public void setUp() throws Exception
-    {
-        this.connectionFactory=new TestConnectionFactory();
-        FaxClientSpi faxClientSpi=TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(),null);
+    public void setUp() throws Exception {
+        this.connectionFactory = new TestConnectionFactory();
+        FaxClientSpi faxClientSpi = TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(), null);
         this.connectionFactory.initialize(faxClientSpi);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void initializeAgainErrorTest() throws Exception
-    {
-        FaxClientSpi faxClientSpi=TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(),null);
+    @Test(expected = FaxException.class)
+    public void initializeAgainErrorTest() throws Exception {
+        FaxClientSpi faxClientSpi = TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(), null);
         this.connectionFactory.initialize(faxClientSpi);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void createConnectionTest() throws Exception
-    {
-        Connection<TestResource> connection=this.connectionFactory.createConnection();
+    public void createConnectionTest() throws Exception {
+        Connection<TestResource> connection = this.connectionFactory.createConnection();
         Assert.assertNotNull(connection);
-        TestResource resource=connection.getResource();
+        TestResource resource = connection.getResource();
         Assert.assertNotNull(resource);
         Assert.assertTrue(resource.isOpen());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void releaseConnectionTest() throws Exception
-    {
-        Connection<TestResource> connection=this.connectionFactory.createConnection();
+    public void releaseConnectionTest() throws Exception {
+        Connection<TestResource> connection = this.connectionFactory.createConnection();
         Assert.assertNotNull(connection);
-        TestResource resource=connection.getResource();
+        TestResource resource = connection.getResource();
         Assert.assertNotNull(resource);
         Assert.assertTrue(resource.isOpen());
         this.connectionFactory.releaseConnection(connection);
@@ -82,54 +77,50 @@ public class AbstractConnectionFactoryTest
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void createConnectionForResourceNullResourceTest() throws Exception
-    {
+    @Test(expected = FaxException.class)
+    public void createConnectionForResourceNullResourceTest() throws Exception {
         this.connectionFactory.createConnectionForResource(null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void createConnectionForResourceValidResourceTest() throws Exception
-    {
-        Connection<TestResource> connection=this.connectionFactory.createConnectionForResource(new TestResource());
+    public void createConnectionForResourceValidResourceTest() throws Exception {
+        Connection<TestResource> connection = this.connectionFactory.createConnectionForResource(new TestResource());
         Assert.assertNotNull(connection);
-        TestResource resource=connection.getResource();
+        TestResource resource = connection.getResource();
         Assert.assertNotNull(resource);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void releaseResourceNullResourceTest() throws Exception
-    {
+    public void releaseResourceNullResourceTest() throws Exception {
         this.connectionFactory.releaseResource(null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void releaseResourceValidResourceTest() throws Exception
-    {
-        TestResource resource=new TestResource();
+    public void releaseResourceValidResourceTest() throws Exception {
+        TestResource resource = new TestResource();
         Assert.assertTrue(resource.isOpen());
         this.connectionFactory.releaseResource(resource);
         Assert.assertFalse(resource.isOpen());

@@ -13,71 +13,68 @@ import org.fax4j.util.IOHelper;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class InterfaxMailFaxClientSpiTest extends PredefinedMailFaxClientSpiTest
-{
+public class InterfaxMailFaxClientSpiTest extends PredefinedMailFaxClientSpiTest {
     /**
      * This is the class constructor.
      */
-    public InterfaxMailFaxClientSpiTest()
-    {
-        super(InterfaxMailFaxClientSpi.class.getName(),FaxClientSpiConfigurationConstants.MAIL_ADDRESS_TEMPLATE_VALUE.toString(),FaxClientSpiConfigurationConstants.MAIL_SUBJECT_TEMPLATE_VALUE.toString());
+    public InterfaxMailFaxClientSpiTest() {
+        super(InterfaxMailFaxClientSpi.class.getName(),
+                FaxClientSpiConfigurationConstants.MAIL_ADDRESS_TEMPLATE_VALUE.toString(),
+                FaxClientSpiConfigurationConstants.MAIL_SUBJECT_TEMPLATE_VALUE.toString());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void createSubmitFaxJobMessageNullFromTest() throws Exception
-    {
-        InterfaxMailFaxClientSpi interfaxMailFaxClientSpi=(InterfaxMailFaxClientSpi)this.faxClientSpi;
-        FaxJob faxJob=new FaxJobImpl();
-        interfaxMailFaxClientSpi.createSubmitFaxJobMessage(faxJob,null);
+    @Test(expected = FaxException.class)
+    public void createSubmitFaxJobMessageNullFromTest() throws Exception {
+        InterfaxMailFaxClientSpi interfaxMailFaxClientSpi = (InterfaxMailFaxClientSpi) this.faxClientSpi;
+        FaxJob faxJob = new FaxJobImpl();
+        interfaxMailFaxClientSpi.createSubmitFaxJobMessage(faxJob, null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void createSubmitFaxJobMessageEmptyFromTest() throws Exception
-    {
-        InterfaxMailFaxClientSpi interfaxMailFaxClientSpi=(InterfaxMailFaxClientSpi)this.faxClientSpi;
-        FaxJob faxJob=new FaxJobImpl();
+    @Test(expected = FaxException.class)
+    public void createSubmitFaxJobMessageEmptyFromTest() throws Exception {
+        InterfaxMailFaxClientSpi interfaxMailFaxClientSpi = (InterfaxMailFaxClientSpi) this.faxClientSpi;
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setSenderEmail("");
-        interfaxMailFaxClientSpi.createSubmitFaxJobMessage(faxJob,null);
+        interfaxMailFaxClientSpi.createSubmitFaxJobMessage(faxJob, null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void createSubmitFaxJobMessageValidTest() throws Exception
-    {
-        File file=File.createTempFile("temp_",".txt");
+    public void createSubmitFaxJobMessageValidTest() throws Exception {
+        File file = File.createTempFile("temp_", ".txt");
         file.deleteOnExit();
-        IOHelper.writeTextFile("abc",file);
+        IOHelper.writeTextFile("abc", file);
 
-        InterfaxMailFaxClientSpi interfaxMailFaxClientSpi=(InterfaxMailFaxClientSpi)this.faxClientSpi;
-        FaxJob faxJob=new FaxJobImpl();
+        InterfaxMailFaxClientSpi interfaxMailFaxClientSpi = (InterfaxMailFaxClientSpi) this.faxClientSpi;
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setFile(file);
         faxJob.setSenderEmail("123@test.com");
-        MailConnectionFactory factory=new MailConnectionFactoryImpl();
+        MailConnectionFactory factory = new MailConnectionFactoryImpl();
         factory.initialize(interfaxMailFaxClientSpi);
-        MailResourcesHolder holder=factory.createConnection().getResource();
-        interfaxMailFaxClientSpi.createSubmitFaxJobMessage(faxJob,holder);
-        
+        MailResourcesHolder holder = factory.createConnection().getResource();
+        interfaxMailFaxClientSpi.createSubmitFaxJobMessage(faxJob, holder);
+
         file.delete();
     }
 }

@@ -14,131 +14,119 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class AbstractFaxJobMonitorTest
-{
-    /**The monitor*/
+public class AbstractFaxJobMonitorTest {
+    /** The monitor */
     private AbstractFaxJobMonitor abstractFaxJobMonitor;
-    /**The fax client SPI*/
+    /** The fax client SPI */
     private FaxClientSpi faxClientSpi;
 
     /**
      * Sets up the SPI instance.
      */
     @Before
-    public void setUp()
-    {
-        this.abstractFaxJobMonitor=new AbstractFaxJobMonitor()
-        {
+    public void setUp() {
+        this.abstractFaxJobMonitor = new AbstractFaxJobMonitor() {
             @Override
-            public void stopMonitoringAllFaxJobsImpl(FaxClientSpi spi)
-            {
-                //empty
+            public void stopMonitoringAllFaxJobsImpl(FaxClientSpi spi) {
+                // empty
             }
-            
+
             @Override
-            public void monitorFaxJobImpl(FaxClientSpi spi,FaxJob faxJob)
-            {
-                //empty
+            public void monitorFaxJobImpl(FaxClientSpi spi, FaxJob faxJob) {
+                // empty
             }
-            
+
             @Override
-            protected void initializeImpl()
-            {
-                //empty
+            protected void initializeImpl() {
+                // empty
             }
         };
-        this.faxClientSpi=TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(),null);
-        Logger logger=this.faxClientSpi.getLogger();
-        Map<String,String> configuration=LibraryConfigurationLoader.getSystemConfiguration();
-        Map<String,String> map=new HashMap<String,String>(configuration);
+        this.faxClientSpi = TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(), null);
+        Logger logger = this.faxClientSpi.getLogger();
+        Map<String, String> configuration = LibraryConfigurationLoader.getSystemConfiguration();
+        Map<String, String> map = new HashMap<String, String>(configuration);
         map.putAll(configuration);
-        map.put("org.fax4j.monitor.polling.interval","50");
-        this.abstractFaxJobMonitor.initialize(map,logger);
+        map.put("org.fax4j.monitor.polling.interval", "50");
+        this.abstractFaxJobMonitor.initialize(map, logger);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getConfigurationValueExistingPropertyTest() throws Exception
-    {
-        String output=this.abstractFaxJobMonitor.getConfigurationValue("org.fax4j.client.class.name");
+    public void getConfigurationValueExistingPropertyTest() throws Exception {
+        String output = this.abstractFaxJobMonitor.getConfigurationValue("org.fax4j.client.class.name");
         Assert.assertNotNull(output);
-        Assert.assertEquals(FaxClient.class.getName(),output);
+        Assert.assertEquals(FaxClient.class.getName(), output);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getConfigurationValueMissingPropertyTest() throws Exception
-    {
-        String output=this.abstractFaxJobMonitor.getConfigurationValue("prop2");
+    public void getConfigurationValueMissingPropertyTest() throws Exception {
+        String output = this.abstractFaxJobMonitor.getConfigurationValue("prop2");
         Assert.assertNull(output);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void monitorFaxJobMissingFaxClientSPITest() throws Exception
-    {
-        FaxJob faxJob=new FaxJobImpl();
+    @Test(expected = FaxException.class)
+    public void monitorFaxJobMissingFaxClientSPITest() throws Exception {
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setID("123");
-        this.abstractFaxJobMonitor.monitorFaxJob(null,faxJob);
+        this.abstractFaxJobMonitor.monitorFaxJob(null, faxJob);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void monitorFaxJobMissingFaxJobTest() throws Exception
-    {
-        this.abstractFaxJobMonitor.monitorFaxJob(this.faxClientSpi,null);
+    @Test(expected = FaxException.class)
+    public void monitorFaxJobMissingFaxJobTest() throws Exception {
+        this.abstractFaxJobMonitor.monitorFaxJob(this.faxClientSpi, null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void monitorFaxJobMissingFaxJobIDTest() throws Exception
-    {
-        FaxJob faxJob=new FaxJobImpl();
-        this.abstractFaxJobMonitor.monitorFaxJob(this.faxClientSpi,faxJob);
+    @Test(expected = FaxException.class)
+    public void monitorFaxJobMissingFaxJobIDTest() throws Exception {
+        FaxJob faxJob = new FaxJobImpl();
+        this.abstractFaxJobMonitor.monitorFaxJob(this.faxClientSpi, faxJob);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void monitorFaxJobValidInputTest() throws Exception
-    {
-        FaxJob faxJob=new FaxJobImpl();
+    public void monitorFaxJobValidInputTest() throws Exception {
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setID("123");
-        this.abstractFaxJobMonitor.monitorFaxJob(this.faxClientSpi,faxJob);
-        
+        this.abstractFaxJobMonitor.monitorFaxJob(this.faxClientSpi, faxJob);
+
         this.abstractFaxJobMonitor.stopMonitoringAllFaxJobs(this.faxClientSpi);
     }
 }

@@ -7,73 +7,66 @@ import org.fax4j.common.Logger;
 /**
  * This class provides common partial implementation of the fax job.
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  * @version 1.02
- * @since   0.34
+ * @since 0.34
  */
-public abstract class AbstractFaxJob implements FaxJob
-{
+public abstract class AbstractFaxJob implements FaxJob {
     /**
      * This is the class constructor.
      */
-    public AbstractFaxJob()
-    {
+    public AbstractFaxJob() {
         super();
     }
 
     /**
      * This function returns the path to the file to fax.
      * 
-     * @return  The path to the file to fax
+     * @return The path to the file to fax
      */
-    public String getFilePath()
-    {
-        //get file
-        File fileInstance=this.getFile();
-        
-        String filePath=null;
-        if(fileInstance!=null)
-        {
-            filePath=fileInstance.getPath();
+    public String getFilePath() {
+        // get file
+        File fileInstance = this.getFile();
+
+        String filePath = null;
+        if (fileInstance != null) {
+            filePath = fileInstance.getPath();
         }
-        
+
         return filePath;
     }
 
     /**
      * This function sets the path to the file to fax.
      * 
-     * @param   filePath
-     *          The path to the file to fax
+     * @param filePath
+     *            The path to the file to fax
      */
-    public void setFilePath(String filePath)
-    {
-        //create a new file
-        File fileInstance=null;
-        if(filePath!=null)
-        {
-            fileInstance=new File(filePath);
+    public void setFilePath(String filePath) {
+        // create a new file
+        File fileInstance = null;
+        if (filePath != null) {
+            fileInstance = new File(filePath);
         }
-        
-        //set file
+
+        // set file
         this.setFile(fileInstance);
     }
-    
+
     /**
      * This function adds the common attributes for the toString printing.
      * 
-     * @param   faxJobType
-     *          The fax job type
-     * @return  The buffer used
+     * @param faxJobType
+     *            The fax job type
+     * @return The buffer used
      */
-    protected StringBuilder addToStringAttributes(String faxJobType)
-    {
-        //init buffer
-        StringBuilder buffer=new StringBuilder(500);
+    protected StringBuilder addToStringAttributes(String faxJobType) {
+        // init buffer
+        StringBuilder buffer = new StringBuilder(500);
         buffer.append(faxJobType);
         buffer.append(":");
 
-        //append values
+        // append values
         buffer.append(Logger.SYSTEM_EOL);
         buffer.append("ID: ");
         buffer.append(this.getID());
@@ -98,7 +91,7 @@ public abstract class AbstractFaxJob implements FaxJob
         buffer.append(Logger.SYSTEM_EOL);
         buffer.append("Sender Email: ");
         buffer.append(this.getSenderEmail());
-        
+
         return buffer;
     }
 }

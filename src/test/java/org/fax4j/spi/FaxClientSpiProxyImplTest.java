@@ -8,73 +8,67 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class FaxClientSpiProxyImplTest
-{
-    /**The count value*/
+public class FaxClientSpiProxyImplTest {
+    /** The count value */
     private int count;
-    /**The proxy impl*/
+    /** The proxy impl */
     private FaxClientSpiProxyImpl proxy;
-    /**The interceptor*/
+    /** The interceptor */
     private TestFaxClientSpiInterceptor interceptor;
 
     /**
      * Sets up the SPI instance.
      */
     @Before
-    public void setUp()
-    {
-        this.proxy=new FaxClientSpiProxyImpl();
-        FaxClientSpi faxClientSpi=new EmptyFaxClientSpi(true);
-        this.count=5;
-        FaxClientSpiInterceptor[] interceptors=new FaxClientSpiInterceptor[this.count];
-        this.interceptor=new TestFaxClientSpiInterceptor();
-        for(int index=0;index<this.count;index++)
-        {
-            interceptors[index]=this.interceptor;
+    public void setUp() {
+        this.proxy = new FaxClientSpiProxyImpl();
+        FaxClientSpi faxClientSpi = new EmptyFaxClientSpi(true);
+        this.count = 5;
+        FaxClientSpiInterceptor[] interceptors = new FaxClientSpiInterceptor[this.count];
+        this.interceptor = new TestFaxClientSpiInterceptor();
+        for (int index = 0; index < this.count; index++) {
+            interceptors[index] = this.interceptor;
         }
-        this.proxy.initialize(faxClientSpi,interceptors);
+        this.proxy.initialize(faxClientSpi, interceptors);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void invokeInterceptorsImplPreTest() throws Exception
-    {
-        this.proxy.invokeInterceptorsImpl(FaxClientSpiProxyEventType.PRE_EVENT_TYPE,null,null,null,null);
-        Assert.assertEquals(this.count,this.interceptor.preCount);
+    public void invokeInterceptorsImplPreTest() throws Exception {
+        this.proxy.invokeInterceptorsImpl(FaxClientSpiProxyEventType.PRE_EVENT_TYPE, null, null, null, null);
+        Assert.assertEquals(this.count, this.interceptor.preCount);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void invokeInterceptorsImplPostTest() throws Exception
-    {
-        this.proxy.invokeInterceptorsImpl(FaxClientSpiProxyEventType.POST_EVENT_TYPE,null,null,null,null);
-        Assert.assertEquals(this.count,this.interceptor.postCount);
+    public void invokeInterceptorsImplPostTest() throws Exception {
+        this.proxy.invokeInterceptorsImpl(FaxClientSpiProxyEventType.POST_EVENT_TYPE, null, null, null, null);
+        Assert.assertEquals(this.count, this.interceptor.postCount);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void invokeInterceptorsImplOnErrorTest() throws Exception
-    {
-        this.proxy.invokeInterceptorsImpl(FaxClientSpiProxyEventType.ERROR_EVENT_TYPE,null,null,null,null);
-        Assert.assertEquals(this.count,this.interceptor.onErrorCount);
+    public void invokeInterceptorsImplOnErrorTest() throws Exception {
+        this.proxy.invokeInterceptorsImpl(FaxClientSpiProxyEventType.ERROR_EVENT_TYPE, null, null, null, null);
+        Assert.assertEquals(this.count, this.interceptor.onErrorCount);
     }
 }

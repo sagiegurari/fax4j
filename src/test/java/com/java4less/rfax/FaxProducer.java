@@ -1,11 +1,10 @@
 package com.java4less.rfax;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public interface FaxProducer
-{
-    //empty
+public interface FaxProducer {
+    // empty
 }

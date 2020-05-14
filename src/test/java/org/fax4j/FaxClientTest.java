@@ -25,35 +25,33 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class FaxClientTest
-{
+public class FaxClientTest {
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void exampleTest() throws Exception
-    {
-        //data setup
-        Properties configuration=new Properties();
-        configuration.setProperty("org.fax4j.spi.type.map.test",EmptyFaxClientSpi.class.getName());
-        File file=File.createTempFile("temp_",".txt");
-        IOHelper.writeTextFile("TEST_DATA",file);
+    public void exampleTest() throws Exception {
+        // data setup
+        Properties configuration = new Properties();
+        configuration.setProperty("org.fax4j.spi.type.map.test", EmptyFaxClientSpi.class.getName());
+        File file = File.createTempFile("temp_", ".txt");
+        IOHelper.writeTextFile("TEST_DATA", file);
         file.deleteOnExit();
 
-        //get new instance of a fax client
-        FaxClient faxClient=FaxClientFactory.createFaxClient("test",configuration);
-         
-        //create a new fax job
-        FaxJob faxJob=faxClient.createFaxJob();
+        // get new instance of a fax client
+        FaxClient faxClient = FaxClientFactory.createFaxClient("test", configuration);
 
-        //set fax job values
+        // create a new fax job
+        FaxJob faxJob = faxClient.createFaxJob();
+
+        // set fax job values
         faxJob.setFile(file);
         faxJob.setPriority(FaxJobPriority.HIGH_PRIORITY);
         faxJob.setTargetAddress("555-555");
@@ -61,304 +59,300 @@ public class FaxClientTest
         faxJob.setSenderEmail("myemail@mycompany.com");
         faxJob.setSenderName("MyName");
 
-        //submit fax job
+        // submit fax job
         faxClient.submitFaxJob(faxJob);
-        
+
         file.delete();
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void constructorEmptySPITest() throws Exception
-    {
-        FaxClient client=new FaxClient(null);
-        Assert.assertEquals(client.getProvider().getName(),Fax4JProvider.FAX4J_PROVIDER.getName());
+    @Test(expected = FaxException.class)
+    public void constructorEmptySPITest() throws Exception {
+        FaxClient client = new FaxClient(null);
+        Assert.assertEquals(client.getProvider().getName(), Fax4JProvider.FAX4J_PROVIDER.getName());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void constructorEmptySPILoggerTest() throws Exception
-    {
-        FaxClientSpi faxClientSpi=new FaxClientSpi()
-        {
+    @Test(expected = FaxException.class)
+    public void constructorEmptySPILoggerTest() throws Exception {
+        FaxClientSpi faxClientSpi = new FaxClientSpi() {
             /**
              * Returns the internal logger.
-             *  
-             * @return  The internal logger
+             * 
+             * @return The internal logger
              */
-            public Logger getLogger()
-            {
+            public Logger getLogger() {
                 return null;
             }
-            public FaxJob createFaxJob()
-            {
+
+            public FaxJob createFaxJob() {
                 return null;
             }
-            public void submitFaxJob(FaxJob faxJob)
-            {
-                //empty
+
+            public void submitFaxJob(FaxJob faxJob) {
+                // empty
             }
-            public void suspendFaxJob(FaxJob faxJob)
-            {
-                //empty
+
+            public void suspendFaxJob(FaxJob faxJob) {
+                // empty
             }
-            public void resumeFaxJob(FaxJob faxJob)
-            {
-                //empty
+
+            public void resumeFaxJob(FaxJob faxJob) {
+                // empty
             }
-            public void cancelFaxJob(FaxJob faxJob)
-            {
-                //empty
+
+            public void cancelFaxJob(FaxJob faxJob) {
+                // empty
             }
-            public FaxJobStatus getFaxJobStatus(FaxJob faxJob)
-            {
+
+            public FaxJobStatus getFaxJobStatus(FaxJob faxJob) {
                 return null;
             }
-            public void addFaxClientActionEventListener(FaxClientActionEventListener listener)
-            {
-                //empty
+
+            public void addFaxClientActionEventListener(FaxClientActionEventListener listener) {
+                // empty
             }
-            public void removeFaxClientActionEventListener(FaxClientActionEventListener listener)
-            {
-                //empty
+
+            public void removeFaxClientActionEventListener(FaxClientActionEventListener listener) {
+                // empty
             }
-            public void removeAllFaxClientActionEventListeners()
-            {
-                //empty
+
+            public void removeAllFaxClientActionEventListeners() {
+                // empty
             }
-            public void addFaxMonitorEventListener(FaxMonitorEventListener listener)
-            {
-                //empty
+
+            public void addFaxMonitorEventListener(FaxMonitorEventListener listener) {
+                // empty
             }
-            public void removeFaxMonitorEventListener(FaxMonitorEventListener listener)
-            {
-                //empty
+
+            public void removeFaxMonitorEventListener(FaxMonitorEventListener listener) {
+                // empty
             }
-            public void removeAllFaxMonitorEventListeners()
-            {
-                //empty
+
+            public void removeAllFaxMonitorEventListeners() {
+                // empty
             }
-            public Provider getProvider()
-            {
+
+            public Provider getProvider() {
                 return null;
             }
-            public void initialize(Map<String,String> configuration,Logger logger,FaxJobMonitor faxJobMonitor)
-            {
-                //empty
+
+            public void initialize(Map<String, String> configuration, Logger logger, FaxJobMonitor faxJobMonitor) {
+                // empty
             }
-            public String getConfigurationValue(String key)
-            {
+
+            public String getConfigurationValue(String key) {
                 return null;
             }
-            public void fireFaxMonitorEvent(FaxMonitorEventID id,FaxJob faxJob,FaxJobStatus faxJobStatus)
-            {
-                //empty
+
+            public void fireFaxMonitorEvent(FaxMonitorEventID id, FaxJob faxJob, FaxJobStatus faxJobStatus) {
+                // empty
             }
-            public FaxJobMonitor getFaxJobMonitor()
-            {
+
+            public FaxJobMonitor getFaxJobMonitor() {
                 return null;
             }
-            public FaxJobStatus[] pollForFaxJobStatues(FaxJob[] faxJobs)
-            {
+
+            public FaxJobStatus[] pollForFaxJobStatues(FaxJob[] faxJobs) {
                 return null;
             }
-            public boolean isFaxMonitorEventsSupported()
-            {
+
+            public boolean isFaxMonitorEventsSupported() {
                 return false;
             }
-            public Map<String,String> getConfiguration()
-            {
+
+            public Map<String, String> getConfiguration() {
                 return null;
             }
-            public String getConfigurationValue(Enum<?> key)
-            {
+
+            public String getConfigurationValue(Enum<?> key) {
                 return this.getConfigurationValue(key.toString());
             }
-            public String getPropertyPart()
-            {
+
+            public String getPropertyPart() {
                 return null;
             }
         };
-        FaxClient client=new FaxClient(faxClientSpi);
-        Assert.assertEquals(client.getProvider().getName(),Fax4JProvider.FAX4J_PROVIDER.getName());
+        FaxClient client = new FaxClient(faxClientSpi);
+        Assert.assertEquals(client.getProvider().getName(), Fax4JProvider.FAX4J_PROVIDER.getName());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getProviderTest() throws Exception
-    {
-        EmptyFaxClientSpi faxClientSpi=(EmptyFaxClientSpi)TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(),null);
-        FaxClient faxClient=new FaxClient(faxClientSpi);
-        Provider provider=faxClient.getProvider();
+    public void getProviderTest() throws Exception {
+        EmptyFaxClientSpi faxClientSpi = (EmptyFaxClientSpi) TestUtil
+                .createFaxClientSpi(EmptyFaxClientSpi.class.getName(), null);
+        FaxClient faxClient = new FaxClient(faxClientSpi);
+        Provider provider = faxClient.getProvider();
         Assert.assertNotNull(provider);
-        Assert.assertEquals(faxClientSpi.getProvider(),provider);
+        Assert.assertEquals(faxClientSpi.getProvider(), provider);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void faxJobCreatedEventTest() throws Exception
-    {
-        TestFaxClientActionEventListener listener=new TestFaxClientActionEventListener();
-        EmptyFaxClientSpi faxClientSpi=(EmptyFaxClientSpi)TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(),null);
-        FaxClient faxClient=new FaxClient(faxClientSpi);
+    public void faxJobCreatedEventTest() throws Exception {
+        TestFaxClientActionEventListener listener = new TestFaxClientActionEventListener();
+        EmptyFaxClientSpi faxClientSpi = (EmptyFaxClientSpi) TestUtil
+                .createFaxClientSpi(EmptyFaxClientSpi.class.getName(), null);
+        FaxClient faxClient = new FaxClient(faxClientSpi);
         faxClient.addFaxClientActionEventListener(listener);
         faxClient.createFaxJob();
-        FaxClientActionEventID faxClientActionEventID=listener.getLastFaxEventID();
+        FaxClientActionEventID faxClientActionEventID = listener.getLastFaxEventID();
         Assert.assertNotNull(faxClientActionEventID);
-        Assert.assertEquals(FaxClientActionEventID.CREATE_FAX_JOB,faxClientActionEventID);
+        Assert.assertEquals(FaxClientActionEventID.CREATE_FAX_JOB, faxClientActionEventID);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void faxJobSubmittedEventTest() throws Exception
-    {
-        String string="My Text Data";
-        File file=File.createTempFile("temp_",".txt");
+    public void faxJobSubmittedEventTest() throws Exception {
+        String string = "My Text Data";
+        File file = File.createTempFile("temp_", ".txt");
         file.deleteOnExit();
-        IOHelper.writeTextFile(string,file);
+        IOHelper.writeTextFile(string, file);
 
-        TestFaxClientActionEventListener listener=new TestFaxClientActionEventListener();
-        EmptyFaxClientSpi faxClientSpi=(EmptyFaxClientSpi)TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(),null);
-        FaxClient faxClient=new FaxClient(faxClientSpi);
+        TestFaxClientActionEventListener listener = new TestFaxClientActionEventListener();
+        EmptyFaxClientSpi faxClientSpi = (EmptyFaxClientSpi) TestUtil
+                .createFaxClientSpi(EmptyFaxClientSpi.class.getName(), null);
+        FaxClient faxClient = new FaxClient(faxClientSpi);
         faxClient.addFaxClientActionEventListener(listener);
-        FaxJob faxJob=new FaxJobImpl();
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setTargetAddress("123");
         faxJob.setFile(file);
         faxClient.submitFaxJob(faxJob);
 
         file.delete();
-        
-        FaxClientActionEventID faxClientActionEventID=listener.getLastFaxEventID();
+
+        FaxClientActionEventID faxClientActionEventID = listener.getLastFaxEventID();
         Assert.assertNotNull(faxClientActionEventID);
-        Assert.assertEquals(FaxClientActionEventID.SUBMIT_FAX_JOB,faxClientActionEventID);
+        Assert.assertEquals(FaxClientActionEventID.SUBMIT_FAX_JOB, faxClientActionEventID);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void faxJobSuspendedEventTest() throws Exception
-    {
-        TestFaxClientActionEventListener listener=new TestFaxClientActionEventListener();
-        EmptyFaxClientSpi faxClientSpi=(EmptyFaxClientSpi)TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(),null);
-        FaxClient faxClient=new FaxClient(faxClientSpi);
+    public void faxJobSuspendedEventTest() throws Exception {
+        TestFaxClientActionEventListener listener = new TestFaxClientActionEventListener();
+        EmptyFaxClientSpi faxClientSpi = (EmptyFaxClientSpi) TestUtil
+                .createFaxClientSpi(EmptyFaxClientSpi.class.getName(), null);
+        FaxClient faxClient = new FaxClient(faxClientSpi);
         faxClient.addFaxClientActionEventListener(listener);
-        FaxJob faxJob=new FaxJobImpl();
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setID("123");
         faxClient.suspendFaxJob(faxJob);
-        FaxClientActionEventID faxClientActionEventID=listener.getLastFaxEventID();
+        FaxClientActionEventID faxClientActionEventID = listener.getLastFaxEventID();
         Assert.assertNotNull(faxClientActionEventID);
-        Assert.assertEquals(FaxClientActionEventID.SUSPEND_FAX_JOB,faxClientActionEventID);
+        Assert.assertEquals(FaxClientActionEventID.SUSPEND_FAX_JOB, faxClientActionEventID);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void faxJobResumedEventTest() throws Exception
-    {
-        TestFaxClientActionEventListener listener=new TestFaxClientActionEventListener();
-        EmptyFaxClientSpi faxClientSpi=(EmptyFaxClientSpi)TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(),null);
-        FaxClient faxClient=new FaxClient(faxClientSpi);
+    public void faxJobResumedEventTest() throws Exception {
+        TestFaxClientActionEventListener listener = new TestFaxClientActionEventListener();
+        EmptyFaxClientSpi faxClientSpi = (EmptyFaxClientSpi) TestUtil
+                .createFaxClientSpi(EmptyFaxClientSpi.class.getName(), null);
+        FaxClient faxClient = new FaxClient(faxClientSpi);
         faxClient.addFaxClientActionEventListener(listener);
-        FaxJob faxJob=new FaxJobImpl();
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setID("123");
         faxClient.resumeFaxJob(faxJob);
-        FaxClientActionEventID faxClientActionEventID=listener.getLastFaxEventID();
+        FaxClientActionEventID faxClientActionEventID = listener.getLastFaxEventID();
         Assert.assertNotNull(faxClientActionEventID);
-        Assert.assertEquals(FaxClientActionEventID.RESUME_FAX_JOB,faxClientActionEventID);
+        Assert.assertEquals(FaxClientActionEventID.RESUME_FAX_JOB, faxClientActionEventID);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void faxJobCancelledEventTest() throws Exception
-    {
-        TestFaxClientActionEventListener listener=new TestFaxClientActionEventListener();
-        EmptyFaxClientSpi faxClientSpi=(EmptyFaxClientSpi)TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(),null);
-        FaxClient faxClient=new FaxClient(faxClientSpi);
+    public void faxJobCancelledEventTest() throws Exception {
+        TestFaxClientActionEventListener listener = new TestFaxClientActionEventListener();
+        EmptyFaxClientSpi faxClientSpi = (EmptyFaxClientSpi) TestUtil
+                .createFaxClientSpi(EmptyFaxClientSpi.class.getName(), null);
+        FaxClient faxClient = new FaxClient(faxClientSpi);
         faxClient.addFaxClientActionEventListener(listener);
-        FaxJob faxJob=new FaxJobImpl();
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setID("123");
         faxClient.cancelFaxJob(faxJob);
-        FaxClientActionEventID faxClientActionEventID=listener.getLastFaxEventID();
+        FaxClientActionEventID faxClientActionEventID = listener.getLastFaxEventID();
         Assert.assertNotNull(faxClientActionEventID);
-        Assert.assertEquals(FaxClientActionEventID.CANCEL_FAX_JOB,faxClientActionEventID);
+        Assert.assertEquals(FaxClientActionEventID.CANCEL_FAX_JOB, faxClientActionEventID);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void faxJobStatusChangeEventTest() throws Exception
-    {
-        String string="My Text Data";
-        File file=File.createTempFile("temp_",".txt");
+    public void faxJobStatusChangeEventTest() throws Exception {
+        String string = "My Text Data";
+        File file = File.createTempFile("temp_", ".txt");
         file.deleteOnExit();
-        IOHelper.writeTextFile(string,file);
+        IOHelper.writeTextFile(string, file);
 
-        EmptyFaxClientSpi faxClientSpi=(EmptyFaxClientSpi)TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(),null);
-        Field field=ReflectionHelper.getField(AbstractFaxClientSpi.class,"spiFaxJobMonitor");
-        FaxJobMonitor faxJobMonitor=new FaxJobMonitorImpl();
-        Map<String,String> configuration=faxClientSpi.getAllConfiguration();
-        Map<String,String> map=new HashMap<String,String>(configuration);
+        EmptyFaxClientSpi faxClientSpi = (EmptyFaxClientSpi) TestUtil
+                .createFaxClientSpi(EmptyFaxClientSpi.class.getName(), null);
+        Field field = ReflectionHelper.getField(AbstractFaxClientSpi.class, "spiFaxJobMonitor");
+        FaxJobMonitor faxJobMonitor = new FaxJobMonitorImpl();
+        Map<String, String> configuration = faxClientSpi.getAllConfiguration();
+        Map<String, String> map = new HashMap<String, String>(configuration);
         map.putAll(configuration);
-        map.put("org.fax4j.monitor.polling.interval","100");
-        faxJobMonitor.initialize(map,faxClientSpi.getLogger());
-        field.set(faxClientSpi,faxJobMonitor);
-        
-        TestFaxMonitorEventListener listener=new TestFaxMonitorEventListener();
-        FaxClient faxClient=new FaxClient(faxClientSpi);
+        map.put("org.fax4j.monitor.polling.interval", "100");
+        faxJobMonitor.initialize(map, faxClientSpi.getLogger());
+        field.set(faxClientSpi, faxJobMonitor);
+
+        TestFaxMonitorEventListener listener = new TestFaxMonitorEventListener();
+        FaxClient faxClient = new FaxClient(faxClientSpi);
         faxClient.addFaxMonitorEventListener(listener);
-        FaxJob faxJob=new FaxJobImpl();
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setTargetAddress("123");
         faxJob.setFile(file);
         faxClient.submitFaxJob(faxJob);
 
         file.delete();
-        
-        //wait for event
+
+        // wait for event
         Thread.sleep(120);
-        
-        FaxJobStatus faxJobStatus=listener.getLastFaxJobStatus();
+
+        FaxJobStatus faxJobStatus = listener.getLastFaxJobStatus();
         Assert.assertNotNull(faxJobStatus);
     }
 }

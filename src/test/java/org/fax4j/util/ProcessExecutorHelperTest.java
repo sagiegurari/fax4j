@@ -9,24 +9,22 @@ import org.junit.Test;
 /**
  * Test Class
  *
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class ProcessExecutorHelperTest
-{
+public class ProcessExecutorHelperTest {
     /**
      * Test
      *
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void executeProcessTest() throws Exception
-    {
-        final String command="echo";
-        FaxClientSpi faxClientSpi=new EmptyFaxClientSpi(true);
-        ProcessOutput processOutput=ProcessExecutorHelper.executeProcess(faxClientSpi,command);
+    public void executeProcessTest() throws Exception {
+        final String command = "echo";
+        FaxClientSpi faxClientSpi = new EmptyFaxClientSpi(true);
+        ProcessOutput processOutput = ProcessExecutorHelper.executeProcess(faxClientSpi, command);
         Assert.assertNotNull(processOutput);
-        Assert.assertEquals(0,processOutput.getExitCode());
+        Assert.assertEquals(0, processOutput.getExitCode());
         Assert.assertNotNull(processOutput.getOutputText());
     }
 }

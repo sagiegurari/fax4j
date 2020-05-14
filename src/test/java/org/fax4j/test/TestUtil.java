@@ -60,187 +60,167 @@ import org.mockito.Mockito;
 /**
  * Helper for JUnit test cases.
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public final class TestUtil
-{
-    /**Port lock*/
-    public static final Object PORT_LOCK=new Object();
-    
+public final class TestUtil {
+    /** Port lock */
+    public static final Object PORT_LOCK = new Object();
+
     /**
      * This is the class constructor.
      */
-    private TestUtil()
-    {
+    private TestUtil() {
         super();
     }
 
     /**
-     * Test method. 
+     * Test method.
      * 
-     * @param   className
-     *          The SPI class name
-     * @param   configuration
-     *          The configuration
-     * @return  The configuration
+     * @param className
+     *            The SPI class name
+     * @param configuration
+     *            The configuration
+     * @return The configuration
      */
-    public static Properties createFaxClientSpiConfiguration(String className,Properties configuration)
-    {
-        Properties updatedConfiguration=configuration;
-        if(updatedConfiguration==null)
-        {
-            updatedConfiguration=new Properties();
+    public static Properties createFaxClientSpiConfiguration(String className, Properties configuration) {
+        Properties updatedConfiguration = configuration;
+        if (updatedConfiguration == null) {
+            updatedConfiguration = new Properties();
         }
-        updatedConfiguration.setProperty("org.fax4j.proxy.enabled","false");
-        updatedConfiguration.setProperty("org.fax4j.spi.type.map.test",className);
-        updatedConfiguration.setProperty(FaxClientSpiFactory.DEFAULT_SPI_TYPE_PROPERTY_KEY,"test");
-        
+        updatedConfiguration.setProperty("org.fax4j.proxy.enabled", "false");
+        updatedConfiguration.setProperty("org.fax4j.spi.type.map.test", className);
+        updatedConfiguration.setProperty(FaxClientSpiFactory.DEFAULT_SPI_TYPE_PROPERTY_KEY, "test");
+
         return updatedConfiguration;
     }
-    
+
     /**
-     * Test method. 
+     * Test method.
      * 
-     * @param   configuration
-     *          The configuration
-     * @return  The configuration
+     * @param configuration
+     *            The configuration
+     * @return The configuration
      */
-    public static Properties createEmptyFaxClientSpiConfiguration(Properties configuration)
-    {
-        return TestUtil.createFaxClientSpiConfiguration(EmptyFaxClientSpi.class.getName(),configuration);
+    public static Properties createEmptyFaxClientSpiConfiguration(Properties configuration) {
+        return TestUtil.createFaxClientSpiConfiguration(EmptyFaxClientSpi.class.getName(), configuration);
     }
-    
+
     /**
-     * Helper method 
+     * Helper method
      * 
-     * @param   className
-     *          The SPI class name
-     * @param   configuration
-     *          The configuration
-     * @return  The SPI instance
+     * @param className
+     *            The SPI class name
+     * @param configuration
+     *            The configuration
+     * @return The SPI instance
      */
-    public static FaxClientSpi createFaxClientSpi(String className,Properties configuration)
-    {
-        Properties updatedConfiguration=TestUtil.createFaxClientSpiConfiguration(className,configuration);
-        
-        FaxClientSpi faxClientSpi=FaxClientSpiFactory.createFaxClientSpi("test",updatedConfiguration);
+    public static FaxClientSpi createFaxClientSpi(String className, Properties configuration) {
+        Properties updatedConfiguration = TestUtil.createFaxClientSpiConfiguration(className, configuration);
+
+        FaxClientSpi faxClientSpi = FaxClientSpiFactory.createFaxClientSpi("test", updatedConfiguration);
         Assert.assertNotNull(faxClientSpi);
-        Assert.assertEquals(className,faxClientSpi.getClass().getName());
-        
+        Assert.assertEquals(className, faxClientSpi.getClass().getName());
+
         return faxClientSpi;
     }
-    
+
     /**
-     * Returns true if windows OS. 
+     * Returns true if windows OS.
      * 
-     * @return  True if windows OS
+     * @return True if windows OS
      */
-    public static boolean isWindowsOS()
-    {
-        boolean windows=false;
-        if(Boolean.parseBoolean(System.getenv("FAX4J_JUNIT_WINDOWS")))
-        {
-            windows=true;
-        }
-        else
-        {
-            String osName=System.getProperty("os.name");
-            if(osName.toLowerCase().indexOf("windows")!=-1)
-            {
-                windows=true;
+    public static boolean isWindowsOS() {
+        boolean windows = false;
+        if (Boolean.parseBoolean(System.getenv("FAX4J_JUNIT_WINDOWS"))) {
+            windows = true;
+        } else {
+            String osName = System.getProperty("os.name");
+            if (osName.toLowerCase().indexOf("windows") != -1) {
+                windows = true;
             }
         }
 
         return windows;
     }
-    
+
     /**
      * Returns a free port
      * 
-     * @return  The free port
-     * @throws  Exception
-     *          Any exception
+     * @return The free port
+     * @throws Exception
+     *             Any exception
      */
-    protected static int getFreePortNoSych() throws Exception
-    {
-        ServerSocket socket=new ServerSocket(0);
-        int port=socket.getLocalPort();
+    protected static int getFreePortNoSych() throws Exception {
+        ServerSocket socket = new ServerSocket(0);
+        int port = socket.getLocalPort();
         socket.close();
 
         return port;
     }
 
     /**
-     * Test enum. 
+     * Test enum.
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public enum TestEnum
-    {
-        /**Test value*/
+    public enum TestEnum {
+        /** Test value */
         KEY1,
-        /**Test value*/
+        /** Test value */
         KEY_TEST
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class FaxClient2 extends FaxClient
-    {
+    public static class FaxClient2 extends FaxClient {
         /**
          * This is the default constructor.
          * 
-         * @param   faxClientSpi
-         *          The fax client SPI
+         * @param faxClientSpi
+         *            The fax client SPI
          */
-        public FaxClient2(FaxClientSpi faxClientSpi)
-        {
+        public FaxClient2(FaxClientSpi faxClientSpi) {
             super(faxClientSpi);
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class EmptyFaxClientSpi extends AbstractFax4JClientSpi
-    {
+    public static class EmptyFaxClientSpi extends AbstractFax4JClientSpi {
         /**
          * This is the class constructor.
          */
-        public EmptyFaxClientSpi()
-        {
+        public EmptyFaxClientSpi() {
             super();
         }
 
         /**
          * This is the class constructor.
          * 
-         * @param   init
-         *          True to run the init
+         * @param init
+         *            True to run the init
          */
-        public EmptyFaxClientSpi(boolean init)
-        {
+        public EmptyFaxClientSpi(boolean init) {
             this();
-            if(init)
-            {
-                Logger logger=new SimpleLogger();
+            if (init) {
+                Logger logger = new SimpleLogger();
                 logger.setLogLevel(LogLevel.NONE);
-                this.initialize(new HashMap<String,String>(),logger,new FaxJobMonitorImpl());
+                this.initialize(new HashMap<String, String>(), logger, new FaxJobMonitorImpl());
             }
         }
 
         /**
          * Returns the configuration.
-         *  
-         * @return  The configuration
+         * 
+         * @return The configuration
          */
-        public Map<String,String> getAllConfiguration()
-        {
+        public Map<String, String> getAllConfiguration() {
             return this.getConfiguration();
         }
 
@@ -248,105 +228,93 @@ public final class TestUtil
          * Empty method.
          */
         @Override
-        protected void initializeImpl()
-        {
-            //empty
+        protected void initializeImpl() {
+            // empty
         }
 
         /**
          * This function returns true if the fax monitor events are supported by this SPI.
          * 
-         * @return  True if the fax monitor events are supported by this SPI
+         * @return True if the fax monitor events are supported by this SPI
          */
         @Override
-        public boolean isFaxMonitorEventsSupported()
-        {
+        public boolean isFaxMonitorEventsSupported() {
             return true;
         }
-        
+
         /**
          * This function will submit a new fax job.<br>
-         * The fax job ID may be populated by this method in the provided
-         * fax job object.
+         * The fax job ID may be populated by this method in the provided fax job object.
          * 
-         * @param   faxJob
-         *          The fax job object containing the needed information
+         * @param faxJob
+         *            The fax job object containing the needed information
          */
         @Override
-        protected void submitFaxJobImpl(FaxJob faxJob)
-        {
+        protected void submitFaxJobImpl(FaxJob faxJob) {
             faxJob.setID(String.valueOf((new Random()).nextInt()));
         }
-        
+
         /**
          * This function will suspend an existing fax job.
          * 
-         * @param   faxJob
-         *          The fax job object containing the needed information
+         * @param faxJob
+         *            The fax job object containing the needed information
          */
         @Override
-        protected void suspendFaxJobImpl(FaxJob faxJob)
-        {
-            //empty
+        protected void suspendFaxJobImpl(FaxJob faxJob) {
+            // empty
         }
-        
+
         /**
          * This function will resume an existing fax job.
          * 
-         * @param   faxJob
-         *          The fax job object containing the needed information
+         * @param faxJob
+         *            The fax job object containing the needed information
          */
         @Override
-        protected void resumeFaxJobImpl(FaxJob faxJob)
-        {
-            //empty
+        protected void resumeFaxJobImpl(FaxJob faxJob) {
+            // empty
         }
-        
+
         /**
          * This function will cancel an existing fax job.
          * 
-         * @param   faxJob
-         *          The fax job object containing the needed information
+         * @param faxJob
+         *            The fax job object containing the needed information
          */
         @Override
-        protected void cancelFaxJobImpl(FaxJob faxJob)
-        {
-            //empty
+        protected void cancelFaxJobImpl(FaxJob faxJob) {
+            // empty
         }
-        
+
         /**
          * This function returns the fax job status.<br>
          * Not all SPIs support extraction of the fax job status.<br>
-         * In case the SPI is unable to extract or does not support extracting
-         * of the fax job status, it will return the UNKNOWN status.
+         * In case the SPI is unable to extract or does not support extracting of the fax job status, it will return the
+         * UNKNOWN status.
          * 
-         * @param   faxJob
-         *          The fax job object containing the needed information
-         * @return  The fax job status
+         * @param faxJob
+         *            The fax job object containing the needed information
+         * @return The fax job status
          */
         @Override
-        protected FaxJobStatus getFaxJobStatusImpl(FaxJob faxJob)
-        {
-            String status=faxJob.getProperty("test.status",null);
-            FaxJobStatus jobStatus=null;
-            if(status==null)
-            {
-                jobStatus=FaxJobStatus.PENDING;
-            }
-            else
-            {
-                FaxJobStatus lastStatus=FaxJobStatus.valueOf(status);
-                switch(lastStatus)
-                {
-                    case PENDING:
-                        jobStatus=FaxJobStatus.IN_PROGRESS;
-                        break;
-                    default:
-                        jobStatus=FaxJobStatus.UNKNOWN;
-                        break;
+        protected FaxJobStatus getFaxJobStatusImpl(FaxJob faxJob) {
+            String status = faxJob.getProperty("test.status", null);
+            FaxJobStatus jobStatus = null;
+            if (status == null) {
+                jobStatus = FaxJobStatus.PENDING;
+            } else {
+                FaxJobStatus lastStatus = FaxJobStatus.valueOf(status);
+                switch (lastStatus) {
+                case PENDING:
+                    jobStatus = FaxJobStatus.IN_PROGRESS;
+                    break;
+                default:
+                    jobStatus = FaxJobStatus.UNKNOWN;
+                    break;
                 }
             }
-            status=jobStatus.name();
+            status = jobStatus.name();
             faxJob.setProperty("test.status", status);
 
             return jobStatus;
@@ -354,531 +322,481 @@ public final class TestUtil
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static abstract class PredefinedMailFaxClientSpiTest
-    {
-        /**class member*/
+    public static abstract class PredefinedMailFaxClientSpiTest {
+        /** class member */
         private String spiClassName;
-        /**class member*/
+        /** class member */
         private String mailAddressTemplate;
-        /**class member*/
+        /** class member */
         private String mailSubjectTemplate;
-        /**The fax client SPI*/
+        /** The fax client SPI */
         protected MailFaxClientSpi faxClientSpi;
-        /**The SPI configuration*/
+        /** The SPI configuration */
         protected Properties configuration;
 
         /**
          * Sets up the SPI instance.
          * 
-         * @throws  Exception
-         *          Any exception
+         * @throws Exception
+         *             Any exception
          */
         @Before
-        public void setUp() throws Exception
-        {
-            this.configuration=new Properties();
-            this.configuration.setProperty("org.fax4j.spi.mail.persistent.connection","true");
-            this.configuration.setProperty("org.fax4j.spi.mail.connection.factory.class.name",TestMailConnectionFactory.class.getName());
-            this.configuration.setProperty("org.fax4j.spi.mail.address.template","{0}@myprovider.com");
-            this.configuration.setProperty("org.fax4j.spi.mail.subject.template","fax:{0}");
-            this.configuration.setProperty("org.fax4j.spi.mail.user.name","test@test.com");
-            this.configuration.setProperty("org.fax4j.spi.mail.password","test_password");
-            this.configuration.setProperty("mail.transport.protocol","smtp");   
-            this.configuration.setProperty("mail.smtp.host","localhost");
-            this.configuration.setProperty("mail.smtp.port","123");
-            this.faxClientSpi=(MailFaxClientSpi)TestUtil.createFaxClientSpi(this.spiClassName,this.configuration);
+        public void setUp() throws Exception {
+            this.configuration = new Properties();
+            this.configuration.setProperty("org.fax4j.spi.mail.persistent.connection", "true");
+            this.configuration.setProperty("org.fax4j.spi.mail.connection.factory.class.name",
+                    TestMailConnectionFactory.class.getName());
+            this.configuration.setProperty("org.fax4j.spi.mail.address.template", "{0}@myprovider.com");
+            this.configuration.setProperty("org.fax4j.spi.mail.subject.template", "fax:{0}");
+            this.configuration.setProperty("org.fax4j.spi.mail.user.name", "test@test.com");
+            this.configuration.setProperty("org.fax4j.spi.mail.password", "test_password");
+            this.configuration.setProperty("mail.transport.protocol", "smtp");
+            this.configuration.setProperty("mail.smtp.host", "localhost");
+            this.configuration.setProperty("mail.smtp.port", "123");
+            this.faxClientSpi = (MailFaxClientSpi) TestUtil.createFaxClientSpi(this.spiClassName, this.configuration);
         }
 
         /**
          * Releases the test objects.
          * 
-         * @throws  Exception
-         *          Any exception
+         * @throws Exception
+         *             Any exception
          */
         @After
-        public void tearDown() throws Exception
-        {
+        public void tearDown() throws Exception {
             Mailbox.clearAll();
         }
 
         /**
          * This is the class constructor.
          * 
-         * @param   spiClassName
-         *          The SPI class name
-         * @param   mailAddressTemplate
-         *          Value to test
-         * @param   mailSubjectTemplate
-         *          Value to test
+         * @param spiClassName
+         *            The SPI class name
+         * @param mailAddressTemplate
+         *            Value to test
+         * @param mailSubjectTemplate
+         *            Value to test
          */
-        protected PredefinedMailFaxClientSpiTest(String spiClassName,String mailAddressTemplate,String mailSubjectTemplate)
-        {
+        protected PredefinedMailFaxClientSpiTest(String spiClassName, String mailAddressTemplate,
+                String mailSubjectTemplate) {
             super();
-            
-            this.spiClassName=spiClassName;
-            this.mailAddressTemplate=mailAddressTemplate;
-            this.mailSubjectTemplate=mailSubjectTemplate;
+
+            this.spiClassName = spiClassName;
+            this.mailAddressTemplate = mailAddressTemplate;
+            this.mailSubjectTemplate = mailSubjectTemplate;
         }
 
         /**
-         * Test 
+         * Test
          * 
-         * @throws  Exception
-         *          Any exception
+         * @throws Exception
+         *             Any exception
          */
         @Test
-        public void mailAddressTemplateTest() throws Exception
-        {
-            Assert.assertEquals(this.mailAddressTemplate,this.faxClientSpi.getMailAddressTemplate());
+        public void mailAddressTemplateTest() throws Exception {
+            Assert.assertEquals(this.mailAddressTemplate, this.faxClientSpi.getMailAddressTemplate());
         }
 
         /**
-         * Test 
+         * Test
          * 
-         * @throws  Exception
-         *          Any exception
+         * @throws Exception
+         *             Any exception
          */
         @Test
-        public void mailSubjectTemplateTest() throws Exception
-        {
+        public void mailSubjectTemplateTest() throws Exception {
             Assert.assertEquals(this.mailSubjectTemplate, this.faxClientSpi.getMailSubjectTemplate());
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class FaxClientSpiProxyImpl2 extends FaxClientSpiProxyImpl
-    {
+    public static class FaxClientSpiProxyImpl2 extends FaxClientSpiProxyImpl {
         /**
          * This is the class constructor.
          */
-        public FaxClientSpiProxyImpl2()
-        {
+        public FaxClientSpiProxyImpl2() {
             super();
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestFaxClientSpiInterceptor implements FaxClientSpiInterceptor
-    {
-        /**Class member*/
-        public int preCount=0;
-        /**Class member*/
-        public int postCount=0;
-        /**Class member*/
-        public int onErrorCount=0;
+    public static class TestFaxClientSpiInterceptor implements FaxClientSpiInterceptor {
+        /** Class member */
+        public int preCount = 0;
+        /** Class member */
+        public int postCount = 0;
+        /** Class member */
+        public int onErrorCount = 0;
 
         /**
          * This function initializes the fax client SPI interceptor.<br>
          * This method is called by the FaxClientSpiFactory.
          * 
-         * @param   faxClientSpi
-         *          The fax client SPI
+         * @param faxClientSpi
+         *            The fax client SPI
          */
-        public void initialize(FaxClientSpi faxClientSpi)
-        {
-            //do nothing
+        public void initialize(FaxClientSpi faxClientSpi) {
+            // do nothing
         }
 
         /**
-         * This function is invoked by the fax client SPI proxy before invoking
-         * the method in the fax client SPI itself.
+         * This function is invoked by the fax client SPI proxy before invoking the method in the fax client SPI itself.
          * 
-         * @param   method
-         *          The method invoked
-         * @param   arguments
-         *          The method arguments
+         * @param method
+         *            The method invoked
+         * @param arguments
+         *            The method arguments
          */
-        public void preMethodInvocation(Method method,Object[] arguments)
-        {
+        public void preMethodInvocation(Method method, Object[] arguments) {
             this.preCount++;
         }
-        
+
         /**
-         * This function is invoked by the fax client SPI proxy after invoking
-         * the method in the fax client SPI itself.
+         * This function is invoked by the fax client SPI proxy after invoking the method in the fax client SPI itself.
          * 
-         * @param   method
-         *          The method invoked
-         * @param   arguments
-         *          The method arguments
-         * @param   output
-         *          The method output
+         * @param method
+         *            The method invoked
+         * @param arguments
+         *            The method arguments
+         * @param output
+         *            The method output
          */
-        public void postMethodInvocation(Method method,Object[] arguments,Object output)
-        {
+        public void postMethodInvocation(Method method, Object[] arguments, Object output) {
             this.postCount++;
         }
-        
+
         /**
-         * This function is invoked by the fax client SPI proxy in of an error
-         * while invoking the method in the fax client SPI itself.
+         * This function is invoked by the fax client SPI proxy in of an error while invoking the method in the fax
+         * client SPI itself.
          * 
-         * @param   method
-         *          The method invoked
-         * @param   arguments
-         *          The method arguments
-         * @param   throwable
-         *          The throwable while invoking the method
+         * @param method
+         *            The method invoked
+         * @param arguments
+         *            The method arguments
+         * @param throwable
+         *            The throwable while invoking the method
          */
-        public void onMethodInvocationError(Method method,Object[] arguments,Throwable throwable)
-        {
+        public void onMethodInvocationError(Method method, Object[] arguments, Throwable throwable) {
             this.onErrorCount++;
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestCloseable implements Closeable
-    {
-        /**Flag for testing*/
-        private boolean closed=false;
-        
+    public static class TestCloseable implements Closeable {
+        /** Flag for testing */
+        private boolean closed = false;
+
         /**
          * Sets flag to true.
          */
-        public void close()
-        {
-            this.closed=true;
+        public void close() {
+            this.closed = true;
         }
+
         /**
-         * Getter method. 
+         * Getter method.
          * 
-         * @return  The value
+         * @return The value
          */
-        public boolean isClosed()
-        {
+        public boolean isClosed() {
             return this.closed;
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestFaxModemAdapter extends AbstractFax4JFaxModemAdapter
-    {
+    public static class TestFaxModemAdapter extends AbstractFax4JFaxModemAdapter {
         /**
          * This function initializes the fax modem adapter.
          * 
-         * @param   faxClientSpi
-         *          The fax client SPI
+         * @param faxClientSpi
+         *            The fax client SPI
          */
         @Override
-        protected void initializeImpl(FaxClientSpi faxClientSpi)
-        {
-            //empty
+        protected void initializeImpl(FaxClientSpi faxClientSpi) {
+            // empty
         }
-        
+
         /**
          * This function will submit a new fax job.<br>
-         * The fax job ID may be populated by this method in the provided
-         * fax job object.
+         * The fax job ID may be populated by this method in the provided fax job object.
          * 
-         * @param   faxJob
-         *          The fax job object containing the needed information
-         * @param   adapter
-         *          The COMM port adapter
+         * @param faxJob
+         *            The fax job object containing the needed information
+         * @param adapter
+         *            The COMM port adapter
          */
         @Override
-        protected void submitFaxJobImpl(FaxJob faxJob,CommPortAdapter adapter)
-        {
+        protected void submitFaxJobImpl(FaxJob faxJob, CommPortAdapter adapter) {
             faxJob.setID("123");
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestCommPortConnectionFactory extends AbstractCommPortConnectionFactory
-    {
+    public static class TestCommPortConnectionFactory extends AbstractCommPortConnectionFactory {
         /**
          * Creates and returns the resource.
-         *  
-         * @return  The resource
+         * 
+         * @return The resource
          */
         @Override
-        protected CommPortAdapter createResourceImpl()
-        {
-            return new AbstractCommPortAdapter()
-            {
-                private boolean open=true;
+        protected CommPortAdapter createResourceImpl() {
+            return new AbstractCommPortAdapter() {
+                private boolean open = true;
 
-                public boolean isOpen()
-                {
+                public boolean isOpen() {
                     return this.open;
                 }
-                
-                public OutputStream getOutputStream()
-                {
+
+                public OutputStream getOutputStream() {
                     return new ByteArrayOutputStream();
                 }
-                
-                public InputStream getInputStream()
-                {
+
+                public InputStream getInputStream() {
                     return new ByteArrayInputStream(new byte[0]);
                 }
-                
+
                 @Override
-                protected void closeImpl()
-                {
-                    this.open=false;
+                protected void closeImpl() {
+                    this.open = false;
                 }
             };
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestFaxClientActionEventListener implements FaxClientActionEventListener
-    {
-        /**Class member*/
+    public static class TestFaxClientActionEventListener implements FaxClientActionEventListener {
+        /** Class member */
         private FaxClientActionEventID faxEventID;
-        
+
         /**
-         * Returns the last fax event ID. 
+         * Returns the last fax event ID.
          * 
-         * @return  The last fax event ID
+         * @return The last fax event ID
          */
-        public FaxClientActionEventID getLastFaxEventID()
-        {
+        public FaxClientActionEventID getLastFaxEventID() {
             return this.faxEventID;
         }
 
         /**
          * This function is invoked after a new fax job is created.
          * 
-         * @param   event
-         *          The fax event
+         * @param event
+         *            The fax event
          */
-        public void faxJobCreated(FaxClientActionEvent event)
-        {
-            this.faxEventID=event.getID();
+        public void faxJobCreated(FaxClientActionEvent event) {
+            this.faxEventID = event.getID();
         }
 
         /**
          * This function is invoked after a fax job is submitted.
          * 
-         * @param   event
-         *          The fax event
+         * @param event
+         *            The fax event
          */
-        public void faxJobSubmitted(FaxClientActionEvent event)
-        {
-            this.faxEventID=event.getID();
+        public void faxJobSubmitted(FaxClientActionEvent event) {
+            this.faxEventID = event.getID();
         }
 
         /**
          * This function is invoked after a fax job is suspended.
          * 
-         * @param   event
-         *          The fax event
+         * @param event
+         *            The fax event
          */
-        public void faxJobSuspended(FaxClientActionEvent event)
-        {
-            this.faxEventID=event.getID();
+        public void faxJobSuspended(FaxClientActionEvent event) {
+            this.faxEventID = event.getID();
         }
 
         /**
          * This function is invoked after a fax job is resumed.
          * 
-         * @param   event
-         *          The fax event
+         * @param event
+         *            The fax event
          */
-        public void faxJobResumed(FaxClientActionEvent event)
-        {
-            this.faxEventID=event.getID();
+        public void faxJobResumed(FaxClientActionEvent event) {
+            this.faxEventID = event.getID();
         }
 
         /**
          * This function is invoked after a fax job is cancelled.
          * 
-         * @param   event
-         *          The fax event
+         * @param event
+         *            The fax event
          */
-        public void faxJobCancelled(FaxClientActionEvent event)
-        {
-            this.faxEventID=event.getID();
+        public void faxJobCancelled(FaxClientActionEvent event) {
+            this.faxEventID = event.getID();
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestFaxMonitorEventListener implements FaxMonitorEventListener
-    {
-        /**Class member*/
+    public static class TestFaxMonitorEventListener implements FaxMonitorEventListener {
+        /** Class member */
         private FaxJobStatus faxJobStatus;
 
         /**
          * This function is invoked when the fax job status is changed.
          * 
-         * @param   event
-         *          The fax event
+         * @param event
+         *            The fax event
          */
-        public void faxJobStatusChanged(FaxMonitorEvent event)
-        {
-            this.faxJobStatus=event.getFaxJobStatus();
+        public void faxJobStatusChanged(FaxMonitorEvent event) {
+            this.faxJobStatus = event.getFaxJobStatus();
         }
-        
+
         /**
-         * Test method 
+         * Test method
          * 
-         * @return  The last status
+         * @return The last status
          */
-        public FaxJobStatus getLastFaxJobStatus()
-        {
+        public FaxJobStatus getLastFaxJobStatus() {
             return this.faxJobStatus;
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestConnectionFactory extends AbstractFax4JConnectionFactory<TestResource>
-    {
+    public static class TestConnectionFactory extends AbstractFax4JConnectionFactory<TestResource> {
         /**
          * Emtpy method
          */
         @Override
-        protected void initializeImpl()
-        {
-            //empty
+        protected void initializeImpl() {
+            // empty
         }
 
         /**
          * Creates and returns the resource.
-         *  
-         * @return  The resource
+         * 
+         * @return The resource
          */
         @Override
-        protected TestResource createResourceImpl()
-        {
+        protected TestResource createResourceImpl() {
             return new TestResource();
         }
 
         /**
          * Releases the resource from the connection.
-         *  
-         * @param   resource
-         *          The resource
+         * 
+         * @param resource
+         *            The resource
          */
         @Override
-        protected void releaseResourceImpl(TestResource resource)
-        {
+        protected void releaseResourceImpl(TestResource resource) {
             resource.close();
         }
 
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestResource
-    {
-        /**Class member*/
+    public static class TestResource {
+        /** Class member */
         private boolean open;
-        
+
         /**
          * This is the class constructor.
          */
-        public TestResource()
-        {
+        public TestResource() {
             super();
-            
-            this.open=true;
+
+            this.open = true;
         }
 
         /**
          * Closes the connection.
          */
-        public void close()
-        {
-            this.open=false;
+        public void close() {
+            this.open = false;
         }
-        
+
         /**
          * This function returns true if open.
          * 
-         * @return  True if open
+         * @return True if open
          */
-        public boolean isOpen()
-        {
+        public boolean isOpen() {
             return this.open;
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestMailConnectionFactory extends MailConnectionFactoryImpl
-    {
+    public static class TestMailConnectionFactory extends MailConnectionFactoryImpl {
         /**
          * This function returns a transport for the provided session.
          * 
-         * @param   session
-         *          The mail session
-         * @return  The mail transport
+         * @param session
+         *            The mail session
+         * @return The mail transport
          */
         @Override
-        protected Transport createTransport(Session session)
-        {
-            Transport transport=Mockito.mock(Transport.class);
+        protected Transport createTransport(Session session) {
+            Transport transport = Mockito.mock(Transport.class);
             Mockito.when(Boolean.valueOf(transport.isConnected())).thenReturn(Boolean.TRUE).thenReturn(Boolean.FALSE);
-            
+
             return transport;
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestHTTPClient extends ApacheHTTPClient
-    {
+    public static class TestHTTPClient extends ApacheHTTPClient {
         /**
          * This function creates and returns a new HTTP client.
          * 
-         * @return  The new HTTP client
+         * @return The new HTTP client
          */
         @Override
-        protected HttpClient createHttpClient()
-        {
-            HttpClient httpClient=Mockito.mock(HttpClient.class);
-            try
-            {
-                Mockito.when(Integer.valueOf(httpClient.executeMethod((HttpMethod)null))).thenReturn(Integer.valueOf(200));
-            }
-            catch(Exception exception)
-            {
+        protected HttpClient createHttpClient() {
+            HttpClient httpClient = Mockito.mock(HttpClient.class);
+            try {
+                Mockito.when(Integer.valueOf(httpClient.executeMethod((HttpMethod) null)))
+                        .thenReturn(Integer.valueOf(200));
+            } catch (Exception exception) {
                 throw new RuntimeException(exception);
             }
             return httpClient;
@@ -887,217 +805,193 @@ public final class TestUtil
         /**
          * This function creates and returns a new HTTP method.
          * 
-         * @param   url
-         *          The target URL
-         * @param   httpMethod
-         *          The HTTP method to use
-         * @return  The new HTTP method
+         * @param url
+         *            The target URL
+         * @param httpMethod
+         *            The HTTP method to use
+         * @return The new HTTP method
          */
         @Override
-        protected HttpMethodBase createMethod(String url,HTTPMethod httpMethod)
-        {
-            PostMethod postMethod=Mockito.mock(PostMethod.class);
+        protected HttpMethodBase createMethod(String url, HTTPMethod httpMethod) {
+            PostMethod postMethod = Mockito.mock(PostMethod.class);
             return postMethod;
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestHylaFAXClientConnectionFactory extends HylaFAXClientConnectionFactoryImpl
-    {
+    public static class TestHylaFAXClientConnectionFactory extends HylaFAXClientConnectionFactoryImpl {
         /**
          * Creates and returns the resource.
-         *  
-         * @return  The resource
+         * 
+         * @return The resource
          */
         @Override
-        protected HylaFAXClient createResourceImpl()
-        {
-            HylaFAXClient client=Mockito.mock(HylaFAXClient.class);
-            try
-            {
-                Mockito.doNothing().when(client).open("TEST_HOST",123);
-                Job job=Mockito.mock(Job.class);
+        protected HylaFAXClient createResourceImpl() {
+            HylaFAXClient client = Mockito.mock(HylaFAXClient.class);
+            try {
+                Mockito.doNothing().when(client).open("TEST_HOST", 123);
+                Job job = Mockito.mock(Job.class);
                 Mockito.when(client.createJob()).thenReturn(job);
                 Mockito.doReturn(Long.valueOf(123)).when(job).getId();
                 Mockito.doReturn("abc").when(job).getDialstring();
-            }
-            catch(Exception exception)
-            {
+            } catch (Exception exception) {
                 throw new RuntimeException(exception);
             }
-            
+
             return client;
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestRequestParser implements RequestParser<String>
-    {
+    public static class TestRequestParser implements RequestParser<String> {
         /**
          * Test function
          * 
-         * @param   configuration
-         *          The configuration
+         * @param configuration
+         *            The configuration
          */
-        public void initialize(Map<String,String> configuration)
-        {
-            //empty
+        public void initialize(Map<String, String> configuration) {
+            // empty
         }
 
         /**
          * This function returns the file info from the input data.
          * 
-         * @param   inputData
-         *          The input data
-         * @return  The file info
+         * @param inputData
+         *            The input data
+         * @return The file info
          */
-        public FileInfo getFileInfoFromInputData(String inputData)
-        {
-            if(inputData.equals("NullFileInfoTest"))
-            {
+        public FileInfo getFileInfoFromInputData(String inputData) {
+            if (inputData.equals("NullFileInfoTest")) {
                 return null;
             }
-            return new FileInfo("abc.txt",new byte[10]);
+            return new FileInfo("abc.txt", new byte[10]);
         }
 
         /**
          * This function update the fax job from the input data.<br>
          * This fax job will not have any file data.
          * 
-         * @param   inputData
-         *          The input data
-         * @param   faxJob
-         *          The fax job to update
+         * @param inputData
+         *            The input data
+         * @param faxJob
+         *            The fax job to update
          */
-        public void updateFaxJobFromInputData(String inputData,FaxJob faxJob)
-        {
-            if(!inputData.equals("NullFaxJobTest"))
-            {
+        public void updateFaxJobFromInputData(String inputData, FaxJob faxJob) {
+            if (!inputData.equals("NullFaxJobTest")) {
                 faxJob.setTargetAddress("12345");
             }
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestHTTPRequestParser implements HTTPRequestParser
-    {
+    public static class TestHTTPRequestParser implements HTTPRequestParser {
         /**
          * Test function
          * 
-         * @param   configuration
-         *          The configuration
+         * @param configuration
+         *            The configuration
          */
-        public void initialize(Map<String,String> configuration)
-        {
-            //empty
+        public void initialize(Map<String, String> configuration) {
+            // empty
         }
 
         /**
          * This function returns the file info from the input data.
          * 
-         * @param   inputData
-         *          The input data
-         * @return  The file info
+         * @param inputData
+         *            The input data
+         * @return The file info
          */
-        public FileInfo getFileInfoFromInputData(HTTPRequest inputData)
-        {
-            if(inputData.getResource().equals("NullFileInfoTest"))
-            {
+        public FileInfo getFileInfoFromInputData(HTTPRequest inputData) {
+            if (inputData.getResource().equals("NullFileInfoTest")) {
                 return null;
             }
-            return new FileInfo("abc.txt",new byte[10]);
+            return new FileInfo("abc.txt", new byte[10]);
         }
 
         /**
          * This function update the fax job from the input data.<br>
          * This fax job will not have any file data.
          * 
-         * @param   inputData
-         *          The input data
-         * @param   faxJob
-         *          The fax job to update
+         * @param inputData
+         *            The input data
+         * @param faxJob
+         *            The fax job to update
          */
-        public void updateFaxJobFromInputData(HTTPRequest inputData,FaxJob faxJob)
-        {
-            if(!inputData.getResource().equals("NullFaxJobTest"))
-            {
+        public void updateFaxJobFromInputData(HTTPRequest inputData, FaxJob faxJob) {
+            if (!inputData.getResource().equals("NullFaxJobTest")) {
                 faxJob.setTargetAddress("12345");
             }
         }
     }
 
     /**
-     * Helper class 
+     * Helper class
      * 
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class TestVendorPolicy extends EmptyVendorPolicy
-    {
+    public static class TestVendorPolicy extends EmptyVendorPolicy {
         /**
-         * Test method 
+         * Test method
          * 
-         * @param   requestDataHolder
-         *          Ignored
-         * @return  Always false
+         * @param requestDataHolder
+         *            Ignored
+         * @return Always false
          */
         @Override
-        protected boolean invokePolicyForRequestImpl(Object requestDataHolder)
-        {
+        protected boolean invokePolicyForRequestImpl(Object requestDataHolder) {
             return false;
         }
 
         /**
-         * Test method 
+         * Test method
          * 
-         * @param   requestDataHolder
-         *          Ignored
-         * @return  Always false
+         * @param requestDataHolder
+         *            Ignored
+         * @return Always false
          */
         @Override
-        protected boolean invokePolicyForResponseImpl(Object requestDataHolder,FaxJob faxJob)
-        {
+        protected boolean invokePolicyForResponseImpl(Object requestDataHolder, FaxJob faxJob) {
             return false;
-        }
-    }
-
-    /**
-     * Helper class 
-     *
-     * @author  Sagie Gur-Ari
-     */
-    public static class TestVendorPolicy2 extends TestVendorPolicy implements FaxMonitorEventListener
-    {
-        /**
-         * Test method 
-         *
-         * @param   event
-         *          Ignored
-         */
-        public void faxJobStatusChanged(FaxMonitorEvent event)
-        {
-            //empty
         }
     }
 
     /**
      * Helper class
      *
-     * @author  Sagie Gur-Ari
+     * @author Sagie Gur-Ari
      */
-    public static class PrivateObject
-    {
+    public static class TestVendorPolicy2 extends TestVendorPolicy implements FaxMonitorEventListener {
+        /**
+         * Test method
+         *
+         * @param event
+         *            Ignored
+         */
+        public void faxJobStatusChanged(FaxMonitorEvent event) {
+            // empty
+        }
+    }
+
+    /**
+     * Helper class
+     *
+     * @author Sagie Gur-Ari
+     */
+    public static class PrivateObject {
         private int counter;
     }
 }

@@ -11,84 +11,79 @@ import org.junit.Test;
 /**
  * Test Class
  *
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class FaxClientFactoryTest
-{
+public class FaxClientFactoryTest {
     /**
      * Test
      *
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void createFaxClientWithSimpleParametersTest() throws Exception
-    {
-        Properties configuration=new Properties();
-        configuration.setProperty("org.fax4j.spi.type.map.test",EmptyFaxClientSpi.class.getName());
-        configuration.setProperty("org.fax4j.proxy.enabled","false");
-        FaxClient faxClient=FaxClientFactory.createFaxClient("test",configuration);
+    public void createFaxClientWithSimpleParametersTest() throws Exception {
+        Properties configuration = new Properties();
+        configuration.setProperty("org.fax4j.spi.type.map.test", EmptyFaxClientSpi.class.getName());
+        configuration.setProperty("org.fax4j.proxy.enabled", "false");
+        FaxClient faxClient = FaxClientFactory.createFaxClient("test", configuration);
         Assert.assertNotNull(faxClient);
-        FaxClientSpi faxClientSpi=faxClient.getFaxClientSpi();
+        FaxClientSpi faxClientSpi = faxClient.getFaxClientSpi();
         Assert.assertNotNull(faxClientSpi);
-        Assert.assertEquals(EmptyFaxClientSpi.class,faxClientSpi.getClass());
+        Assert.assertEquals(EmptyFaxClientSpi.class, faxClientSpi.getClass());
     }
 
     /**
      * Test
      *
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void createFaxClientWithExtendedFaxClientTest() throws Exception
-    {
-        Properties configuration=new Properties();
-        configuration.setProperty("org.fax4j.spi.type.map.test",EmptyFaxClientSpi.class.getName());
-        configuration.setProperty("org.fax4j.client.class.name",FaxClient2.class.getName());
-        FaxClient faxClient=FaxClientFactory.createFaxClient("test",configuration);
+    public void createFaxClientWithExtendedFaxClientTest() throws Exception {
+        Properties configuration = new Properties();
+        configuration.setProperty("org.fax4j.spi.type.map.test", EmptyFaxClientSpi.class.getName());
+        configuration.setProperty("org.fax4j.client.class.name", FaxClient2.class.getName());
+        FaxClient faxClient = FaxClientFactory.createFaxClient("test", configuration);
         Assert.assertNotNull(faxClient);
-        FaxClientSpi faxClientSpi=faxClient.getFaxClientSpi();
+        FaxClientSpi faxClientSpi = faxClient.getFaxClientSpi();
         Assert.assertNotNull(faxClientSpi);
-        Assert.assertEquals(FaxClient2.class,faxClient.getClass());
+        Assert.assertEquals(FaxClient2.class, faxClient.getClass());
     }
 
     /**
      * Test
      *
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void createFaxClientWithNoFaxClientTest() throws Exception
-    {
-        Properties configuration=new Properties();
-        configuration.setProperty("org.fax4j.spi.type.map.test",EmptyFaxClientSpi.class.getName());
-        configuration.setProperty("org.fax4j.client.class.name","");
-        FaxClient faxClient=FaxClientFactory.createFaxClient("test",configuration);
+    public void createFaxClientWithNoFaxClientTest() throws Exception {
+        Properties configuration = new Properties();
+        configuration.setProperty("org.fax4j.spi.type.map.test", EmptyFaxClientSpi.class.getName());
+        configuration.setProperty("org.fax4j.client.class.name", "");
+        FaxClient faxClient = FaxClientFactory.createFaxClient("test", configuration);
         Assert.assertNotNull(faxClient);
-        FaxClientSpi faxClientSpi=faxClient.getFaxClientSpi();
+        FaxClientSpi faxClientSpi = faxClient.getFaxClientSpi();
         Assert.assertNotNull(faxClientSpi);
-        Assert.assertEquals(FaxClient.class,faxClient.getClass());
+        Assert.assertEquals(FaxClient.class, faxClient.getClass());
     }
 
     /**
      * Test
      *
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void createFaxClientWithNoParametersTest() throws Exception
-    {
+    public void createFaxClientWithNoParametersTest() throws Exception {
         if (!TestUtil.isWindowsOS()) {
             return;
         }
 
-        FaxClient faxClient=FaxClientFactory.createFaxClient();
+        FaxClient faxClient = FaxClientFactory.createFaxClient();
         Assert.assertNotNull(faxClient);
-        FaxClientSpi faxClientSpi=faxClient.getFaxClientSpi();
+        FaxClientSpi faxClientSpi = faxClient.getFaxClientSpi();
         Assert.assertNotNull(faxClientSpi);
-        Assert.assertEquals(FaxClient.class,faxClient.getClass());
+        Assert.assertEquals(FaxClient.class, faxClient.getClass());
     }
 }
