@@ -23,7 +23,7 @@ import org.fax4j.FaxJob;
  * <td>false</td>
  * </tr>
  * </table>
- * 
+ *
  * @param <T>
  *            The context type
  * @author Sagie Gur-Ari
@@ -33,10 +33,10 @@ import org.fax4j.FaxJob;
 public interface ContextFaxBridge<T> extends FaxBridge {
     /**
      * This function will submit a new fax job.
-     * 
+     *
      * @param inputData
      *            The input data holding the fax job information
      * @return The submitted fax job
      */
-    public FaxJob submitFaxJob(T inputData);
+    FaxJob submitFaxJob(T inputData);
 }

@@ -28,18 +28,18 @@ import org.fax4j.common.ProviderImplementation;
  * <td>false</td>
  * </tr>
  * </table>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.03
  * @since 0.40.6
  */
 public interface FaxBridge extends ProviderImplementation, ConfigurationHolder {
     /** The vendor policy class name property key */
-    public static final String VENDOR_POLICY_CLASS_NAME = "org.fax4j.bridge.vendor.policy.class.name";
+    static final String VENDOR_POLICY_CLASS_NAME = "org.fax4j.bridge.vendor.policy.class.name";
 
     /**
      * This function initializes the fax bridge.
-     * 
+     *
      * @param type
      *            The fax client type (may be null for default type)
      * @param configuration
@@ -47,46 +47,39 @@ public interface FaxBridge extends ProviderImplementation, ConfigurationHolder {
      * @param flowOwner
      *            The flow owner (servlet, CLI main, ....) to be passed to the vendor policy
      */
-    public void initialize(String type, Properties configuration, Object flowOwner);
+    void initialize(String type, Properties configuration, Object flowOwner);
 
     /**
      * Returns the internal logger.
-     * 
+     *
      * @return The internal logger
      */
-    public Logger getLogger();
-
-    /**
-     * Returns the internal fax client.
-     * 
-     * @return The fax client
-     */
-    public FaxClient getFaxClient();
+    Logger getLogger();
 
     /**
      * This function returns the vendor policy.
-     * 
+     *
      * @return The vendor policy
      */
-    public VendorPolicy getVendorPolicy();
+    VendorPolicy getVendorPolicy();
 
     /**
-     * This function creates a new fax job instance to be used by the caller to submit a new fax job and so on.
-     * 
-     * @return The fax job instance
+     * Returns the internal fax client.
+     *
+     * @return The fax client
      */
-    public FaxJob createFaxJob();
+    FaxJob createFaxJob();
 
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.<br>
      * The file information in the provided fax job will be ignored by this method, instead the file data will be taken
      * from the FileInfo.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information (not including the file information)
      * @param fileInfo
      *            The file information of the requested fax
      */
-    public void submitFaxJob(FaxJob faxJob, FileInfo fileInfo);
+    void submitFaxJob(FaxJob faxJob, FileInfo fileInfo);
 }

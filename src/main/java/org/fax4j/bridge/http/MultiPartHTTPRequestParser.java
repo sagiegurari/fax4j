@@ -87,7 +87,7 @@ import org.fax4j.util.IOHelper;
  * <td>false</td>
  * </tr>
  * </table>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.0
  * @since 0.42.7
@@ -112,7 +112,7 @@ public class MultiPartHTTPRequestParser extends AbstractRequestParser<HTTPReques
 
     /**
      * This class holds the configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.01
      * @since 0.42.4
@@ -146,17 +146,17 @@ public class MultiPartHTTPRequestParser extends AbstractRequestParser<HTTPReques
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private HTTPRequestParserConfigurationConstants(String value) {
+        HTTPRequestParserConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -174,7 +174,7 @@ public class MultiPartHTTPRequestParser extends AbstractRequestParser<HTTPReques
 
     /**
      * This function initializes the component.
-     * 
+     *
      * @param configuration
      *            The component configuration
      */
@@ -227,7 +227,7 @@ public class MultiPartHTTPRequestParser extends AbstractRequestParser<HTTPReques
 
     /**
      * This function returns the file info from the request data.
-     * 
+     *
      * @param inputData
      *            The input data
      * @return The file info
@@ -267,7 +267,7 @@ public class MultiPartHTTPRequestParser extends AbstractRequestParser<HTTPReques
     /**
      * This function update the fax job from the request data.<br>
      * This fax job will not have any file data.
-     * 
+     *
      * @param inputData
      *            The input data
      * @param faxJob
@@ -319,7 +319,7 @@ public class MultiPartHTTPRequestParser extends AbstractRequestParser<HTTPReques
 
     /**
      * This function returns the content part string value.
-     * 
+     *
      * @param contentPartsMap
      *            The content parts map
      * @param parameter
@@ -359,7 +359,7 @@ public class MultiPartHTTPRequestParser extends AbstractRequestParser<HTTPReques
 
     /**
      * This function returns the HTTP request multi parts as map.
-     * 
+     *
      * @param httpRequest
      *            The HTTP request
      * @return The HTTP request multi parts as map

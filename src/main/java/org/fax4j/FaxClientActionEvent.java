@@ -4,7 +4,7 @@ import org.fax4j.common.Logger;
 
 /**
  * This class holds the fax client action event data.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.09
  * @since 0.20b
@@ -18,7 +18,7 @@ public final class FaxClientActionEvent extends AbstractFaxEvent {
     /**
      * This is the fax client action event ID enum.<br>
      * This enum holds all the possible event ID.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.01
      * @since 0.20b
@@ -38,7 +38,7 @@ public final class FaxClientActionEvent extends AbstractFaxEvent {
 
     /**
      * This is the class constructor.
-     * 
+     *
      * @param id
      *            The event ID
      * @param faxJob
@@ -58,10 +58,10 @@ public final class FaxClientActionEvent extends AbstractFaxEvent {
 
     /**
      * This function returns the fax client action event ID.
-     * 
+     *
      * @return The fax client action event ID
      */
-    public final FaxClientActionEventID getID() {
+    public FaxClientActionEventID getID() {
         return this.ID;
     }
 
@@ -71,7 +71,7 @@ public final class FaxClientActionEvent extends AbstractFaxEvent {
      * @return A string representation of this fax client action event object.
      */
     @Override
-    public final String toString() {
+    public String toString() {
         // init buffer
         StringBuilder buffer = new StringBuilder(500);
         buffer.append("Fax Client Action Event:");
