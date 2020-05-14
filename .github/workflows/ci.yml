@@ -38,4 +38,7 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn clean install site
+    - uses: actions/upload-artifact@v2
+      with:
+        path: target/fax4j-*-full.zip
 
