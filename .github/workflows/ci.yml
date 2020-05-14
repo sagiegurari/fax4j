@@ -23,6 +23,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Install vcexpress2010
       run: choco install vcexpress2010
+    - run: cat C:\ProgramData\chocolatey\logs\chocolatey.log
     - run: echo ::add-path::C:\Windows\Microsoft.NET\Framework\v4.0.30319
     - run: echo ::add-path::C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE
     - run: echo ::add-path::C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\BIN
