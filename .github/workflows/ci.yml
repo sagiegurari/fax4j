@@ -24,7 +24,7 @@ jobs:
     - name: Install vcexpress2010
       run: choco install vcexpress2010
     - name: Setup Env
-    - run: |
+      run: |
         echo "::add-path::C:\Windows\Microsoft.NET\Framework\v4.0.30319"
         echo "::add-path::C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE"
         echo "::add-path::C:\Program Files\Microsoft Visual Studio 10.0\VC\BIN"
