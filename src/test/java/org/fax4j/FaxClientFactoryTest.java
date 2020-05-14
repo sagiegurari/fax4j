@@ -2,21 +2,22 @@ package org.fax4j;
 
 import java.util.Properties;
 import org.fax4j.spi.FaxClientSpi;
+import org.fax4j.test.TestUtil;
 import org.fax4j.test.TestUtil.EmptyFaxClientSpi;
 import org.fax4j.test.TestUtil.FaxClient2;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test Class 
- * 
+ * Test Class
+ *
  * @author  Sagie Gur-Ari
  */
 public class FaxClientFactoryTest
 {
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -30,12 +31,12 @@ public class FaxClientFactoryTest
         Assert.assertNotNull(faxClient);
         FaxClientSpi faxClientSpi=faxClient.getFaxClientSpi();
         Assert.assertNotNull(faxClientSpi);
-        Assert.assertEquals(EmptyFaxClientSpi.class,faxClientSpi.getClass());       
+        Assert.assertEquals(EmptyFaxClientSpi.class,faxClientSpi.getClass());
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -49,12 +50,12 @@ public class FaxClientFactoryTest
         Assert.assertNotNull(faxClient);
         FaxClientSpi faxClientSpi=faxClient.getFaxClientSpi();
         Assert.assertNotNull(faxClientSpi);
-        Assert.assertEquals(FaxClient2.class,faxClient.getClass());     
+        Assert.assertEquals(FaxClient2.class,faxClient.getClass());
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -68,22 +69,26 @@ public class FaxClientFactoryTest
         Assert.assertNotNull(faxClient);
         FaxClientSpi faxClientSpi=faxClient.getFaxClientSpi();
         Assert.assertNotNull(faxClientSpi);
-        Assert.assertEquals(FaxClient.class,faxClient.getClass());      
+        Assert.assertEquals(FaxClient.class,faxClient.getClass());
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
     @Test
     public void createFaxClientWithNoParametersTest() throws Exception
     {
+        if (!TestUtil.isWindowsOS()) {
+            return;
+        }
+
         FaxClient faxClient=FaxClientFactory.createFaxClient();
         Assert.assertNotNull(faxClient);
         FaxClientSpi faxClientSpi=faxClient.getFaxClientSpi();
         Assert.assertNotNull(faxClientSpi);
-        Assert.assertEquals(FaxClient.class,faxClient.getClass());      
+        Assert.assertEquals(FaxClient.class,faxClient.getClass());
     }
 }

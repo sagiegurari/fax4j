@@ -1,6 +1,8 @@
 # fax4j
 
-[![Maven Version](https://img.shields.io/maven-central/v/net.sf.fax4j/fax4j.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22net.sf.fax4j%22) [![Build Status](https://ci.appveyor.com/api/projects/status/github/sagiegurari/fax4j?svg=true)](https://ci.appveyor.com/project/sagiegurari/fax4j) [![License](https://img.shields.io/github/license/sagiegurari/fax4j.svg?style=flat)](https://github.com/sagiegurari/fax4j/blob/master/LICENSE.txt)
+[![Maven Version](https://img.shields.io/maven-central/v/net.sf.fax4j/fax4j.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22net.sf.fax4j%22)
+[![CI](https://github.com/sagiegurari/fax4j/workflows/CI/badge.svg?branch=master)](https://github.com/sagiegurari/fax4j/actions)
+[![License](https://img.shields.io/github/license/sagiegurari/fax4j.svg?style=flat)](https://github.com/sagiegurari/fax4j/blob/master/LICENSE.txt)
 
 > Java fax library.
 
@@ -50,7 +52,7 @@ The [x2fax](https://github.com/sagiegurari/x2fax) contains built-in email compon
 ```java
 //get new instance of a fax client (based on internal + external fax4j.properties file data)
 FaxClient faxClient=FaxClientFactory.createFaxClient();
- 
+
 //create a new fax job
 FaxJob faxJob=faxClient.createFaxJob();
 

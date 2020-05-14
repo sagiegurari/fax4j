@@ -12,8 +12,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
- * 
+ * Test Class
+ *
  * @author  Sagie Gur-Ari
  */
 public class MacFaxClientSpiTest
@@ -25,15 +25,14 @@ public class MacFaxClientSpiTest
 
     /**
      * Sets up the SPI instance.
-     * 
+     *
      * @throws  Exception
      *          Any exception
      */
     @Before
     public void setUp() throws Exception
     {
-        String javaHome=System.getProperty("java.home");
-        this.command="\""+javaHome+"\\bin\\java\" -version";
+        this.command="echo";
 
         Properties configuration=new Properties();
         configuration.setProperty("org.fax4j.spi.mac.submit.command",this.command);
@@ -46,8 +45,8 @@ public class MacFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -65,8 +64,8 @@ public class MacFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -91,8 +90,8 @@ public class MacFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -105,8 +104,8 @@ public class MacFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -121,10 +120,10 @@ public class MacFaxClientSpiTest
         Assert.assertNotNull(output);
         Assert.assertEquals(this.command+" testp2 testp3 testp4 testp5=123123123 testp6=\"TARGET_NAME\" \"test_file\"",output);
     }
-    
+
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */

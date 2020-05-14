@@ -69,7 +69,7 @@ import org.fax4j.util.ReflectionHelper;
  *          native-lib - checks that native lib can be loaded<br>
  *          executable - checks executable is on system path<br>
  *          stable - checks for a fax4j property org.fax4j.spi.xxx.stable is defined and equals true, where xxx is the SPI key (for example: org.fax4j.spi.adapter.stable=true)<br>
- *          Conditions are separated by a ';' character and the condition type and value are seperated by the ':' 
+ *          Conditions are separated by a ';' character and the condition type and value are seperated by the ':'
  *          character, for example:<br>
  *          org.fax4j.spi.adapter.internal.spi.condition.vbs=OS:windows;executable:cscript.exe<br>
  *          The following conditions are always checked (even if not defined):<br>
@@ -118,7 +118,7 @@ import org.fax4j.util.ReflectionHelper;
  *  </tr>
  * </table>
  * <br>
- * 
+ *
  * @author  Sagie Gur-Ari
  * @version 1.16
  * @since   0.1
@@ -127,7 +127,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
 {
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author  Sagie Gur-Ari
      * @version 1.02
      * @since   0.1
@@ -166,7 +166,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param   value
          *          The string value
          */
@@ -174,10 +174,10 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
         {
             this.value=value;
         }
-        
+
         /**
          * This function returns the string value.
-         * 
+         *
          * @return  The string value
          */
         @Override
@@ -188,7 +188,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
 
         /**
          * This function returns the enum for the provided value.
-         * 
+         *
          * @param   value
          *          The value to search for
          * @return  The enum
@@ -199,7 +199,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
             {
                 throw new FaxException("Null value provided.");
             }
-            
+
             FaxClientSpiConfigurationConstants[] values=FaxClientSpiConfigurationConstants.values();
             int amount=values.length;
             FaxClientSpiConfigurationConstants constant=null;
@@ -217,7 +217,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
             throw new FaxException("Illegal value provided: "+value);
         }
     }
-     
+
     /**
      * This is the default constructor.
      */
@@ -225,7 +225,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
     {
         super();
     }
-    
+
     /**
      * This function initializes the fax client SPI.
      */
@@ -234,19 +234,19 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
     {
         //get logger
         Logger logger=this.getLogger();
-        
+
         //get types
         String types=this.getConfigurationValue(FaxClientSpiConfigurationConstants.SPI_TYPES_PROPERTY_KEY);
         logger.logDebug(new Object[]{FaxClientSpiConfigurationConstants.SPI_TYPES_PROPERTY_KEY," value is ",types},null);
-        
+
         if(types!=null)
         {
             //split type values
             String[] typeValues=types.split(FaxClientSpiConfigurationConstants.PROPERTY_VALUE_LIST_SEPARATOR.toString());
-            
+
             //get amount
             int amount=typeValues.length;
-            
+
             String typeValue=null;
             String conditionString=null;
             String[] conditionBlocks=null;
@@ -262,11 +262,11 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
                 //get next element
                 typeValue=typeValues[index];
                 logger.logDebug(new Object[]{"Checking conditions for type: ",typeValue},null);
-                
+
                 //get condition string
                 conditionString=this.getConfigurationValue(FaxClientSpiConfigurationConstants.SPI_CONDITION_PROPERTY_KEY_PREFIX+typeValue);
                 logger.logDebug(new Object[]{"Configured condition for type: ",typeValue," is set to: ",conditionString},null);
-                
+
                 //append mandatory conditions
                 conditionStringBuffer.delete(0,conditionStringBuffer.length());
                 conditionStringBuffer.append(FaxClientSpiConfigurationConstants.PROPERTY_CONDITION);
@@ -288,32 +288,32 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
                 }
                 conditionString=conditionStringBuffer.toString();
                 logger.logDebug(new Object[]{"Updated condition for type: ",typeValue," is set to: ",conditionString},null);
-                                
+
                 //split condition to blocks
                 conditionBlocks=conditionString.split(FaxClientSpiConfigurationConstants.PROPERTY_VALUE_LIST_SEPARATOR.toString());
-                
+
                 //get amount
                 subAmount=conditionBlocks.length;
-                
+
                 conditionValid=true;
                 for(int blockIndex=0;blockIndex<subAmount;blockIndex++)
                 {
                     //get next element
                     conditionBlock=conditionBlocks[blockIndex];
-                    
+
                     //split condition block
                     conditionBlockValues=conditionBlock.split(FaxClientSpiConfigurationConstants.PROPERTY_BLOCK_VALUE_SEPARATOR.toString());
-                    
+
                     //check condition block contains only 2 parts (key and value)
                     if(conditionBlockValues.length!=2)
                     {
                         throw new FaxException("Condition block must contain 2 parts separated by "+FaxClientSpiConfigurationConstants.PROPERTY_BLOCK_VALUE_SEPARATOR);
                     }
-                    
+
                     //get condition key and value
                     conditionKey=conditionBlockValues[0];
                     conditionValue=conditionBlockValues[1];
-                    
+
                     //validate condition
                     logger.logDebug(new Object[]{"Validating condition for type: ",typeValue," key: ",conditionKey," value: ",conditionValue},null);
                     if(!this.validateCondition(conditionKey,conditionValue))
@@ -322,28 +322,28 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
                         break;
                     }
                 }
-                
+
                 if(conditionValid)
                 {
                     logger.logDebug(new Object[]{"Conditions validated for type: ",typeValue},null);
-                    
+
                     //create SPI
                     this.createFaxClientSpi(typeValue);
-                    
+
                     break;
                 }
             }
         }
-        
+
         if(this.faxClientSpi==null)
         {
             throw new FaxException("No internal SPI available.");
         }
     }
-    
+
     /**
      * Validates the SPI condition.
-     *  
+     *
      * @param   key
      *          The condition key <br>
      *          property - checks a fax4j property is defined and contains a value<br>
@@ -366,7 +366,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
             case PROPERTY_CONDITION:
                 //get value
                 propertyValue=this.getConfigurationValue(value);
-                
+
                 if(propertyValue!=null)
                 {
                     valid=true;
@@ -375,11 +375,11 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
             case OS_CONDITION:
                 //get OS name
                 String osName=System.getProperty("os.name");
-                
+
                 //change values to lower case
                 osName=osName.toLowerCase();
                 String updatedValue=value.toLowerCase();
-                
+
                 if(osName.contains(updatedValue))
                 {
                     valid=true;
@@ -390,7 +390,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
                 {
                     //load class
                     ReflectionHelper.getType(value);
-                    
+
                     valid=true;
                 }
                 catch(Throwable throwable)
@@ -403,7 +403,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
                 {
                     //load library
                     System.loadLibrary(value);
-                    
+
                     valid=true;
                 }
                 catch(Throwable throwable)
@@ -412,48 +412,58 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
                 }
                 break;
             case EXECUTABLE_CONDITION:
-                //get system path
-                String systemPath=System.getProperty("java.library.path");
-                String[] systemPathElements=systemPath.split(System.getProperty("path.separator"));
-                
-                //get amount
-                int amount=systemPathElements.length;
-                
-                String directoryPath=null;
-                File file=null;
-                for(int index=0;index<amount;index++)
-                {
-                    //get next element
-                    directoryPath=systemPathElements[index];
+                //get file
+                File file=new File(value);
 
-                    //get file
-                    file=new File(directoryPath,value);
-                    
-                    if((file.exists())&&(file.isFile()))
+                if((file.exists())&&(file.isFile()))
+                {
+                    valid=true;
+                }
+                else
+                {
+                    //get system patOSh
+                    String systemPath=System.getProperty("java.library.path");
+                    String[] systemPathElements=systemPath.split(System.getProperty("path.separator"));
+
+                    //get amount
+                    int amount=systemPathElements.length;
+
+                    String directoryPath=null;
+                    for(int index=0;index<amount;index++)
                     {
-                        valid=true;
+                        //get next element
+                        directoryPath=systemPathElements[index];
+
+                        //get file
+                        file=new File(directoryPath,value);
+
+                        if((file.exists())&&(file.isFile()))
+                        {
+                            valid=true;
+                            break;
+                        }
                     }
                 }
                 break;
             case STABLE_CONDITION:
                 //get property key
                 String propertyKey=FaxClientSpiConfigurationConstants.SPI_STABLE_PROPERTY_KEY_PREFIX+value+FaxClientSpiConfigurationConstants.SPI_STABLE_PROPERTY_KEY_SUFFIX;
-                
+
                 //get value
                 propertyValue=this.getConfigurationValue(propertyKey);
-                
+
                 valid=Boolean.parseBoolean(propertyValue);
                 break;
             default:
                 throw new FaxException("Invalid condition key provided: "+key);
         }
-        
+
         return valid;
     }
-    
+
     /**
      *This function creates a new fax client SPI based on the provided configuration.
-     *  
+     *
      * @param   type
      *          The fax client type
      */
@@ -461,26 +471,26 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
     {
         //setup fax client SPI configuration
         Properties configuration=this.createFaxClientSpiConfiguration();
-        
+
         //create fax client SPI
         this.faxClientSpi=FaxClientSpiFactory.createChildFaxClientSpi(type,configuration);
     }
-    
+
     /**
      * This function creates and returns the internal fax client SPI
      * configuration.
-     * 
+     *
      * @return  The internal fax client SPI configuration
      */
     protected Properties createFaxClientSpiConfiguration()
     {
         //get configuration
         Map<String,String> configuration=this.getConfiguration();
-        
+
         //create new configuration
         Properties internalSPIConfiguration=new Properties();
         Properties overrideConfiguration=new Properties();
-        
+
         //go over current configuration
         Iterator<Entry<String,String>> iterator=configuration.entrySet().iterator();
         Entry<String,String> entry=null;
@@ -493,30 +503,30 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi
         {
             //get next entry
             entry=iterator.next();
-            
+
             //get key/value
             key=entry.getKey();
             value=entry.getValue();
-            
+
             //override internal configuration
             if((key.startsWith(overridePrefix)))
             {
                 if(key.length()!=prefixLength)
                 {
                     overrideKey=key.substring(prefixLength);
-                    
+
                     //put in override configuration
                     overrideConfiguration.setProperty(overrideKey,value);
                 }
             }
-            
+
             //put in new configuration
             internalSPIConfiguration.setProperty(key,value);
         }
-        
+
         //override configuration
         internalSPIConfiguration.putAll(overrideConfiguration);
-        
+
         return internalSPIConfiguration;
     }
 }

@@ -35,8 +35,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
- * 
+ * Test Class
+ *
  * @author  Sagie Gur-Ari
  */
 public class AdapterFaxClientSpiTest
@@ -59,14 +59,14 @@ public class AdapterFaxClientSpiTest
         configuration.setProperty("org.fax4j.spi.empty.stable","true");
         configuration.setProperty("p1","v1");
         configuration.setProperty("org.fax4j.spi.adapter.configuration.override.testproperty","value123");
-        
+
         this.faxClientSpi=(AdapterFaxClientSpi)TestUtil.createFaxClientSpi(AdapterFaxClientSpi.class.getName(),configuration);
         this.emptyFaxClientSpi=(EmptyFaxClientSpi)TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(),null);
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -78,8 +78,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -91,8 +91,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -105,8 +105,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -118,8 +118,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -131,8 +131,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -144,8 +144,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -157,8 +157,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -170,15 +170,15 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
     @Test
     public void validateConditionPropertyExecutableValidTest() throws Exception
     {
-        boolean output=this.faxClientSpi.validateCondition(FaxClientSpiConfigurationConstants.EXECUTABLE_CONDITION.toString(),"java");
+        boolean output=this.faxClientSpi.validateCondition(FaxClientSpiConfigurationConstants.EXECUTABLE_CONDITION.toString(),"/bin/echo");
         if(!output)
         {
             output=this.faxClientSpi.validateCondition(FaxClientSpiConfigurationConstants.EXECUTABLE_CONDITION.toString(),"java.exe");
@@ -187,8 +187,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -200,8 +200,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -217,8 +217,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -230,8 +230,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -242,8 +242,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -257,8 +257,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -274,23 +274,23 @@ public class AdapterFaxClientSpiTest
         {
             Entry<?,?> entry=(Entry<?,?>)iterator.next();
             String key=(String)entry.getKey();
-            
+
             if(key.startsWith("org.fax4j.spi.type.map."))
             {
                 String type=key.substring("org.fax4j.spi.type.map.".length());
-                
+
                 if((!type.equals("test"))&&(!type.equals("adapter")))
                 {
                     String value=(String)entry.getValue();
                     Assert.assertNotNull(value);
                     Assert.assertNotSame("No value found for property: "+key,Integer.valueOf(0),Integer.valueOf(value.length()));
-    
+
                     //ensure type is on types string
                     Assert.assertNotSame("Type not found on types string: "+type,Integer.valueOf(-1),Integer.valueOf(typeString.indexOf(type)));
                     int index1=typeString.indexOf(type+";");
                     int index2=typeString.indexOf(";"+type);
                     Assert.assertTrue((index1!=-1)||(index2!=-1));
-                    
+
                     //ensure condition exists
                     String conditionString=this.emptyFaxClientSpi.getConfigurationValue("org.fax4j.spi.adapter.internal.spi.condition."+type);
                     Assert.assertNotNull(conditionString);
@@ -301,8 +301,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -315,7 +315,7 @@ public class AdapterFaxClientSpiTest
         Properties configuration=new Properties();
         configuration.setProperty("org.fax4j.proxy.enabled","false");
         configuration.setProperty("org.fax4j.spi.adapter.internal.spi.types","windows");
-        
+
         String condition=this.emptyFaxClientSpi.getConfigurationValue("org.fax4j.spi.adapter.internal.spi.condition.windows");
         Assert.assertNotSame(Integer.valueOf(-1),Integer.valueOf(condition.indexOf("OS:windows")));
         Assert.assertNotSame(Integer.valueOf(-1),Integer.valueOf(condition.indexOf("native-lib:winfax")));
@@ -325,7 +325,7 @@ public class AdapterFaxClientSpiTest
             condition=condition.replace("native-lib:winfax","native-lib:jawt");
             configuration.setProperty("org.fax4j.spi.adapter.internal.spi.condition.windows",condition);
         }
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);
@@ -333,8 +333,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -344,17 +344,17 @@ public class AdapterFaxClientSpiTest
         Properties configuration=new Properties();
         configuration.setProperty("org.fax4j.proxy.enabled","false");
         configuration.setProperty("org.fax4j.spi.adapter.internal.spi.types","vbs");
-        
+
         String condition=this.emptyFaxClientSpi.getConfigurationValue("org.fax4j.spi.adapter.internal.spi.condition.vbs");
         Assert.assertNotSame(Integer.valueOf(-1),Integer.valueOf(condition.indexOf("OS:windows")));
         Assert.assertNotSame(Integer.valueOf(-1),Integer.valueOf(condition.indexOf("executable:cscript.exe")));
         if(!TestUtil.isWindowsOS())
         {
             condition=condition.replace("OS:windows","OS:"+System.getProperty("os.name"));
-            condition=condition.replace("executable:cscript.exe","executable:java");
+            condition=condition.replace("executable:cscript.exe","executable:/bin/echo");
             configuration.setProperty("org.fax4j.spi.adapter.internal.spi.condition.vbs",condition);
         }
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);
@@ -362,8 +362,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -379,7 +379,7 @@ public class AdapterFaxClientSpiTest
         configuration.setProperty("org.fax4j.spi.mail.user.name","a");
         configuration.setProperty("org.fax4j.spi.mail.password","a");
         configuration.setProperty("mail.host","a");
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);
@@ -387,8 +387,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -400,7 +400,7 @@ public class AdapterFaxClientSpiTest
         configuration.setProperty("org.fax4j.spi.adapter.internal.spi.types","http");
 
         configuration.setProperty("org.fax4j.spi.http.host.name","a");
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);
@@ -408,8 +408,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -421,7 +421,7 @@ public class AdapterFaxClientSpiTest
         configuration.setProperty("org.fax4j.spi.adapter.internal.spi.types","process");
 
         configuration.setProperty("org.fax4j.spi.process.submit.template.command","a");
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);
@@ -429,8 +429,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -453,12 +453,12 @@ public class AdapterFaxClientSpiTest
             }
             else
             {
-                condition=condition.replace("executable:efax","executable:java");
+                condition=condition.replace("executable:efax","executable:/bin/echo");
             }
             configuration.setProperty("org.fax4j.spi.adapter.internal.spi.condition.linux",condition);
         }
         configuration.setProperty("org.fax4j.spi.linux.submit.template.command","a");
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);
@@ -466,8 +466,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -486,7 +486,7 @@ public class AdapterFaxClientSpiTest
             configuration.setProperty("org.fax4j.spi.adapter.internal.spi.condition.mac",condition);
         }
         configuration.setProperty("org.fax4j.spi.mac.print.queue.name","a");
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);
@@ -494,8 +494,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -510,7 +510,7 @@ public class AdapterFaxClientSpiTest
         configuration.setProperty("org.fax4j.spi.hylafax.user","a");
         configuration.setProperty("org.fax4j.spi.hylafax.mode","a");
         configuration.setProperty("org.fax4j.spi.hylafax.type","a");
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);
@@ -518,8 +518,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -532,7 +532,7 @@ public class AdapterFaxClientSpiTest
 
         configuration.setProperty("org.fax4j.spi.comm.port.name","a");
         configuration.setProperty("org.fax4j.spi.comm.fax.modem.class.name",TestFaxModemAdapter.class.getName());
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);
@@ -540,8 +540,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @param   type
      *          The SPI class
      * @param   typeName
@@ -558,7 +558,7 @@ public class AdapterFaxClientSpiTest
         configuration.setProperty("org.fax4j.spi.mail.user.name","a");
         configuration.setProperty("org.fax4j.spi.mail.password","a");
         configuration.setProperty("mail.host","a");
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);
@@ -566,8 +566,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -578,8 +578,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -590,8 +590,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -602,8 +602,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -614,8 +614,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -626,8 +626,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -638,8 +638,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -652,7 +652,7 @@ public class AdapterFaxClientSpiTest
 
         configuration.setProperty("org.fax4j.spi.phaxio.api.key","test");
         configuration.setProperty("org.fax4j.spi.phaxio.api.secret","test");
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);
@@ -660,8 +660,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -674,7 +674,7 @@ public class AdapterFaxClientSpiTest
 
         configuration.setProperty("org.fax4j.spi.hoiio.app.id","test");
         configuration.setProperty("org.fax4j.spi.hoiio.access.token","test");
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);
@@ -682,8 +682,8 @@ public class AdapterFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -696,7 +696,7 @@ public class AdapterFaxClientSpiTest
 
         configuration.setProperty("org.fax4j.spi.rfax.port.name","a");
         configuration.setProperty("org.fax4j.spi.rfax.fax.class","2");
-        
+
         AdapterFaxClientSpi spi=(AdapterFaxClientSpi)FaxClientSpiFactory.createFaxClientSpi("adapter",configuration);
         FaxClientSpi internalFaxClientSpi=spi.getInternalFaxClientSpi();
         Assert.assertNotNull(internalFaxClientSpi);

@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
- * 
+ * Test Class
+ *
  * @author  Sagie Gur-Ari
  */
 public class LinuxFaxClientSpiTest
@@ -20,7 +20,7 @@ public class LinuxFaxClientSpiTest
 
     /**
      * Sets up the SPI instance.
-     * 
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -28,14 +28,14 @@ public class LinuxFaxClientSpiTest
     public void setUp() throws Exception
     {
         Properties configuration=new Properties();
-        configuration.setProperty("org.fax4j.spi.linux.submit.template.command","abc");
+        configuration.setProperty("org.fax4j.spi.linux.submit.template.command","echo");
         configuration.setProperty("org.fax4j.spi.linux.output.validator",WindowsProcessOutputValidator.class.getName());
         this.faxClientSpi=(LinuxFaxClientSpi)TestUtil.createFaxClientSpi(LinuxFaxClientSpi.class.getName(),configuration);
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -48,8 +48,8 @@ public class LinuxFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */

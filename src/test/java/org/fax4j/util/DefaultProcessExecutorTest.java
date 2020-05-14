@@ -10,8 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
- * 
+ * Test Class
+ *
  * @author  Sagie Gur-Ari
  */
 public class DefaultProcessExecutorTest
@@ -21,7 +21,7 @@ public class DefaultProcessExecutorTest
 
     /**
      * Sets up the test objects.
-     * 
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -30,28 +30,27 @@ public class DefaultProcessExecutorTest
     {
         this.processExecutor=new DefaultProcessExecutor();
     }
-    
+
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
     @Test
     public void executeProcessValidTest() throws Exception
     {
-        String javaHome=System.getProperty("java.home");
-        String command="\""+javaHome+"\\bin\\java\" -version";
+        final String command="echo";
         FaxClientSpi faxClientSpi=new EmptyFaxClientSpi(true);
         ProcessOutput processOutput=this.processExecutor.executeProcess(faxClientSpi,command);
         Assert.assertNotNull(processOutput);
         Assert.assertEquals(0,processOutput.getExitCode());
         Assert.assertNotNull(processOutput.getOutputText());
     }
-    
+
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -60,10 +59,10 @@ public class DefaultProcessExecutorTest
     {
         this.processExecutor.executeProcess(null,"123");
     }
-    
+
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -73,10 +72,10 @@ public class DefaultProcessExecutorTest
         FaxClientSpi faxClientSpi=new EmptyFaxClientSpi(true);
         this.processExecutor.executeProcess(faxClientSpi,null);
     }
-    
+
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -86,10 +85,10 @@ public class DefaultProcessExecutorTest
         FaxClientSpi faxClientSpi=new EmptyFaxClientSpi(true);
         this.processExecutor.executeProcess(faxClientSpi,null);
     }
-    
+
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */

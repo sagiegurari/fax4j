@@ -7,23 +7,22 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test Class 
- * 
+ * Test Class
+ *
  * @author  Sagie Gur-Ari
  */
 public class ProcessExecutorHelperTest
 {
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
     @Test
     public void executeProcessTest() throws Exception
     {
-        String javaHome=System.getProperty("java.home");
-        String command="\""+javaHome+"\\bin\\java\" -version";
+        final String command="echo";
         FaxClientSpi faxClientSpi=new EmptyFaxClientSpi(true);
         ProcessOutput processOutput=ProcessExecutorHelper.executeProcess(faxClientSpi,command);
         Assert.assertNotNull(processOutput);

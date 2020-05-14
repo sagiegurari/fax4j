@@ -13,8 +13,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
- * 
+ * Test Class
+ *
  * @author  Sagie Gur-Ari
  */
 public class ProcessFaxClientSpiTest
@@ -28,15 +28,14 @@ public class ProcessFaxClientSpiTest
 
     /**
      * Sets up the SPI instance.
-     * 
+     *
      * @throws  Exception
      *          Any exception
      */
     @Before
     public void setUp() throws Exception
     {
-        String javaHome=System.getProperty("java.home");
-        String commandPrefix="\""+javaHome+"\\bin\\java\" -version ";
+        final String commandPrefix="echo ";
 
         Properties configuration=new Properties();
         String templateText="target.address=${target.address} "+
@@ -44,7 +43,7 @@ public class ProcessFaxClientSpiTest
                 "sender.name=${sender.name} "+
                 "sender.fax.number=${sender.fax.number} "+
                 "sender.email=${sender.email} "+
-                "file: ${file}";        
+                "file: ${file}";
         configuration.setProperty("org.fax4j.spi.process.submit.template.command",commandPrefix+"submit "+templateText);
         configuration.setProperty("org.fax4j.spi.process.suspend.template.command",commandPrefix+"suspend "+templateText);
         configuration.setProperty("org.fax4j.spi.process.resume.template.command",commandPrefix+"resume "+templateText);
@@ -66,8 +65,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -80,8 +79,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -94,8 +93,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -108,8 +107,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -122,8 +121,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -136,8 +135,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -150,8 +149,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -162,8 +161,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -177,16 +176,15 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
     @Test
     public void executeProcessTest() throws Exception
     {
-        String javaHome=System.getProperty("java.home");
-        String command="\""+javaHome+"\\bin\\java\" -version";
+        final String command="echo";
         ProcessOutput processOutput=this.faxClientSpi.executeProcess(this.faxJob,command,FaxActionType.SUBMIT_FAX_JOB);
         Assert.assertNotNull(processOutput);
         Assert.assertEquals(0,processOutput.getExitCode());
@@ -194,8 +192,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -206,8 +204,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -218,8 +216,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -230,8 +228,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
@@ -242,8 +240,8 @@ public class ProcessFaxClientSpiTest
     }
 
     /**
-     * Test 
-     * 
+     * Test
+     *
      * @throws  Exception
      *          Any exception
      */
