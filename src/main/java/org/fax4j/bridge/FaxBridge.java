@@ -1,6 +1,7 @@
 package org.fax4j.bridge;
 
 import java.util.Properties;
+import org.fax4j.FaxClient;
 import org.fax4j.FaxJob;
 import org.fax4j.common.ConfigurationHolder;
 import org.fax4j.common.Logger;
@@ -54,6 +55,13 @@ public interface FaxBridge extends ProviderImplementation, ConfigurationHolder {
      * @return The internal logger
      */
     Logger getLogger();
+
+    /**
+     * Returns the internal fax client.
+     *
+     * @return The fax client
+     */
+    FaxClient getFaxClient();
 
     /**
      * This function returns the vendor policy.

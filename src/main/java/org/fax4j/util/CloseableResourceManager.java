@@ -8,7 +8,7 @@ import org.fax4j.FaxException;
 /**
  * This class is used to hold/release closeable resources.<br>
  * All registered closeable resources will be closed when the JVM exists.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.03
  * @since 0.1
@@ -17,7 +17,7 @@ public final class CloseableResourceManager {
     /** Indicates if to enable/disable the register/unregister actions */
     private static boolean active = true;
     /** The closeable resources */
-    protected static final Set<Closeable> RESOURCES = new HashSet<Closeable>();
+    static final Set<Closeable> RESOURCES = new HashSet<Closeable>();
 
     static {
         // add shutdown hook
@@ -34,7 +34,7 @@ public final class CloseableResourceManager {
     /**
      * Registers the provided closeable.<br>
      * Will throw an error in case the manager is no longer active (due to JVM shutdown).
-     * 
+     *
      * @param closeable
      *            The closeable to register
      */
@@ -45,7 +45,7 @@ public final class CloseableResourceManager {
     /**
      * Unregisters the provided closeable.<br>
      * Will throw an error in case the manager is no longer active (due to JVM shutdown).
-     * 
+     *
      * @param closeable
      *            The closeable to unregister
      */
@@ -56,7 +56,7 @@ public final class CloseableResourceManager {
     /**
      * Registers/Unregisters the provided closeable.<br>
      * Will throw an error in case the manager is no longer active (due to JVM shutdown).
-     * 
+     *
      * @param register
      *            True to register, false to unregister
      * @param closeable
@@ -118,7 +118,7 @@ public final class CloseableResourceManager {
 
     /**
      * This shutdown hook releases all the closeable resources when the JVM exists.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.01
      * @since 0.1

@@ -12,7 +12,7 @@ import org.fax4j.util.ProcessExecutorHelper.ProcessOutput;
 /**
  * The process executer enables to execute native processes.<br>
  * This class provides the default implementation of the executer.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.02
  * @since 0.40.1
@@ -27,7 +27,7 @@ public class DefaultProcessExecutor extends AbstractProcessExecutor {
 
     /**
      * This function executes the given command and returns the process output.
-     * 
+     *
      * @param configurationHolder
      *            The configuration holder used when invoking the process
      * @param command
@@ -71,7 +71,7 @@ public class DefaultProcessExecutor extends AbstractProcessExecutor {
 
     /**
      * This function parsers the command and converts to a command array.
-     * 
+     *
      * @param configurationHolder
      *            The configuration holder used when invoking the process
      * @param command
@@ -97,9 +97,7 @@ public class DefaultProcessExecutor extends AbstractProcessExecutor {
                     buffer = this.addPart(commandList, buffer, spaceIndex, true);
                 }
             } else if (spaceIndex == -1) {
-                if (quoteIndex == -1) {
-                    buffer = this.addAllBuffer(commandList, buffer);
-                } else if (quoteIndex == 0) {
+                if (quoteIndex == 0) {
                     quoteIndex = buffer.indexOf("\"", 1);
                     if (quoteIndex == -1) {
                         throw new FaxException("Unable to parse command: " + command);
@@ -140,7 +138,7 @@ public class DefaultProcessExecutor extends AbstractProcessExecutor {
 
     /**
      * Updates the command list and the buffer.
-     * 
+     *
      * @param commandList
      *            The command list to update
      * @param buffer
@@ -156,7 +154,7 @@ public class DefaultProcessExecutor extends AbstractProcessExecutor {
 
     /**
      * Updates the command list and the buffer.
-     * 
+     *
      * @param commandList
      *            The command list to update
      * @param buffer
