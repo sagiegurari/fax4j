@@ -115,7 +115,7 @@ import org.fax4j.util.SpiUtil;
  * <td>false</td>
  * </tr>
  * </table>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.03
  * @since 0.42.4
@@ -126,7 +126,7 @@ public class TemplateFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPRequ
 
     /**
      * This class holds the configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.01
      * @since 0.42.4
@@ -150,17 +150,17 @@ public class TemplateFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPRequ
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxJob2HTTPRequestConverterConfigurationConstants(String value) {
+        FaxJob2HTTPRequestConverterConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -230,7 +230,7 @@ public class TemplateFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPRequ
 
     /**
      * Creates the HTTP request from the fax job data.
-     * 
+     *
      * @param faxClientSpi
      *            The HTTP fax client SPI
      * @param faxActionType
@@ -269,7 +269,7 @@ public class TemplateFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPRequ
 
     /**
      * This function formats the provided template.
-     * 
+     *
      * @param template
      *            The template
      * @param faxJob
@@ -282,7 +282,7 @@ public class TemplateFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPRequ
 
     /**
      * This function formats the HTTP resource.
-     * 
+     *
      * @param faxClientSpi
      *            The HTTP fax client SPI
      * @param faxActionType
@@ -303,7 +303,7 @@ public class TemplateFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPRequ
 
     /**
      * This function formats the HTTP URL parameters.
-     * 
+     *
      * @param faxClientSpi
      *            The HTTP fax client SPI
      * @param faxJob
@@ -322,7 +322,7 @@ public class TemplateFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPRequ
 
     /**
      * Creates the HTTP request from the fax job data.
-     * 
+     *
      * @param faxClientSpi
      *            The HTTP fax client SPI
      * @param faxActionType

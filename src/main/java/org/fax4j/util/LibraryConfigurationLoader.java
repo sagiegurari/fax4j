@@ -11,7 +11,7 @@ import org.fax4j.FaxException;
 
 /**
  * This is an internal utility used to load the library configuration.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.01
  * @since 0.40.6
@@ -31,7 +31,7 @@ public final class LibraryConfigurationLoader {
 
     /**
      * Closes the provided resource.
-     * 
+     *
      * @param resource
      *            The resource to close
      */
@@ -40,7 +40,7 @@ public final class LibraryConfigurationLoader {
             try {
                 // close resource
                 resource.close();
-            } catch (IOException exception) {
+            } catch (IOException exception) { // NOPMD
                 // ignore
             }
         }
@@ -48,7 +48,7 @@ public final class LibraryConfigurationLoader {
 
     /**
      * This function loads the properties from the input stream to the provided properties object.
-     * 
+     *
      * @param properties
      *            The target properties object
      * @param inputStream
@@ -73,7 +73,7 @@ public final class LibraryConfigurationLoader {
 
     /**
      * This function reads and returns the internal fax4j properties.
-     * 
+     *
      * @return The fax4j.properties data
      */
     public static Properties readInternalConfiguration() {
@@ -93,7 +93,7 @@ public final class LibraryConfigurationLoader {
 
     /**
      * This function reads and returns the internal and external fax4j properties.
-     * 
+     *
      * @return The internal and external fax4j.properties data
      */
     public static Properties readInternalAndExternalConfiguration() {
@@ -112,7 +112,7 @@ public final class LibraryConfigurationLoader {
 
     /**
      * This function returns the system configuration (internal and external fax4j.properties files).
-     * 
+     *
      * @return The system configuration
      */
     public static Map<String, String> getSystemConfiguration() {

@@ -169,7 +169,7 @@ public class PhaxioFaxClientSpi extends AbstractMultiPart2JSONHTTPFaxClientSpi {
         String apiSecret = this.getConfigurationValue(FaxClientSpiConfigurationConstants.API_SECRET_PROPERTY_KEY);
 
         // validate data
-        if ((apiKey == null) || (apiSecret == null)) {
+        if (apiKey == null || apiSecret == null) {
             throw new FaxException("Missing phaxio API key/secret values.");
         }
 

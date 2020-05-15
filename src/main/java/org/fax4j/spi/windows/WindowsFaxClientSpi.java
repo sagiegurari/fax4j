@@ -69,7 +69,7 @@ import org.fax4j.spi.adapter.AbstractAdapterFaxClientSpi;
  * <li>Windows fax component installed.
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.15
  * @since 0.1
@@ -77,7 +77,7 @@ import org.fax4j.spi.adapter.AbstractAdapterFaxClientSpi;
 public class WindowsFaxClientSpi extends AbstractAdapterFaxClientSpi {
     /**
      * This class holds the fax job extended properties.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.0
      * @since 0.43.5
@@ -91,17 +91,17 @@ public class WindowsFaxClientSpi extends AbstractAdapterFaxClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxJobExtendedPropertyConstants(String value) {
+        FaxJobExtendedPropertyConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -112,7 +112,7 @@ public class WindowsFaxClientSpi extends AbstractAdapterFaxClientSpi {
 
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.02
      * @since 0.1
@@ -128,17 +128,17 @@ public class WindowsFaxClientSpi extends AbstractAdapterFaxClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -198,7 +198,7 @@ public class WindowsFaxClientSpi extends AbstractAdapterFaxClientSpi {
 
     /**
      * This function will suspend an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -212,7 +212,7 @@ public class WindowsFaxClientSpi extends AbstractAdapterFaxClientSpi {
 
     /**
      * This function will resume an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -226,7 +226,7 @@ public class WindowsFaxClientSpi extends AbstractAdapterFaxClientSpi {
 
     /**
      * This function will cancel an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -243,7 +243,7 @@ public class WindowsFaxClientSpi extends AbstractAdapterFaxClientSpi {
      * Not all SPIs support extraction of the fax job status.<br>
      * In case the SPI is unable to extract or does not support extracting of the fax job status, it will return the
      * UNKNOWN status.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @return The fax job status

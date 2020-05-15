@@ -8,7 +8,7 @@ import org.fax4j.util.ProcessExecutorHelper.ProcessOutput;
 
 /**
  * This process output validator checks the fax4j vbscript output data for errors.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.0
  * @since 0.42.3
@@ -28,7 +28,7 @@ public class VBSProcessOutputValidator extends ExitCodeProcessOutputValidator {
 
     /**
      * This function returns the VBS error line for the exception message.
-     * 
+     *
      * @param errorPut
      *            The error put
      * @return The message
@@ -47,7 +47,7 @@ public class VBSProcessOutputValidator extends ExitCodeProcessOutputValidator {
                         int lineNumber = -1;
                         try {
                             lineNumber = Integer.parseInt(lineNumberStr);
-                        } catch (NumberFormatException exception) {
+                        } catch (NumberFormatException exception) { // NOPMD
                             // ignore
                         }
 
@@ -65,7 +65,7 @@ public class VBSProcessOutputValidator extends ExitCodeProcessOutputValidator {
     /**
      * This function validates the process output for errors.<br>
      * If not valid, an exception should be thrown.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      * @param processOutput
@@ -84,7 +84,7 @@ public class VBSProcessOutputValidator extends ExitCodeProcessOutputValidator {
         String errorPut = processOutput.getErrorText();
 
         boolean throwError = false;
-        if ((output != null) && (output.length() > 0)) {
+        if (output != null && output.length() > 0) {
             if (output.indexOf(VBSProcessOutputValidator.OPERATION_OUTPUT_DONE) == -1) {
                 throwError = true;
             }
@@ -94,7 +94,7 @@ public class VBSProcessOutputValidator extends ExitCodeProcessOutputValidator {
 
         if (throwError) {
             String message = this.getVBSFailedLineErrorMessage(errorPut);
-            if ((errorPut != null) && (errorPut.indexOf(VBSProcessOutputValidator.ACTIVE_X_NOT_INSTALLED) != -1)) {
+            if (errorPut != null && errorPut.indexOf(VBSProcessOutputValidator.ACTIVE_X_NOT_INSTALLED) != -1) {
                 throw new FaxException("Error while invoking VBS script (fax server ActiveX not installed on system),"
                         + message + " script output:\n" + output + "\nScript error:\n" + errorPut);
             }

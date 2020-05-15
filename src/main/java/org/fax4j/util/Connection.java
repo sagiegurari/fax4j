@@ -4,7 +4,7 @@ import java.io.Closeable;
 
 /**
  * This class defines basic common connection capabilities.
- * 
+ *
  * @param <T>
  *            The resource type
  * @author Sagie Gur-Ari
@@ -14,8 +14,8 @@ import java.io.Closeable;
 public interface Connection<T> extends Closeable {
     /**
      * This function returns the resource held by the connection.
-     * 
+     *
      * @return The resource held by the connection
      */
-    public T getResource();
+    T getResource();
 }

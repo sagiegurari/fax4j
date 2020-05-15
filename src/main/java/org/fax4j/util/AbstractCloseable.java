@@ -5,7 +5,7 @@ import java.io.IOException;
 
 /**
  * Defines a basic closable class which prevents errors from being thrown during the close invocation.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.0
  * @since 0.33
@@ -20,7 +20,7 @@ public abstract class AbstractCloseable implements Closeable {
 
     /**
      * Closes the connection.
-     * 
+     *
      * @throws IOException
      *             Never thrown
      */
@@ -28,7 +28,7 @@ public abstract class AbstractCloseable implements Closeable {
         try {
             // close connection
             this.closeImpl();
-        } catch (Exception exception) {
+        } catch (Exception exception) { // NOPMD
             // ignore
         }
     }

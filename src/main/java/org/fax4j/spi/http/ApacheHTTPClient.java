@@ -30,7 +30,7 @@ import org.fax4j.spi.http.HTTPRequest.ContentType;
 
 /**
  * This HTTP client is based on the Apache HTTP client and is used to submit HTTP requests.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.12
  * @since 0.1
@@ -45,7 +45,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
 
     /**
      * This function creates and returns a new HTTP client.
-     * 
+     *
      * @return The new HTTP client
      */
     protected HttpClient createHttpClient() {
@@ -57,7 +57,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
 
     /**
      * This function creates and returns a new HTTP method.
-     * 
+     *
      * @param url
      *            The target URL
      * @param httpMethod
@@ -68,7 +68,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
         if (httpMethod == null) {
             throw new FaxException("HTTP method not provided.");
         }
-        if ((url == null) || (url.length() == 0)) {
+        if (url == null || url.length() == 0) {
             throw new FaxException("HTTP URL not provided.");
         }
 
@@ -91,7 +91,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
 
     /**
      * This function creates and returns the HTTP response object.
-     * 
+     *
      * @param statusCode
      *            The HTTP response status code
      * @param responseContent
@@ -109,7 +109,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
 
     /**
      * This function appends the base URL (protocol, host, port and resource) to the provided buffer.
-     * 
+     *
      * @param buffer
      *            The buffer to update
      * @param resource
@@ -129,7 +129,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
             buffer.append(":");
             buffer.append(port);
         }
-        if ((resource != null) && (resource.length() > 0)) {
+        if (resource != null && resource.length() > 0) {
             if (!resource.startsWith("/")) {
                 buffer.append("/");
             }
@@ -139,14 +139,14 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
 
     /**
      * This function appends the parameters text to the base URL.
-     * 
+     *
      * @param buffer
      *            The buffer to update
      * @param parameters
      *            The parameters line
      */
     protected void appendParameters(StringBuilder buffer, String parameters) {
-        if ((parameters != null) && (parameters.length() > 0)) {
+        if (parameters != null && parameters.length() > 0) {
             String updatedParameters = parameters;
             if (parameters.startsWith("?")) {
                 updatedParameters = parameters.substring(1);
@@ -154,7 +154,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
 
             if (updatedParameters.length() > 0) {
                 int currentLength = buffer.length();
-                if ((currentLength > 0) && (buffer.charAt(currentLength - 1) == '/')) {
+                if (currentLength > 0 && buffer.charAt(currentLength - 1) == '/') {
                     int length = currentLength;
                     buffer.delete(length - 1, length);
                 }
@@ -196,7 +196,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
 
     /**
      * This function creates the full URL from the provided values.
-     * 
+     *
      * @param httpRequest
      *            The HTTP request to send
      * @param configuration
@@ -219,7 +219,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
 
     /**
      * This function sets the header properties in the HTTP method.
-     * 
+     *
      * @param httpRequest
      *            The HTTP request
      * @param httpMethodClient
@@ -243,7 +243,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
 
     /**
      * This function creates a string type request entity and populates it with the data from the provided HTTP request.
-     * 
+     *
      * @param httpRequest
      *            The HTTP request
      * @return The request entity
@@ -264,7 +264,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
 
     /**
      * This function creates a binary type request entity and populates it with the data from the provided HTTP request.
-     * 
+     *
      * @param httpRequest
      *            The HTTP request
      * @return The request entity
@@ -282,7 +282,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
     /**
      * This function creates a multi part type request entity and populates it with the data from the provided HTTP
      * request.
-     * 
+     *
      * @param httpRequest
      *            The HTTP request
      * @param httpMethodClient
@@ -341,7 +341,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
 
     /**
      * This function sets the request content.
-     * 
+     *
      * @param httpRequest
      *            The HTTP request
      * @param httpMethodClient
@@ -378,7 +378,7 @@ public class ApacheHTTPClient extends AbstractHTTPClient {
 
     /**
      * Submits the HTTP request and returns the HTTP response.
-     * 
+     *
      * @param httpRequest
      *            The HTTP request to send
      * @param httpClientConfiguration

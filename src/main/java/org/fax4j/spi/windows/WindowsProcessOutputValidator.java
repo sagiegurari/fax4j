@@ -9,7 +9,7 @@ import org.fax4j.util.ProcessExecutorHelper.ProcessOutput;
 
 /**
  * This process output validator checks the fax4j.exe output data for errors.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.02
  * @since 0.26
@@ -25,7 +25,7 @@ public class WindowsProcessOutputValidator extends ExitCodeProcessOutputValidato
     /**
      * This function validates the process output for errors.<br>
      * If not valid, an exception should be thrown.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      * @param processOutput
@@ -42,7 +42,7 @@ public class WindowsProcessOutputValidator extends ExitCodeProcessOutputValidato
         // get output
         String output = processOutput.getOutputText();
 
-        if ((output != null) && (output.length() > 0)) {
+        if (output != null && output.length() > 0) {
             // if no valid done output was found
             if (output.indexOf(Fax4jExeConstants.OPERATION_OUTPUT_DONE.toString()) == -1) {
                 // get error message

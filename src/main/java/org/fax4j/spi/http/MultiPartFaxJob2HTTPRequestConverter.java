@@ -125,7 +125,7 @@ import org.fax4j.spi.http.HTTPRequest.ContentPartType;
  * <td>false</td>
  * </tr>
  * </table>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.02
  * @since 0.42.7
@@ -160,7 +160,7 @@ public class MultiPartFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPReq
 
     /**
      * This class holds the configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.02
      * @since 0.42.4
@@ -210,17 +210,17 @@ public class MultiPartFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPReq
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxJob2HTTPRequestConverterConfigurationConstants(String value) {
+        FaxJob2HTTPRequestConverterConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -316,7 +316,7 @@ public class MultiPartFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPReq
 
     /**
      * This function builds and returns the additional parameters map.
-     * 
+     *
      * @return The additional parameters
      */
     protected Map<String, String> initializeAdditionalParameters() {
@@ -350,21 +350,18 @@ public class MultiPartFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPReq
                 key = MessageFormat.format(key, propertyPart);
                 key = key.trim();
 
-                if (key.length() > 0) {
-                    // check if additional parameter key
-                    if (key.startsWith(prefix)) {
-                        // get value
-                        value = entry.getValue();
+                if (key.length() > 0 && key.startsWith(prefix)) {
+                    // get value
+                    value = entry.getValue();
 
-                        if (value != null) {
-                            value = value.trim();
-                            if (value.length() > 0) {
-                                // get updated key without prefix
-                                key = key.substring(prefix.length());
+                    if (value != null) {
+                        value = value.trim();
+                        if (value.length() > 0) {
+                            // get updated key without prefix
+                            key = key.substring(prefix.length());
 
-                                // put in map
-                                additionalParametersMap.put(key, value);
-                            }
+                            // put in map
+                            additionalParametersMap.put(key, value);
                         }
                     }
                 }
@@ -376,7 +373,7 @@ public class MultiPartFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPReq
 
     /**
      * Creates the HTTP request from the fax job data.
-     * 
+     *
      * @param faxClientSpi
      *            The HTTP fax client SPI
      * @param faxActionType
@@ -443,7 +440,7 @@ public class MultiPartFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPReq
 
     /**
      * This function returns true if the converter should add a file name content part.
-     * 
+     *
      * @return True if to add a file name content part
      */
     protected boolean shouldAddFileNamePart() {
@@ -452,7 +449,7 @@ public class MultiPartFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPReq
 
     /**
      * Creates a HTTP request with the common data.
-     * 
+     *
      * @param faxClientSpi
      *            The HTTP fax client SPI
      * @param faxActionType
@@ -472,7 +469,7 @@ public class MultiPartFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPReq
 
     /**
      * This function adds a string content part
-     * 
+     *
      * @param contentList
      *            The content list with all the created parts
      * @param key
@@ -481,17 +478,15 @@ public class MultiPartFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPReq
      *            The parameter value
      */
     protected final void addContentPart(List<ContentPart<?>> contentList, String key, String value) {
-        if ((key != null) && (value != null) && (value.length() > 0)) {
-            if (this.shouldAddContentPart(key)) {
-                contentList.add(new ContentPart<String>(key, value, ContentPartType.STRING));
-            }
+        if (key != null && value != null && value.length() > 0 && this.shouldAddContentPart(key)) {
+            contentList.add(new ContentPart<String>(key, value, ContentPartType.STRING));
         }
     }
 
     /**
      * This function enables to filter out parameters from the HTTP request.<br>
      * Default implementation uses the default IGNORE_PARAMETER_KEY enum value.
-     * 
+     *
      * @param key
      *            The parameter key
      * @return True to add, false to filter out
@@ -507,7 +502,7 @@ public class MultiPartFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPReq
 
     /**
      * This function adds the additional parameters.
-     * 
+     *
      * @param contentList
      *            The content list with all the created parts
      */
@@ -526,7 +521,7 @@ public class MultiPartFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPReq
                 key = entry.getKey();
                 value = entry.getValue();
 
-                if ((key != null) && (value != null)) {
+                if (key != null && value != null) {
                     this.addContentPart(contentList, key, value);
                 }
             }
@@ -535,7 +530,7 @@ public class MultiPartFaxJob2HTTPRequestConverter extends AbstractFaxJob2HTTPReq
 
     /**
      * This function enables extending classes to add additional content parts.
-     * 
+     *
      * @param faxClientSpi
      *            The HTTP fax client SPI
      * @param faxActionType

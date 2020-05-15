@@ -169,7 +169,7 @@ public class InterfaxMailFaxClientSpi extends MailFaxClientSpi {
     protected Message createSubmitFaxJobMessage(FaxJob faxJob, MailResourcesHolder mailResourcesHolder) {
         // set from
         String from = faxJob.getSenderEmail();
-        if ((from == null) || (from.length() == 0)) {
+        if (from == null || from.length() == 0) {
             throw new FaxException("From address not provided.");
         }
 

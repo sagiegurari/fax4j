@@ -7,7 +7,7 @@ import org.fax4j.common.Service;
 /**
  * The fax job to HTTP request converter interface enables to convert fax jobs to HTTP requests which will be submitted
  * to invoke the fax action remotly.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.0
  * @since 0.42.4
@@ -15,7 +15,7 @@ import org.fax4j.common.Service;
 public interface FaxJob2HTTPRequestConverter extends Service {
     /**
      * Creates the HTTP request from the fax job data.
-     * 
+     *
      * @param faxClientSpi
      *            The HTTP fax client SPI
      * @param faxActionType
@@ -24,5 +24,5 @@ public interface FaxJob2HTTPRequestConverter extends Service {
      *            The fax job object
      * @return The HTTP request to send
      */
-    public HTTPRequest createHTTPRequest(HTTPFaxClientSpi faxClientSpi, FaxActionType faxActionType, FaxJob faxJob);
+    HTTPRequest createHTTPRequest(HTTPFaxClientSpi faxClientSpi, FaxActionType faxActionType, FaxJob faxJob);
 }

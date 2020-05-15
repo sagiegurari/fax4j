@@ -7,7 +7,7 @@ import org.fax4j.FaxException;
 /**
  * Holds the HTTP request data used to send the fax data to the web server.<br>
  * This class is not thread safe.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.02
  * @since 0.1
@@ -40,7 +40,7 @@ public class HTTPRequest {
 
     /**
      * This function returns the requested resource.
-     * 
+     *
      * @return The requested resource
      */
     public final String getResource() {
@@ -49,7 +49,7 @@ public class HTTPRequest {
 
     /**
      * This function returns the URL parameters text.
-     * 
+     *
      * @return The URL parameters text
      */
     public final String getParametersText() {
@@ -58,7 +58,7 @@ public class HTTPRequest {
 
     /**
      * This function returns the header properties.
-     * 
+     *
      * @return The header properties
      */
     public final Properties getHeaderProperties() {
@@ -67,7 +67,7 @@ public class HTTPRequest {
 
     /**
      * This function sets the requested resource.
-     * 
+     *
      * @param resource
      *            The new value for the requested resource
      */
@@ -77,7 +77,7 @@ public class HTTPRequest {
 
     /**
      * This function sets the URL parameters text.
-     * 
+     *
      * @param parametersText
      *            The new value for the URL parameters text
      */
@@ -87,7 +87,7 @@ public class HTTPRequest {
 
     /**
      * This function sets the header properties.
-     * 
+     *
      * @param headerProperties
      *            The new value for the header properties
      */
@@ -101,7 +101,7 @@ public class HTTPRequest {
 
     /**
      * This function returns the content type of this request.
-     * 
+     *
      * @return The content type
      */
     public final ContentType getContentType() {
@@ -110,7 +110,7 @@ public class HTTPRequest {
 
     /**
      * This function returns the content.
-     * 
+     *
      * @return The content
      */
     public final byte[] getContentAsBinary() {
@@ -127,7 +127,7 @@ public class HTTPRequest {
 
     /**
      * This function sets the content.
-     * 
+     *
      * @param content
      *            The new value for the content
      */
@@ -146,7 +146,7 @@ public class HTTPRequest {
 
     /**
      * This function returns the content.
-     * 
+     *
      * @return The content
      */
     public final String getContentAsString() {
@@ -159,7 +159,7 @@ public class HTTPRequest {
 
     /**
      * This function sets the content.
-     * 
+     *
      * @param content
      *            The new value for the content
      */
@@ -174,7 +174,7 @@ public class HTTPRequest {
 
     /**
      * This function returns the content.
-     * 
+     *
      * @return The content
      */
     public final ContentPart<?>[] getContentAsParts() {
@@ -191,7 +191,7 @@ public class HTTPRequest {
 
     /**
      * This function sets the content.
-     * 
+     *
      * @param content
      *            The new value for the content
      */
@@ -210,12 +210,12 @@ public class HTTPRequest {
 
     /**
      * This enum defines the content types which are supported.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.0
      * @since 0.42.7
      */
-    public static enum ContentType {
+    public enum ContentType {
         /**
          * Content type
          */
@@ -232,12 +232,12 @@ public class HTTPRequest {
 
     /**
      * This enum defines the content part types which are supported.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.01
      * @since 0.42.7
      */
-    public static enum ContentPartType {
+    public enum ContentPartType {
         /**
          * File content part type.
          */
@@ -254,7 +254,7 @@ public class HTTPRequest {
 
     /**
      * This class holds the content part data.
-     * 
+     *
      * @param <T>
      *            The part type
      * @author Sagie Gur-Ari
@@ -271,7 +271,7 @@ public class HTTPRequest {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param name
          *            The part name/key
          * @param content
@@ -319,28 +319,28 @@ public class HTTPRequest {
 
         /**
          * This function returns the part name/key.
-         * 
+         *
          * @return The part name/key
          */
-        public final String getName() {
+        public String getName() {
             return this.NAME;
         }
 
         /**
          * This function returns the content of the part.
-         * 
+         *
          * @return The content of the part
          */
-        public final T getContent() {
+        public T getContent() {
             return this.CONTENT;
         }
 
         /**
          * This function returns the content type.
-         * 
+         *
          * @return The content type
          */
-        public final ContentPartType getType() {
+        public ContentPartType getType() {
             return this.TYPE;
         }
     }

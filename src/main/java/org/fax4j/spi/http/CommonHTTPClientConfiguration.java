@@ -7,7 +7,7 @@ import org.fax4j.spi.http.HTTPClient.HTTPMethod;
 
 /**
  * This is the common HTTP client configuration.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.04
  * @since 0.20c
@@ -24,7 +24,7 @@ public class CommonHTTPClientConfiguration implements HTTPClientConfiguration {
 
     /**
      * This class holds the configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.02
      * @since 0.20c
@@ -52,17 +52,17 @@ public class CommonHTTPClientConfiguration implements HTTPClientConfiguration {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private HTTPClientConfigurationConstants(String value) {
+        HTTPClientConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -97,7 +97,7 @@ public class CommonHTTPClientConfiguration implements HTTPClientConfiguration {
 
     /**
      * This function returns the host name.
-     * 
+     *
      * @return The host name
      */
     public final String getHostName() {
@@ -106,7 +106,7 @@ public class CommonHTTPClientConfiguration implements HTTPClientConfiguration {
 
     /**
      * This function sets the host name.
-     * 
+     *
      * @param hostName
      *            The new value for the host name
      */
@@ -116,7 +116,7 @@ public class CommonHTTPClientConfiguration implements HTTPClientConfiguration {
 
     /**
      * This function returns the port.
-     * 
+     *
      * @return The port
      */
     public final int getPort() {
@@ -125,7 +125,7 @@ public class CommonHTTPClientConfiguration implements HTTPClientConfiguration {
 
     /**
      * This function sets the port.
-     * 
+     *
      * @param port
      *            The new value for the port
      */
@@ -135,7 +135,7 @@ public class CommonHTTPClientConfiguration implements HTTPClientConfiguration {
 
     /**
      * This function returns the SSL flag value.
-     * 
+     *
      * @return The SSL flag value
      */
     public final boolean isSSL() {
@@ -144,7 +144,7 @@ public class CommonHTTPClientConfiguration implements HTTPClientConfiguration {
 
     /**
      * This function sets the SSL flag value.
-     * 
+     *
      * @param ssl
      *            The new value for the SSL flag value
      */
@@ -154,7 +154,7 @@ public class CommonHTTPClientConfiguration implements HTTPClientConfiguration {
 
     /**
      * This function returns the HTTP method based on the provided fax action type.
-     * 
+     *
      * @param faxActionType
      *            The fax action type
      * @return The HTTP method
@@ -165,7 +165,7 @@ public class CommonHTTPClientConfiguration implements HTTPClientConfiguration {
 
     /**
      * This function sets the HTTP method based on the provided fax action type.
-     * 
+     *
      * @param faxActionType
      *            The fax action type
      * @param httpMethod

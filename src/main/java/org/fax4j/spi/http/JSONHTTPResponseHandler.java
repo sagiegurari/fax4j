@@ -111,7 +111,7 @@ import org.json.JSONObject;
  * <td>false</td>
  * </tr>
  * </table>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.04
  * @since 0.42.5
@@ -119,7 +119,7 @@ import org.json.JSONObject;
 public class JSONHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<JSONObject> {
     /**
      * This class holds the configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.0
      * @since 0.42.6
@@ -153,17 +153,17 @@ public class JSONHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private JSONHTTPResponseHandlerConfigurationConstants(String value) {
+        JSONHTTPResponseHandlerConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -215,7 +215,7 @@ public class JSONHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<
 
     /**
      * Returns the error detection path configuration key.
-     * 
+     *
      * @return The error detection path configuration key
      */
     @Override
@@ -225,7 +225,7 @@ public class JSONHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<
 
     /**
      * Returns the error detection value configuration key.
-     * 
+     *
      * @return The error detection value configuration key
      */
     @Override
@@ -235,7 +235,7 @@ public class JSONHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<
 
     /**
      * Returns the error message path configuration key.
-     * 
+     *
      * @return The error message path configuration key
      */
     @Override
@@ -246,7 +246,7 @@ public class JSONHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<
     /**
      * This function returns the requested value from the object data.<br>
      * The path is a set of key names seperated by ';'.
-     * 
+     *
      * @param object
      *            The object holding all the data
      * @param path
@@ -272,7 +272,7 @@ public class JSONHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<
 
                 try {
                     // if last element
-                    if ((index + 1) == pathPartsAmount) {
+                    if (index + 1 == pathPartsAmount) {
                         value = currentJSONObject.getString(pathPart);
                     } else {
                         // get sub object
@@ -292,7 +292,7 @@ public class JSONHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<
 
     /**
      * This function converts the HTTP response content to the specific object.
-     * 
+     *
      * @param httpResponse
      *            The HTTP response
      * @return The object

@@ -64,7 +64,7 @@ import org.fax4j.util.IOHelper;
  * <li>Windows fax component installed.
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.03
  * @since 0.41.5
@@ -77,7 +77,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.02
      * @since 0.21e
@@ -91,17 +91,17 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -112,7 +112,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
     /**
      * This class holds the fax4j exe constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.01
      * @since 0.22
@@ -164,17 +164,17 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private Fax4jExeConstants(String value) {
+        Fax4jExeConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -222,7 +222,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
     /**
      * This function returns true if the fax monitor events are supported by this SPI.
-     * 
+     *
      * @return True if the fax monitor events are supported by this SPI
      */
     @Override
@@ -236,7 +236,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
      * different configuration blocks.<br>
      * Property parts will be replaced with the {0} values in the key, for example org.fax4j.{0}.somekey with part abc
      * will be replaced to org.fax4j.abc.somekey
-     * 
+     *
      * @return The property part
      */
     @Override
@@ -246,7 +246,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
     /**
      * This function creates and returns the process output validator.
-     * 
+     *
      * @return The process output validator
      */
     @Override
@@ -259,7 +259,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
     /**
      * This function creates and returns the process output handler.
-     * 
+     *
      * @return The process output handler
      */
     @Override
@@ -272,7 +272,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
     /**
      * This function adds the given command line argument to the buffer.
-     * 
+     *
      * @param buffer
      *            The buffer
      * @param argument
@@ -281,7 +281,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
      *            The argument value
      */
     protected void addCommandLineArgument(StringBuilder buffer, String argument, String value) {
-        if ((value != null) && (value.length() > 0)) {
+        if (value != null && value.length() > 0) {
             buffer.append(argument);
             buffer.append(Fax4jExeConstants.SPACE_STR);
             buffer.append(Fax4jExeConstants.VALUE_WRAPPER);
@@ -293,7 +293,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
     /**
      * This function creates and returns the fax4j.exe command.
-     * 
+     *
      * @param commandArguments
      *            The command line arguments
      * @return The fax4j.exe command
@@ -314,7 +314,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
     /**
      * This function creates and returns the command line arguments for the fax4j external exe when running the submit
      * fax job action.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The full command line arguments line
@@ -362,7 +362,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
     /**
      * This function creates and returns the command line arguments for the fax4j external exe when running an action on
      * an existing fax job.
-     * 
+     *
      * @param faxActionTypeArgument
      *            The fax action type argument
      * @param faxJob
@@ -392,7 +392,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
     /**
      * Creates the process command from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The process command to execute
@@ -410,7 +410,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
     /**
      * Creates the process command from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The process command to execute
@@ -429,7 +429,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
     /**
      * Creates the process command from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The process command to execute
@@ -448,7 +448,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
     /**
      * Creates the process command from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The process command to execute
@@ -467,7 +467,7 @@ public class WindowsProcessFaxClientSpi extends ProcessFaxClientSpi {
 
     /**
      * Creates the process command from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The process command to execute

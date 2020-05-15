@@ -150,7 +150,7 @@ import org.fax4j.util.SpiUtil;
  * <li>External executable/script must be available
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.13
  * @since 0.21e
@@ -169,7 +169,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.02
      * @since 0.21e
@@ -201,17 +201,17 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -259,7 +259,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
      * different configuration blocks.<br>
      * Property parts will be replaced with the {0} values in the key, for example org.fax4j.{0}.somekey with part abc
      * will be replaced to org.fax4j.abc.somekey
-     * 
+     *
      * @return The property part
      */
     @Override
@@ -269,7 +269,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function creates and returns the process output validator.
-     * 
+     *
      * @return The process output validator
      */
     protected ProcessOutputValidator createProcessOutputValidator() {
@@ -289,7 +289,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function creates and returns the process output handler.
-     * 
+     *
      * @return The process output handler
      */
     protected ProcessOutputHandler createProcessOutputHandler() {
@@ -307,7 +307,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function returns the process output validator.
-     * 
+     *
      * @return The process output validator
      */
     public final ProcessOutputValidator getProcessOutputValidator() {
@@ -316,7 +316,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function returns the process output handler.
-     * 
+     *
      * @return The process output handler
      */
     protected final ProcessOutputHandler getProcessOutputHandler() {
@@ -326,7 +326,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -341,7 +341,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will suspend an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -356,7 +356,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will resume an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -371,7 +371,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will cancel an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -389,7 +389,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
      * Not all SPIs support extraction of the fax job status.<br>
      * In case the SPI is unable to extract or does not support extracting of the fax job status, it will return the
      * UNKNOWN status.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @return The fax job status
@@ -413,7 +413,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function extracts the fax job status from the process output.
-     * 
+     *
      * @param processOutput
      *            The process output
      * @return The fax job status
@@ -435,7 +435,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Executes the process and returns the output.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @param command
@@ -476,7 +476,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function formats the provided template.
-     * 
+     *
      * @param template
      *            The template
      * @param faxJob
@@ -489,7 +489,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function returns the template for the given template name.
-     * 
+     *
      * @param templateName
      *            The template name
      * @return The template
@@ -503,7 +503,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates the process command from the fax job data.
-     * 
+     *
      * @param templateNameEnum
      *            The template name
      * @param faxJob
@@ -528,7 +528,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function validates the process output for errors.<br>
      * If not valid, an exception should be thrown.
-     * 
+     *
      * @param processOutput
      *            The process output to validate
      * @param faxActionType
@@ -540,7 +540,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Updates the fax job based on the data from the process output.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @param processOutput
@@ -557,7 +557,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates the process command from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The process command to execute
@@ -569,7 +569,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates the process command from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The process command to execute
@@ -581,7 +581,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates the process command from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The process command to execute
@@ -593,7 +593,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates the process command from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The process command to execute
@@ -605,7 +605,7 @@ public class ProcessFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates the process command from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The process command to execute

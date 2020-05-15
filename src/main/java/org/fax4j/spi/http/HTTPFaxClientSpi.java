@@ -169,7 +169,7 @@ import org.fax4j.util.ReflectionHelper;
  * <li>HTTP client required jars.
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.14
  * @since 0.1
@@ -192,7 +192,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.03
      * @since 0.1
@@ -222,17 +222,17 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -285,7 +285,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
      * different configuration blocks.<br>
      * Property parts will be replaced with the {0} values in the key, for example org.fax4j.{0}.somekey with part abc
      * will be replaced to org.fax4j.abc.somekey
-     * 
+     *
      * @return The property part
      */
     @Override
@@ -295,7 +295,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function creates and returns the HTTP configuration object.
-     * 
+     *
      * @return The HTTP configuration object
      */
     protected HTTPClientConfiguration createHTTPClientConfiguration() {
@@ -307,7 +307,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function creates and returns a new faxjob to HTTP request converter instance.
-     * 
+     *
      * @return A new faxjob to HTTP request converter instance
      */
     protected FaxJob2HTTPRequestConverter createFaxJob2HTTPRequestConverter() {
@@ -324,7 +324,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function creates and returns a new HTTP response handler.
-     * 
+     *
      * @return A new HTTP response handler
      */
     protected HTTPResponseHandler createHTTPResponseHandler() {
@@ -341,7 +341,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function initializes the fax action type to resource mappings.
-     * 
+     *
      * @return The fax action type to resource mappings
      */
     protected Map<FaxActionType, String> initializeFaxActionType2ResourceMap() {
@@ -369,7 +369,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function returns the HTTP URL parameters from the configuration.
-     * 
+     *
      * @return The HTTP URL parameters
      */
     protected String initializeURLParameters() {
@@ -378,7 +378,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Returns the HTTP client.
-     * 
+     *
      * @return The HTTP client
      */
     protected final HTTPClient getHTTPClient() {
@@ -387,7 +387,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Returns the HTTP client configuration.
-     * 
+     *
      * @return The HTTP client configuration
      */
     protected final HTTPClientConfiguration getHTTPClientConfiguration() {
@@ -396,7 +396,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Returns the fax job to HTTP request converter.
-     * 
+     *
      * @return The fax job to HTTP request converter
      */
     protected final FaxJob2HTTPRequestConverter getFaxJob2HTTPRequestConverter() {
@@ -405,7 +405,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Returns the HTTP response handler.
-     * 
+     *
      * @return The HTTP response handler
      */
     protected final HTTPResponseHandler getHTTPResponseHandler() {
@@ -414,7 +414,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function returns the HTTP resource.
-     * 
+     *
      * @param faxActionType
      *            The fax action type
      * @return The HTTP resource
@@ -425,7 +425,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function returns the HTTP URL parameters.
-     * 
+     *
      * @return The HTTP URL parameters
      */
     protected final String getHTTPURLParameters() {
@@ -435,7 +435,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -450,7 +450,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will suspend an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -465,7 +465,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will resume an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -480,7 +480,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will cancel an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -498,7 +498,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
      * Not all SPIs support extraction of the fax job status.<br>
      * In case the SPI is unable to extract or does not support extracting of the fax job status, it will return the
      * UNKNOWN status.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @return The fax job status
@@ -529,7 +529,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Submits the HTTP request and returns the HTTP response.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @param httpRequest
@@ -582,7 +582,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Submits the HTTP request and returns the HTTP response.
-     * 
+     *
      * @param httpRequest
      *            The HTTP request to send
      * @param httpMethod
@@ -595,7 +595,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Updates the fax job based on the data from the HTTP response.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @param httpResponse
@@ -609,7 +609,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates the HTTP request from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The HTTP request to send
@@ -620,7 +620,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates the HTTP request from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The HTTP request to send
@@ -631,7 +631,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates the HTTP request from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The HTTP request to send
@@ -642,7 +642,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates the HTTP request from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The HTTP request to send
@@ -653,7 +653,7 @@ public class HTTPFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates the HTTP request from the fax job data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The HTTP request to send

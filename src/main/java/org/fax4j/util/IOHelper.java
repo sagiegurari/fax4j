@@ -21,7 +21,7 @@ import org.fax4j.common.LoggerManager;
 
 /**
  * This is an internal IO utility class.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.02
  * @since 0.40.6
@@ -41,7 +41,7 @@ public final class IOHelper {
 
     /**
      * This function returns the system default encoding.
-     * 
+     *
      * @return The system default encoding
      */
     private static String getDefaultEncodingImpl() {
@@ -52,7 +52,7 @@ public final class IOHelper {
 
     /**
      * This function returns the fax4j library internal temporary directory.
-     * 
+     *
      * @return The fax4j library internal temporary directory
      */
     private static File getFax4jInternalTemporaryDirectoryImpl() {
@@ -95,7 +95,7 @@ public final class IOHelper {
 
     /**
      * This function returns the encoding to use. If provided encoding is null, the default system encoding is returend.
-     * 
+     *
      * @param encoding
      *            The encoding (may be null for system default encoding)
      * @return The encoding to use
@@ -112,7 +112,7 @@ public final class IOHelper {
 
     /**
      * This function returns the system default encoding.
-     * 
+     *
      * @return The system default encoding
      */
     public static String getDefaultEncoding() {
@@ -121,7 +121,7 @@ public final class IOHelper {
 
     /**
      * This function returns the fax4j library internal temporary directory.
-     * 
+     *
      * @return The fax4j library internal temporary directory
      */
     public static File getFax4jInternalTemporaryDirectory() {
@@ -130,7 +130,7 @@ public final class IOHelper {
 
     /**
      * This function converts the provided string to binary data.
-     * 
+     *
      * @param text
      *            The text to convert
      * @param encoding
@@ -148,7 +148,7 @@ public final class IOHelper {
                 Logger logger = loggerManager.getLogger();
 
                 String encodingToUse = encoding;
-                if ((encodingToUse != null) && (encodingToUse.length() > 0)) {
+                if (encodingToUse != null && encodingToUse.length() > 0) {
                     try {
                         data = text.getBytes(encodingToUse);
                     } catch (UnsupportedEncodingException exception) {
@@ -178,7 +178,7 @@ public final class IOHelper {
 
     /**
      * Closes the provided resource.
-     * 
+     *
      * @param resource
      *            The resource to close
      */
@@ -187,7 +187,7 @@ public final class IOHelper {
             try {
                 // close resource
                 resource.close();
-            } catch (IOException exception) {
+            } catch (IOException exception) { // NOPMD
                 // ignore
             }
         }
@@ -195,7 +195,7 @@ public final class IOHelper {
 
     /**
      * This function creates and returns a new reader for the provided input stream.
-     * 
+     *
      * @param inputStream
      *            The input stream
      * @param encoding
@@ -219,7 +219,7 @@ public final class IOHelper {
 
     /**
      * This function creates and returns a new writer for the provided output stream.
-     * 
+     *
      * @param outputStream
      *            The output stream
      * @param encoding
@@ -243,7 +243,7 @@ public final class IOHelper {
 
     /**
      * Reads the text from the stream.
-     * 
+     *
      * @param reader
      *            The reader to the text
      * @return The text read from the provided stream
@@ -277,7 +277,7 @@ public final class IOHelper {
 
     /**
      * Reads the text from the file.
-     * 
+     *
      * @param file
      *            The text file
      * @return The text read from the provided file
@@ -297,7 +297,7 @@ public final class IOHelper {
 
     /**
      * Writes the text to the file.
-     * 
+     *
      * @param text
      *            The text to write to the provided file
      * @param file
@@ -322,7 +322,7 @@ public final class IOHelper {
 
     /**
      * Reads the data from the input stream and writes to the output stream.
-     * 
+     *
      * @param inputStream
      *            The inputStream to read from
      * @param outputStream
@@ -352,7 +352,7 @@ public final class IOHelper {
 
     /**
      * Reads the data from the stream.
-     * 
+     *
      * @param inputStream
      *            The inputStream
      * @return The data read from the provided stream
@@ -374,7 +374,7 @@ public final class IOHelper {
 
     /**
      * Reads the data from the file.
-     * 
+     *
      * @param file
      *            The file
      * @return The data read from the provided file
@@ -393,7 +393,7 @@ public final class IOHelper {
 
     /**
      * Writes the content to the file.
-     * 
+     *
      * @param content
      *            The content to write to the provided file
      * @param file
@@ -417,7 +417,7 @@ public final class IOHelper {
 
     /**
      * This function returns the file object of the first location in which the requested file is found.
-     * 
+     *
      * @param fileNameWithNoPath
      *            The file name (with no directory path)
      * @param pathList
@@ -439,7 +439,7 @@ public final class IOHelper {
                 // get file
                 file = new File(directoryPath, fileNameWithNoPath);
 
-                if ((file.exists()) && (file.isFile())) {
+                if (file.exists() && file.isFile()) {
                     foundFile = file;
                     break;
                 }
@@ -452,7 +452,7 @@ public final class IOHelper {
     /**
      * This function returns the file object of the first location in which the requested file is found. The path list
      * used, is the current native path of the process.
-     * 
+     *
      * @param fileNameWithNoPath
      *            The file name (with no directory path)
      * @return The file object if found, else null will be returned
@@ -471,7 +471,7 @@ public final class IOHelper {
 
     /**
      * This class reads the output of the process.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.01
      * @since 0.21e
@@ -484,7 +484,7 @@ public final class IOHelper {
 
         /**
          * This is the default constructor.
-         * 
+         *
          * @param inputStream
          *            The input stream to read from
          */
@@ -512,14 +512,14 @@ public final class IOHelper {
                         this.OUTPUT_STREAM.write(buffer, 0, read);
                     }
                 } while (read != -1);
-            } catch (IOException exception) {
+            } catch (IOException exception) { // NOPMD
                 // ignore
             }
         }
 
         /**
          * The text read from the stream.
-         * 
+         *
          * @return The text
          * @throws UnsupportedEncodingException
          *             In case encoding is not supported

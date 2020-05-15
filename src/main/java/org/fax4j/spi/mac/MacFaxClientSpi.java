@@ -265,7 +265,7 @@ public class MacFaxClientSpi extends AbstractFax4JClientSpi {
         buffer.append("=");
         buffer.append(faxJob.getTargetAddress());
         String targetName = faxJob.getTargetName();
-        if ((targetName != null) && (targetName.length() > 0)) {
+        if (targetName != null && targetName.length() > 0) {
             buffer.append(" ");
             buffer.append(this.faxToParameter);
             buffer.append("=\"");

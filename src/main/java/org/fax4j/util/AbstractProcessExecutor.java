@@ -11,7 +11,7 @@ import org.fax4j.util.ProcessExecutorHelper.ProcessOutput;
  * The process executer enables to execute native processes.<br>
  * This class provides only partial implementation of the executer.<br>
  * Implementing classes must be statless and thread safe.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.03
  * @since 0.40.1
@@ -33,7 +33,7 @@ public abstract class AbstractProcessExecutor implements ProcessExecutor {
 
     /**
      * This function executes the given command and returns the process output.
-     * 
+     *
      * @param configurationHolder
      *            The configuration holder used when invoking the process
      * @param command
@@ -47,7 +47,7 @@ public abstract class AbstractProcessExecutor implements ProcessExecutor {
     public ProcessOutput executeProcess(ConfigurationHolder configurationHolder, String command)
             throws IOException, InterruptedException {
         // validate command provided
-        if ((command == null) || (command.length() == 0)) {
+        if (command == null || command.length() == 0) {
             throw new FaxException("Command not provided.");
         }
 
@@ -80,7 +80,7 @@ public abstract class AbstractProcessExecutor implements ProcessExecutor {
 
     /**
      * This function executes the given command and returns the process output.
-     * 
+     *
      * @param configurationHolder
      *            The configuration holder used when invoking the process
      * @param command

@@ -99,7 +99,7 @@ public class RFaxFaxClientSpi extends AbstractFax4JClientSpi {
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 

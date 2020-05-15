@@ -98,7 +98,7 @@ import org.fax4j.util.ProcessExecutorHelper.ProcessOutput;
  * <li>Windows fax component installed.
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.26
  * @since 0.1
@@ -151,7 +151,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.03
      * @since 0.1
@@ -171,17 +171,17 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -192,7 +192,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This class holds the fax job extended properties.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.02
      * @since 0.1
@@ -206,17 +206,17 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxJobExtendedPropertyConstants(String value) {
+        FaxJobExtendedPropertyConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -308,7 +308,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function returns true if the fax monitor events are supported by this SPI.
-     * 
+     *
      * @return True if the fax monitor events are supported by this SPI
      */
     @Override
@@ -318,7 +318,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function return the VBS exe path.
-     * 
+     *
      * @return The VBS exe path
      */
     protected String getVBSExePath() {
@@ -328,7 +328,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -348,7 +348,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will suspend an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -365,7 +365,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will resume an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -382,7 +382,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will cancel an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -402,7 +402,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
      * Not all SPIs support extraction of the fax job status.<br>
      * In case the SPI is unable to extract or does not support extracting of the fax job status, it will return the
      * UNKNOWN status.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @return The fax job status
@@ -422,7 +422,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function creates an input array with the needed info to submit a new fax job based on the provided data.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @return The submit fax job script input
@@ -439,7 +439,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
         inputList.add(file);
         String documentName = faxJob
                 .getProperty(FaxJobExtendedPropertyConstants.DOCUMENT_NAME_FAX_JOB_PROPERTY_KEY.toString(), null);
-        if ((documentName == null) || (documentName.length() == 0)) {
+        if (documentName == null || documentName.length() == 0) {
             documentName = file.getName();
         }
         inputList.add(documentName);
@@ -489,7 +489,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function formats the provided object to enable embedding in VBS code.
-     * 
+     *
      * @param object
      *            The object to format
      * @return The formatted object
@@ -534,7 +534,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Invokes a basic fax action
-     * 
+     *
      * @param scriptName
      *            The script name
      * @param faxJob
@@ -559,7 +559,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Invokes the VB script and returns its output.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @param name
@@ -599,7 +599,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Invokes the VB script and returns the output.
-     * 
+     *
      * @param script
      *            The script to invoke
      * @return The script output
@@ -653,7 +653,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function generates the script and returns it.
-     * 
+     *
      * @param name
      *            The script name
      * @param input
@@ -663,7 +663,7 @@ public class VBSFaxClientSpi extends AbstractFax4JClientSpi {
     protected String generateScript(String name, Object[] input) {
         // get template
         String template = VBSFaxClientSpi.VBS_SCRIPTS.get(name);
-        if ((template == null) || (template.length() == 0)) {
+        if (template == null || template.length() == 0) {
             this.throwUnsupportedException();
         }
 

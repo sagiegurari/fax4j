@@ -11,7 +11,7 @@ import org.fax4j.util.ProcessExecutorHelper.ProcessOutput;
 /**
  * This class implements the VBS process output handler which is used to update the fax job based on the process output
  * information.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.0
  * @since 0.42.3
@@ -31,21 +31,21 @@ public class VBSProcessOutputHandler implements ProcessOutputHandler {
 
     /**
      * This function returns the fax job status based on the windows fax job status string value.
-     * 
+     *
      * @param faxJobStatusStr
      *            The fax job status string value
      * @return The fax job status
      */
     protected FaxJobStatus getFaxJobStatusFromWindowsFaxJobStatusString(String faxJobStatusStr) {
         FaxJobStatus faxJobStatus = FaxJobStatus.UNKNOWN;
-        if ((faxJobStatusStr != null) && (faxJobStatusStr.length() > 0)) {
-            if ((faxJobStatusStr.equalsIgnoreCase("Pending")) || (faxJobStatusStr.equalsIgnoreCase("Paused"))
-                    || (faxJobStatusStr.equalsIgnoreCase("Retrying"))) {
+        if (faxJobStatusStr != null && faxJobStatusStr.length() > 0) {
+            if (faxJobStatusStr.equalsIgnoreCase("Pending") || faxJobStatusStr.equalsIgnoreCase("Paused")
+                    || faxJobStatusStr.equalsIgnoreCase("Retrying")) {
                 faxJobStatus = FaxJobStatus.PENDING;
             } else if (faxJobStatusStr.equalsIgnoreCase("In Progress")) {
                 faxJobStatus = FaxJobStatus.IN_PROGRESS;
-            } else if ((faxJobStatusStr.equalsIgnoreCase("Failed")) || (faxJobStatusStr.equalsIgnoreCase("No Line"))
-                    || (faxJobStatusStr.equalsIgnoreCase("Retries Exceeded"))) {
+            } else if (faxJobStatusStr.equalsIgnoreCase("Failed") || faxJobStatusStr.equalsIgnoreCase("No Line")
+                    || faxJobStatusStr.equalsIgnoreCase("Retries Exceeded")) {
                 faxJobStatus = FaxJobStatus.ERROR;
             }
         }
@@ -55,7 +55,7 @@ public class VBSProcessOutputHandler implements ProcessOutputHandler {
 
     /**
      * Updates the fax job based on the data from the process output.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      * @param faxJob
@@ -82,7 +82,7 @@ public class VBSProcessOutputHandler implements ProcessOutputHandler {
 
     /**
      * This function extracts the fax job status from the process output.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      * @param processOutput

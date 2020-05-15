@@ -13,7 +13,7 @@ import org.fax4j.common.FaxActionType;
  * This class expects to get a data object and will update the fax job as needed.<br>
  * This class only supports extracting the fax job ID and fax job status from the response object, or in case of errors,
  * extract the error message.
- * 
+ *
  * @param <T>
  *            The specific data object
  * @author Sagie Gur-Ari
@@ -68,7 +68,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
     /**
      * This function populates the fax action type to response data path mappings based on the configuration of the
      * handler.
-     * 
+     *
      * @param faxActionTypes
      *            The fax action types used for the mapping
      * @param configurationKeys
@@ -89,7 +89,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
 
     /**
      * This function populates the status strings to fax status enum values based on the configuration of the handler.
-     * 
+     *
      * @param faxJobStatuses
      *            The fax job statues used for the mapping
      * @param configurationKeys
@@ -125,7 +125,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
 
     /**
      * This function returns the path to the relevant response data.
-     * 
+     *
      * @param faxActionType
      *            The fax action type used to select the path
      * @return The path string value
@@ -136,7 +136,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
 
     /**
      * This function returns the fax job status value based on the fax job status string value.
-     * 
+     *
      * @param faxJobStatusStr
      *            The fax job status string value
      * @return The fax job status
@@ -147,7 +147,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
 
     /**
      * Updates the fax job based on the data from the HTTP response data.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @param httpResponse
@@ -169,7 +169,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
 
     /**
      * This function extracts the fax job status from the HTTP response data.
-     * 
+     *
      * @param httpResponse
      *            The HTTP response
      * @return The fax job status
@@ -195,7 +195,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
     /**
      * This function returns the requested value from the HTTP response content.<br>
      * The path is a set of key names seperated by ';'.
-     * 
+     *
      * @param httpResponse
      *            The HTTP response
      * @param path
@@ -204,7 +204,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
      */
     protected String findValue(HTTPResponse httpResponse, String path) {
         String value = null;
-        if ((path != null) && (httpResponse != null)) {
+        if (path != null && httpResponse != null) {
             // parse output
             T object = this.convertToObject(httpResponse);
 
@@ -226,7 +226,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
     /**
      * This function returns the requested value from the object data.<br>
      * The path is a set of key names seperated by ';'.
-     * 
+     *
      * @param object
      *            The object holding all the data
      * @param path
@@ -235,7 +235,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
      */
     protected String findValue(T object, String path) {
         String value = null;
-        if ((path != null) && (object != null)) {
+        if (path != null && object != null) {
             // find value
             value = this.findValueImpl(object, path);
 
@@ -253,7 +253,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
     /**
      * This function will look for errors in the object and if found will return the error message.<br>
      * If no errors were found, this method will return null.
-     * 
+     *
      * @param object
      *            The object holding all the data
      * @return The error message (if found) or null
@@ -299,21 +299,21 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
 
     /**
      * Returns the error detection path configuration key.
-     * 
+     *
      * @return The error detection path configuration key
      */
     protected abstract Enum<?> getErrorDetectionPathPropertyKey();
 
     /**
      * Returns the error detection value configuration key.
-     * 
+     *
      * @return The error detection value configuration key
      */
     protected abstract Enum<?> getErrorDetectionValuePropertyKey();
 
     /**
      * Returns the error message path configuration key.
-     * 
+     *
      * @return The error message path configuration key
      */
     protected abstract Enum<?> getErrorMessagePathPropertyKey();
@@ -321,7 +321,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
     /**
      * This function returns the requested value from the object data.<br>
      * The path is a set of key names seperated by ';'.
-     * 
+     *
      * @param object
      *            The object holding all the data
      * @param path
@@ -332,7 +332,7 @@ public abstract class AbstractMappingHTTPResponseHandler<T> extends AbstractHTTP
 
     /**
      * This function converts the HTTP response content to the specific object.
-     * 
+     *
      * @param httpResponse
      *            The HTTP response
      * @return The object

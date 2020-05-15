@@ -119,7 +119,7 @@ import org.w3c.dom.Document;
  * <td>false</td>
  * </tr>
  * </table>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.0
  * @since 0.42.8
@@ -127,7 +127,7 @@ import org.w3c.dom.Document;
 public class XMLHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<Document> {
     /**
      * This class holds the configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.0
      * @since 0.42.8
@@ -161,17 +161,17 @@ public class XMLHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<D
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private XMLHTTPResponseHandlerConfigurationConstants(String value) {
+        XMLHTTPResponseHandlerConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -223,7 +223,7 @@ public class XMLHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<D
 
     /**
      * Returns the error detection path configuration key.
-     * 
+     *
      * @return The error detection path configuration key
      */
     @Override
@@ -233,7 +233,7 @@ public class XMLHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<D
 
     /**
      * Returns the error detection value configuration key.
-     * 
+     *
      * @return The error detection value configuration key
      */
     @Override
@@ -243,7 +243,7 @@ public class XMLHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<D
 
     /**
      * Returns the error message path configuration key.
-     * 
+     *
      * @return The error message path configuration key
      */
     @Override
@@ -254,7 +254,7 @@ public class XMLHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<D
     /**
      * This function returns the requested value from the object data.<br>
      * The path is a set of key names seperated by ';'.
-     * 
+     *
      * @param object
      *            The object holding all the data
      * @param path
@@ -297,7 +297,7 @@ public class XMLHTTPResponseHandler extends AbstractMappingHTTPResponseHandler<D
 
     /**
      * This function converts the HTTP response content to the specific object.
-     * 
+     *
      * @param httpResponse
      *            The HTTP response
      * @return The object

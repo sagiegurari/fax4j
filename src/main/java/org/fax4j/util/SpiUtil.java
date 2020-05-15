@@ -184,7 +184,7 @@ public final class SpiUtil {
     public static String replaceTemplateParameter(String template, String parameter, String value,
             TemplateParameterEncoder encoder) {
         String text = template;
-        if ((text != null) && (parameter != null)) {
+        if (text != null && parameter != null) {
             String updatedValue = value;
             if (updatedValue == null) {
                 updatedValue = SpiUtil.EMPTY_STRING;
@@ -266,7 +266,7 @@ public final class SpiUtil {
      * @version 1.0
      * @since 0.21e
      */
-    public static interface TemplateParameterEncoder {
+    interface TemplateParameterEncoder {
         /**
          * This function encodes the given template parameter text.
          *
@@ -274,7 +274,7 @@ public final class SpiUtil {
          *            The text to encode
          * @return The encoded text
          */
-        public String encodeTemplateParameter(String text);
+        String encodeTemplateParameter(String text);
     }
 
     /**

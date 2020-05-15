@@ -16,7 +16,7 @@ import org.fax4j.util.ProcessExecutorHelper.ProcessOutput;
 
 /**
  * This is a helper class for the windows based SPIs.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.02
  * @since 0.41.5
@@ -78,7 +78,7 @@ public final class WindowsFaxClientSpiHelper {
 
     /**
      * Loads the native library if not loaded before.
-     * 
+     *
      * @param logger
      *            The logger
      */
@@ -125,7 +125,7 @@ public final class WindowsFaxClientSpiHelper {
 
     /**
      * This function returns true if the native library was loaded.
-     * 
+     *
      * @return True if the native library was loaded
      */
     public static boolean isNativeLibraryLoaded() {
@@ -134,7 +134,7 @@ public final class WindowsFaxClientSpiHelper {
 
     /**
      * This function returns the server name from the SPI configuration.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      * @return The server name
@@ -153,7 +153,7 @@ public final class WindowsFaxClientSpiHelper {
 
     /**
      * This function returns the fax job ID (if valid). If fax job ID is not valid, an error will be thrown.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The fax job ID
@@ -174,7 +174,7 @@ public final class WindowsFaxClientSpiHelper {
     /**
      * This function validates the provided fax job ID (not checking fax server, only format). In case of an invalid ID,
      * an error will be thrown.
-     * 
+     *
      * @param faxJob
      *            The fax job holding the ID to validate
      */
@@ -185,12 +185,12 @@ public final class WindowsFaxClientSpiHelper {
     /**
      * This function validates the provided fax job ID (not checking fax server, only format). In case of an invalid ID,
      * an error will be thrown.
-     * 
+     *
      * @param faxJobID
      *            The fax job ID to validate
      */
     public static void validateFaxJobID(String faxJobID) {
-        if ((faxJobID == null) || (faxJobID.length() == 0)) {
+        if (faxJobID == null || faxJobID.length() == 0) {
             throw new FaxException("Fax job ID not provided.");
         }
         int faxJobIDInt = Integer.parseInt(faxJobID);
@@ -200,7 +200,7 @@ public final class WindowsFaxClientSpiHelper {
     /**
      * This function validates the provided fax job ID (not checking fax server, only format). In case of an invalid ID,
      * an error will be thrown.
-     * 
+     *
      * @param faxJobID
      *            The fax job ID to validate
      */
@@ -212,22 +212,21 @@ public final class WindowsFaxClientSpiHelper {
 
     /**
      * This function returns the fax job status based on the windows fax job status string value.
-     * 
+     *
      * @param faxJobStatusStr
      *            The fax job status string value
      * @return The fax job status
      */
     public static FaxJobStatus getFaxJobStatusFromWindowsFaxJobStatusString(String faxJobStatusStr) {
         FaxJobStatus faxJobStatus = FaxJobStatus.UNKNOWN;
-        if ((faxJobStatusStr != null) && (faxJobStatusStr.length() > 0)) {
-            if ((faxJobStatusStr.equalsIgnoreCase("JS_PENDING")) || (faxJobStatusStr.equalsIgnoreCase("JS_PAUSED"))
-                    || (faxJobStatusStr.equalsIgnoreCase("JS_RETRYING"))) {
+        if (faxJobStatusStr != null && faxJobStatusStr.length() > 0) {
+            if (faxJobStatusStr.equalsIgnoreCase("JS_PENDING") || faxJobStatusStr.equalsIgnoreCase("JS_PAUSED")
+                    || faxJobStatusStr.equalsIgnoreCase("JS_RETRYING")) {
                 faxJobStatus = FaxJobStatus.PENDING;
             } else if (faxJobStatusStr.equalsIgnoreCase("JS_INPROGRESS")) {
                 faxJobStatus = FaxJobStatus.IN_PROGRESS;
-            } else if ((faxJobStatusStr.equalsIgnoreCase("JS_FAILED"))
-                    || (faxJobStatusStr.equalsIgnoreCase("JS_NOLINE"))
-                    || (faxJobStatusStr.equalsIgnoreCase("JS_RETRIES_EXCEEDED"))) {
+            } else if (faxJobStatusStr.equalsIgnoreCase("JS_FAILED") || faxJobStatusStr.equalsIgnoreCase("JS_NOLINE")
+                    || faxJobStatusStr.equalsIgnoreCase("JS_RETRIES_EXCEEDED")) {
                 faxJobStatus = FaxJobStatus.ERROR;
             }
         }
@@ -237,7 +236,7 @@ public final class WindowsFaxClientSpiHelper {
 
     /**
      * This function returns the relevant part from the process output.
-     * 
+     *
      * @param processOutput
      *            The process output
      * @param prefix
