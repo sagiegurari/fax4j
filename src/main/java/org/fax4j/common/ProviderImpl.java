@@ -100,10 +100,8 @@ public class ProviderImpl implements Provider {
             Provider provider = (Provider) object;
 
             // validate values
-            if (this.NAME.equals(provider.getName())) {
-                if (this.DESCRIPTION.equals(provider.getDescription())) {
-                    result = true;
-                }
+            if (this.NAME.equals(provider.getName()) && this.DESCRIPTION.equals(provider.getDescription())) {
+                result = true;
             }
         }
 

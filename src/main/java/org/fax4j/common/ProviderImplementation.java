@@ -4,7 +4,7 @@ import org.fax4j.Provider;
 
 /**
  * Defines the methods for classes that have a provider.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.0
  * @since 0.34
@@ -12,8 +12,8 @@ import org.fax4j.Provider;
 public interface ProviderImplementation {
     /**
      * This function returns the provider.
-     * 
+     *
      * @return The provider
      */
-    public Provider getProvider();
+    Provider getProvider();
 }

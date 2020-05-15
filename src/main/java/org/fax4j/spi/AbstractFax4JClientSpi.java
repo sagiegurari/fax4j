@@ -4,6 +4,7 @@ import org.fax4j.FaxJob;
 import org.fax4j.FaxJobStatus;
 import org.fax4j.Provider;
 import org.fax4j.common.Fax4JProvider;
+import org.fax4j.common.Logger;
 
 /**
  * This class provides partial/common functionlity of the internal fax4j fax client service provider interface.<br>
@@ -27,7 +28,7 @@ import org.fax4j.common.Fax4JProvider;
  * These properties enable to override the configuration of the lower 2 layers.<br>
  * <br>
  * For SPI specific configuration, see the relevant SPI class javadoc.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.03
  * @since 0.17
@@ -42,7 +43,7 @@ public abstract class AbstractFax4JClientSpi extends AbstractFaxClientSpi {
 
     /**
      * This function returns the provider.
-     * 
+     *
      * @return The provider
      */
     public final Provider getProvider() {
@@ -51,7 +52,7 @@ public abstract class AbstractFax4JClientSpi extends AbstractFaxClientSpi {
 
     /**
      * This function returns true if the fax monitor events are supported by this SPI.
-     * 
+     *
      * @return True if the fax monitor events are supported by this SPI
      */
     public boolean isFaxMonitorEventsSupported() {
@@ -60,14 +61,14 @@ public abstract class AbstractFax4JClientSpi extends AbstractFaxClientSpi {
 
     /**
      * This function polls the new statues for the provided fax jobs.
-     * 
+     *
      * @param faxJobs
      *            The fax jobs to poll
      * @return The fax job statues
      */
     public final FaxJobStatus[] pollForFaxJobStatues(FaxJob[] faxJobs) {
         FaxJobStatus[] faxJobStatuses = null;
-        if ((faxJobs != null) && (faxJobs.length > 0) && (this.isFaxMonitorEventsSupported())) {
+        if (faxJobs != null && faxJobs.length > 0 && this.isFaxMonitorEventsSupported()) {
             faxJobStatuses = this.pollForFaxJobStatuesImpl(faxJobs);
         }
 
@@ -77,7 +78,7 @@ public abstract class AbstractFax4JClientSpi extends AbstractFaxClientSpi {
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -88,7 +89,7 @@ public abstract class AbstractFax4JClientSpi extends AbstractFaxClientSpi {
 
     /**
      * This function will suspend an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -99,7 +100,7 @@ public abstract class AbstractFax4JClientSpi extends AbstractFaxClientSpi {
 
     /**
      * This function will resume an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -110,7 +111,7 @@ public abstract class AbstractFax4JClientSpi extends AbstractFaxClientSpi {
 
     /**
      * This function will cancel an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -124,7 +125,7 @@ public abstract class AbstractFax4JClientSpi extends AbstractFaxClientSpi {
      * Not all SPIs support extraction of the fax job status.<br>
      * In case the SPI is unable to extract or does not support extracting of the fax job status, it will return the
      * UNKNOWN status.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @return The fax job status
@@ -136,7 +137,7 @@ public abstract class AbstractFax4JClientSpi extends AbstractFaxClientSpi {
 
     /**
      * This function polls the new statues for the provided fax jobs.
-     * 
+     *
      * @param faxJobs
      *            The fax jobs to poll
      * @return The fax job statues
@@ -150,6 +151,7 @@ public abstract class AbstractFax4JClientSpi extends AbstractFaxClientSpi {
 
         FaxJob faxJob = null;
         FaxJobStatus faxJobStatus = null;
+        final Logger logger = this.getLogger();
         for (int index = 0; index < amount; index++) {
             // get next fax job
             faxJob = faxJobs[index];
@@ -161,7 +163,7 @@ public abstract class AbstractFax4JClientSpi extends AbstractFaxClientSpi {
                 try {
                     faxJobStatus = this.getFaxJobStatus(faxJob);
                 } catch (RuntimeException exception) {
-                    // ignore errors as this method should not throw any exception
+                    logger.logDebug(null, exception);
                 }
             }
 
