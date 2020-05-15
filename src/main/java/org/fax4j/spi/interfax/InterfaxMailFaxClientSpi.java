@@ -92,8 +92,8 @@ import org.fax4j.spi.email.MailResourcesHolder;
  * <li>Required jar files: mail-1.4.jar, activation-1.1.jar
  * </ul>
  * <br>
- * 
- * 
+ *
+ *
  * @author Sagie Gur-Ari
  * @version 1.04
  * @since 0.1
@@ -101,7 +101,7 @@ import org.fax4j.spi.email.MailResourcesHolder;
 public class InterfaxMailFaxClientSpi extends MailFaxClientSpi {
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.02
      * @since 0.1
@@ -117,17 +117,17 @@ public class InterfaxMailFaxClientSpi extends MailFaxClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -158,7 +158,7 @@ public class InterfaxMailFaxClientSpi extends MailFaxClientSpi {
     /**
      * This function will create the message used to invoke the fax job action.<br>
      * If this method returns null, the SPI will throw an UnsupportedOperationException.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @param mailResourcesHolder

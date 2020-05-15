@@ -9,7 +9,7 @@ import org.fax4j.util.AbstractFax4JConnectionFactory;
 
 /**
  * Provides partial implementation of the mail connection factory.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.03
  * @since 0.39a
@@ -54,7 +54,7 @@ public abstract class AbstractMailConnectionFactory extends AbstractFax4JConnect
 
             // get next key
             key = entry.getKey();
-            if ((key != null) && (key.indexOf("org.fax4j.") == -1)) // filter out fax4j properties
+            if (key != null && key.indexOf("org.fax4j.") == -1) // filter out fax4j properties
             {
                 // get next value
                 value = entry.getValue();

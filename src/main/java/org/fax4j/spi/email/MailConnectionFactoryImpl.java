@@ -7,7 +7,7 @@ import org.fax4j.FaxException;
 
 /**
  * This class provides basic implementation of the mail connection factory.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.02
  * @since 0.39a
@@ -22,7 +22,7 @@ public class MailConnectionFactoryImpl extends AbstractMailConnectionFactory {
 
     /**
      * Creates and returns the resource.
-     * 
+     *
      * @return The resource
      */
     @Override
@@ -47,7 +47,7 @@ public class MailConnectionFactoryImpl extends AbstractMailConnectionFactory {
 
     /**
      * This function returns a transport for the provided session.
-     * 
+     *
      * @param session
      *            The mail session
      * @return The mail transport
@@ -73,7 +73,7 @@ public class MailConnectionFactoryImpl extends AbstractMailConnectionFactory {
 
     /**
      * Releases the resource from the connection.
-     * 
+     *
      * @param resource
      *            The resource
      */
@@ -82,14 +82,12 @@ public class MailConnectionFactoryImpl extends AbstractMailConnectionFactory {
         // get transport
         Transport transport = resource.getTransport();
 
-        if (transport != null) {
-            if (transport.isConnected()) {
-                try {
-                    // close connection
-                    transport.close();
-                } catch (Throwable throwable) {
-                    // ignore
-                }
+        if (transport != null && transport.isConnected()) {
+            try {
+                // close connection
+                transport.close();
+            } catch (Throwable throwable) { // NOPMD
+                // ignore
             }
         }
     }

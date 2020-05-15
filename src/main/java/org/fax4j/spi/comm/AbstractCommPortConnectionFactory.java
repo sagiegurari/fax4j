@@ -7,7 +7,7 @@ import org.fax4j.util.AbstractFax4JConnectionFactory;
 
 /**
  * Provides partial implementation of the COMM port connection factory.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.05
  * @since 0.34
@@ -43,7 +43,7 @@ public abstract class AbstractCommPortConnectionFactory extends AbstractFax4JCon
         String valueStr = this.factoryConfigurationHolder
                 .getConfigurationValue(FaxClientSpiConfigurationConstants.TIMEOUT_PROPERTY_KEY);
         this.timeout = CommFaxClientSpi.TIMEOUT_DEFAULT_VALUE;
-        if ((valueStr != null) && (valueStr.length() > 0)) {
+        if (valueStr != null && valueStr.length() > 0) {
             try {
                 this.timeout = Integer.parseInt(valueStr);
             } catch (Exception exception) {
@@ -57,7 +57,7 @@ public abstract class AbstractCommPortConnectionFactory extends AbstractFax4JCon
 
     /**
      * Releases the resource from the connection.
-     * 
+     *
      * @param resource
      *            The resource
      */
@@ -72,7 +72,7 @@ public abstract class AbstractCommPortConnectionFactory extends AbstractFax4JCon
 
     /**
      * This function returns the port name.
-     * 
+     *
      * @return The port name
      */
     public final String getPortName() {
@@ -81,7 +81,7 @@ public abstract class AbstractCommPortConnectionFactory extends AbstractFax4JCon
 
     /**
      * This function returns the timeout.
-     * 
+     *
      * @return The timeout
      */
     public final int getTimeOut() {

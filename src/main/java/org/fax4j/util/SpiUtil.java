@@ -16,7 +16,7 @@ import org.fax4j.common.LoggerManager;
 
 /**
  * This is an internal general utility class.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.07
  * @since 0.21e
@@ -77,7 +77,7 @@ public final class SpiUtil {
 
     /**
      * This function copies all mappings from source properties to target map.
-     * 
+     *
      * @param source
      *            The source properties
      * @param target
@@ -106,7 +106,7 @@ public final class SpiUtil {
 
     /**
      * This function formats the provided template.
-     * 
+     *
      * @param template
      *            The template
      * @param faxJob
@@ -170,7 +170,7 @@ public final class SpiUtil {
 
     /**
      * This function replaces the parameter with the provided value.
-     * 
+     *
      * @param template
      *            The template
      * @param parameter
@@ -199,7 +199,7 @@ public final class SpiUtil {
 
     /**
      * This function URL encodes the given text.
-     * 
+     *
      * @param text
      *            The text to encode
      * @return The encoded text
@@ -219,7 +219,7 @@ public final class SpiUtil {
 
     /**
      * This function URL decodes the given text.
-     * 
+     *
      * @param text
      *            The text to decode
      * @return The decoded text
@@ -239,7 +239,7 @@ public final class SpiUtil {
 
     /**
      * This function returns the file parameter value based on the file content.
-     * 
+     *
      * @param faxJob
      *            The fax job object
      * @return The file parameter value
@@ -261,7 +261,7 @@ public final class SpiUtil {
 
     /**
      * This interface defines a template parameter encoder.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.0
      * @since 0.21e
@@ -269,7 +269,7 @@ public final class SpiUtil {
     public static interface TemplateParameterEncoder {
         /**
          * This function encodes the given template parameter text.
-         * 
+         *
          * @param text
          *            The text to encode
          * @return The encoded text
@@ -279,7 +279,7 @@ public final class SpiUtil {
 
     /**
      * This class implements the URL encoder.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.0
      * @since 0.21e
@@ -294,7 +294,7 @@ public final class SpiUtil {
 
         /**
          * This function encodes the given template parameter text.
-         * 
+         *
          * @param text
          *            The text to encode
          * @return The encoded text

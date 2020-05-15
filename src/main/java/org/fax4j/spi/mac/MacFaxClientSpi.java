@@ -88,7 +88,7 @@ import org.fax4j.util.SpiUtil;
  * <li>This SPI will only work on Mac OS.
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.07
  * @since 0.21e
@@ -111,7 +111,7 @@ public class MacFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.02
      * @since 0.21e
@@ -145,17 +145,17 @@ public class MacFaxClientSpi extends AbstractFax4JClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -216,7 +216,7 @@ public class MacFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function creates and returns the process output validator.
-     * 
+     *
      * @return The process output validator
      */
     protected ProcessOutputValidator createMacProcessOutputValidator() {
@@ -228,7 +228,7 @@ public class MacFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -243,7 +243,7 @@ public class MacFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates and returns the submit fax command.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @return The command
@@ -285,7 +285,7 @@ public class MacFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function executes the external command to send the fax.
-     * 
+     *
      * @param command
      *            The command to execute
      * @param faxActionType

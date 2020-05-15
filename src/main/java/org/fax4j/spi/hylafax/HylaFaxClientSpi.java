@@ -111,7 +111,7 @@ import org.fax4j.util.ReflectionHelper;
  * <li>See http://sourceforge.net/projects/gnu-hylafax/ web site.
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.12
  * @since 0.1
@@ -126,7 +126,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.03
      * @since 0.1
@@ -154,17 +154,17 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -199,7 +199,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates and returns the hylafax client connection factory.
-     * 
+     *
      * @param className
      *            The connection factory class name
      * @return The hylafax client connection factory
@@ -217,7 +217,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Returns an instance of the hyla fax client.
-     * 
+     *
      * @return The client instance
      */
     protected synchronized HylaFAXClient getHylaFAXClient() {
@@ -235,7 +235,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Releases the connection if open.
-     * 
+     *
      * @throws Throwable
      *             Any throwable
      */
@@ -254,7 +254,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function creates a new fax job instance to be used by the caller to submit a new fax job and so on.
-     * 
+     *
      * @return The fax job instance
      */
     @Override
@@ -279,7 +279,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -302,7 +302,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will suspend an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -325,7 +325,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will resume an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -348,7 +348,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will cancel an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -372,7 +372,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.
-     * 
+     *
      * @param client
      *            The client instance
      * @param faxJob
@@ -394,7 +394,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will suspend an existing fax job.
-     * 
+     *
      * @param client
      *            The client instance
      * @param faxJob
@@ -412,7 +412,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will resume an existing fax job.
-     * 
+     *
      * @param client
      *            The client instance
      * @param faxJob
@@ -433,7 +433,7 @@ public class HylaFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will cancel an existing fax job.
-     * 
+     *
      * @param client
      *            The client instance
      * @param faxJob

@@ -102,7 +102,7 @@ import org.fax4j.util.ReflectionHelper;
  * <li>Required jar files: mail-1.4.jar, activation-1.1.jar
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.12
  * @since 0.1
@@ -120,7 +120,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.03
      * @since 0.1
@@ -143,17 +143,17 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -194,7 +194,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates and returns the mail connection factory.
-     * 
+     *
      * @param className
      *            The connection factory class name
      * @return The mail connection factory
@@ -216,7 +216,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Releases the connection if open.
-     * 
+     *
      * @throws Throwable
      *             Any throwable
      */
@@ -233,7 +233,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates and returns the mail connection to be used to send the fax via mail.
-     * 
+     *
      * @return The mail connection
      */
     protected Connection<MailResourcesHolder> createMailConnection() {
@@ -249,7 +249,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function closes the provided mail connection.
-     * 
+     *
      * @param mailConnection
      *            The mail connection to close
      * @throws IOException
@@ -268,7 +268,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Returns the mail connection to be used to send the fax via mail.
-     * 
+     *
      * @return The mail connection
      */
     protected Connection<MailResourcesHolder> getMailConnection() {
@@ -293,7 +293,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will send the mail message.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @param mailConnection
@@ -339,7 +339,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -360,7 +360,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will suspend an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -381,7 +381,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will resume an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -402,7 +402,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This function will cancel an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -424,7 +424,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will create the message used to invoke the fax job action.<br>
      * If this method returns null, the SPI will throw an UnsupportedOperationException.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @param mailResourcesHolder
@@ -436,7 +436,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will create the message used to invoke the fax job action.<br>
      * If this method returns null, the SPI will throw an UnsupportedOperationException.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @param mailResourcesHolder
@@ -448,7 +448,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will create the message used to invoke the fax job action.<br>
      * If this method returns null, the SPI will throw an UnsupportedOperationException.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @param mailResourcesHolder
@@ -460,7 +460,7 @@ public abstract class AbstractMailFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will create the message used to invoke the fax job action.<br>
      * If this method returns null, the SPI will throw an UnsupportedOperationException.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @param mailResourcesHolder

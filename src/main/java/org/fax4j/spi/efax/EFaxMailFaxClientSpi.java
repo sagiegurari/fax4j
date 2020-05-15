@@ -88,7 +88,7 @@ import org.fax4j.spi.email.MailFaxClientSpi;
  * <li>Required jar files: mail-1.4.jar, activation-1.1.jar
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.01
  * @since 0.29
@@ -96,7 +96,7 @@ import org.fax4j.spi.email.MailFaxClientSpi;
 public class EFaxMailFaxClientSpi extends MailFaxClientSpi {
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.02
      * @since 0.29
@@ -112,17 +112,17 @@ public class EFaxMailFaxClientSpi extends MailFaxClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override

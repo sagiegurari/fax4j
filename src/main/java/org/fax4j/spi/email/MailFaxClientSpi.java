@@ -132,7 +132,7 @@ import org.fax4j.common.Logger;
  * <li>Required jar files: mail-1.4.jar, activation-1.1.jar
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.08
  * @since 0.1
@@ -145,7 +145,7 @@ public class MailFaxClientSpi extends AbstractMailFaxClientSpi {
 
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.02
      * @since 0.1
@@ -161,17 +161,17 @@ public class MailFaxClientSpi extends AbstractMailFaxClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -231,7 +231,7 @@ public class MailFaxClientSpi extends AbstractMailFaxClientSpi {
 
     /**
      * This function returns the mail address template.
-     * 
+     *
      * @return The mail address template
      */
     public final String getMailAddressTemplate() {
@@ -240,7 +240,7 @@ public class MailFaxClientSpi extends AbstractMailFaxClientSpi {
 
     /**
      * This function returns the mail subject template.
-     * 
+     *
      * @return The mail subject template
      */
     public final String getMailSubjectTemplate() {
@@ -250,7 +250,7 @@ public class MailFaxClientSpi extends AbstractMailFaxClientSpi {
     /**
      * This function will create the message used to invoke the fax job action.<br>
      * If this method returns null, the SPI will throw an UnsupportedOperationException.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @param mailResourcesHolder
@@ -281,7 +281,7 @@ public class MailFaxClientSpi extends AbstractMailFaxClientSpi {
 
         // set from
         String from = faxJob.getSenderEmail();
-        if ((from != null) && (from.length() > 0)) {
+        if (from != null && from.length() > 0) {
             try {
                 message.setFrom(new InternetAddress(from));
             } catch (Exception exception) {
@@ -333,7 +333,7 @@ public class MailFaxClientSpi extends AbstractMailFaxClientSpi {
     /**
      * This function will create the message used to invoke the fax job action.<br>
      * If this method returns null, the SPI will throw an UnsupportedOperationException.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @param mailResourcesHolder
@@ -348,7 +348,7 @@ public class MailFaxClientSpi extends AbstractMailFaxClientSpi {
     /**
      * This function will create the message used to invoke the fax job action.<br>
      * If this method returns null, the SPI will throw an UnsupportedOperationException.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @param mailResourcesHolder
@@ -363,7 +363,7 @@ public class MailFaxClientSpi extends AbstractMailFaxClientSpi {
     /**
      * This function will create the message used to invoke the fax job action.<br>
      * If this method returns null, the SPI will throw an UnsupportedOperationException.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @param mailResourcesHolder

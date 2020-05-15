@@ -72,7 +72,7 @@ import org.fax4j.spi.http.MultiPartFaxJob2HTTPRequestConverter.FaxJob2HTTPReques
  * <li>HTTP client required jars.
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.0
  * @since 0.42.9
@@ -83,7 +83,7 @@ public class HoiioFaxClientSpi extends AbstractMultiPart2JSONHTTPFaxClientSpi {
 
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.0
      * @since 0.42.9
@@ -99,17 +99,17 @@ public class HoiioFaxClientSpi extends AbstractMultiPart2JSONHTTPFaxClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -131,7 +131,7 @@ public class HoiioFaxClientSpi extends AbstractMultiPart2JSONHTTPFaxClientSpi {
      * different configuration blocks.<br>
      * Property parts will be replaced with the {0} values in the key, for example org.fax4j.{0}.somekey with part abc
      * will be replaced to org.fax4j.abc.somekey
-     * 
+     *
      * @return The property part
      */
     @Override
@@ -141,7 +141,7 @@ public class HoiioFaxClientSpi extends AbstractMultiPart2JSONHTTPFaxClientSpi {
 
     /**
      * This function creates and returns the HTTP configuration object.
-     * 
+     *
      * @return The HTTP configuration object
      */
     @Override
@@ -169,7 +169,7 @@ public class HoiioFaxClientSpi extends AbstractMultiPart2JSONHTTPFaxClientSpi {
         String accessToken = this.getConfigurationValue(FaxClientSpiConfigurationConstants.ACCESS_TOKEN_PROPERTY_KEY);
 
         // validate data
-        if ((applicationID == null) || (accessToken == null)) {
+        if (applicationID == null || accessToken == null) {
             throw new FaxException("Missing hoiio Application ID/Access Token values.");
         }
 
@@ -237,7 +237,7 @@ public class HoiioFaxClientSpi extends AbstractMultiPart2JSONHTTPFaxClientSpi {
 
     /**
      * This function initializes the fax action type to resource mappings.
-     * 
+     *
      * @return The fax action type to resource mappings
      */
     @Override
@@ -252,7 +252,7 @@ public class HoiioFaxClientSpi extends AbstractMultiPart2JSONHTTPFaxClientSpi {
 
     /**
      * This function returns the HTTP URL parameters from the configuration.
-     * 
+     *
      * @return The HTTP URL parameters
      */
     @Override
@@ -262,7 +262,7 @@ public class HoiioFaxClientSpi extends AbstractMultiPart2JSONHTTPFaxClientSpi {
 
     /**
      * This function will suspend an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -273,7 +273,7 @@ public class HoiioFaxClientSpi extends AbstractMultiPart2JSONHTTPFaxClientSpi {
 
     /**
      * This function will resume an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -284,7 +284,7 @@ public class HoiioFaxClientSpi extends AbstractMultiPart2JSONHTTPFaxClientSpi {
 
     /**
      * This function will cancel an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */

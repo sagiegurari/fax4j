@@ -188,7 +188,7 @@ public class FaxJobMonitorImpl extends AbstractFaxJobMonitor {
                     // poll for changes
                     currentFaxJobStatuses = faxClientSpi.pollForFaxJobStatues(faxJobs);
 
-                    if ((currentFaxJobStatuses != null) && (currentFaxJobStatuses.length == amount)) {
+                    if (currentFaxJobStatuses != null && currentFaxJobStatuses.length == amount) {
                         for (int index = 0; index < amount; index++) {
                             // get current fax job status
                             currentFaxJobStatus = currentFaxJobStatuses[index];
@@ -339,7 +339,7 @@ public class FaxJobMonitorImpl extends AbstractFaxJobMonitor {
                         try {
                             // wait for next cycle
                             this.wait(waitTime);
-                        } catch (Throwable throwable) {
+                        } catch (Throwable throwable) { // NOPMD
                             // ignore
                         }
                     }

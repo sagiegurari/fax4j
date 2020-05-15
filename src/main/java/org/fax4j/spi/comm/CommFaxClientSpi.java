@@ -76,7 +76,7 @@ import org.fax4j.util.ReflectionHelper;
  * <li>See the relevant COMM connection and fax modem documentation.
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.13
  * @since 0.33
@@ -97,7 +97,7 @@ public class CommFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.01
      * @since 0.34
@@ -117,17 +117,17 @@ public class CommFaxClientSpi extends AbstractFax4JClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -178,7 +178,7 @@ public class CommFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates and returns the COMM port connection factory.
-     * 
+     *
      * @return The COMM port connection factory
      */
     protected final CommPortConnectionFactory createCommPortConnectionFactory() {
@@ -194,7 +194,7 @@ public class CommFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates and returns the fax modem adapter.
-     * 
+     *
      * @return The fax modem adapter
      */
     protected final FaxModemAdapter createFaxModemAdapter() {
@@ -209,7 +209,7 @@ public class CommFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Releases the COMM port connection if open.
-     * 
+     *
      * @throws Throwable
      *             Any throwable
      */
@@ -223,7 +223,7 @@ public class CommFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Creates and returns the COMM port connection to be used.
-     * 
+     *
      * @return The COMM port connection
      */
     protected Connection<CommPortAdapter> createCommPortConnection() {
@@ -257,7 +257,7 @@ public class CommFaxClientSpi extends AbstractFax4JClientSpi {
 
     /**
      * Returns the COMM port connection to be used.
-     * 
+     *
      * @return The COMM port connection
      */
     protected Connection<CommPortAdapter> getCommPortConnection() {
@@ -295,7 +295,7 @@ public class CommFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -314,7 +314,7 @@ public class CommFaxClientSpi extends AbstractFax4JClientSpi {
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @param adapter

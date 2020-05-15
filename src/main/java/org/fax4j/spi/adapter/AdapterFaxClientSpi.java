@@ -166,7 +166,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi {
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
@@ -380,7 +380,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi {
                 ReflectionHelper.getType(value);
 
                 valid = true;
-            } catch (Throwable throwable) {
+            } catch (Throwable throwable) { // NOPMD
                 // ignore
             }
             break;
@@ -390,7 +390,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi {
                 System.loadLibrary(value);
 
                 valid = true;
-            } catch (Throwable throwable) {
+            } catch (Throwable throwable) { // NOPMD
                 // ignore
             }
             break;
@@ -398,7 +398,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi {
             // get file
             File file = new File(value);
 
-            if ((file.exists()) && (file.isFile())) {
+            if (file.exists() && file.isFile()) {
                 valid = true;
             } else {
                 // get system patOSh
@@ -416,7 +416,7 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi {
                     // get file
                     file = new File(directoryPath, value);
 
-                    if ((file.exists()) && (file.isFile())) {
+                    if (file.exists() && file.isFile()) {
                         valid = true;
                         break;
                     }
@@ -485,13 +485,11 @@ public class AdapterFaxClientSpi extends AbstractAdapterFaxClientSpi {
             value = entry.getValue();
 
             // override internal configuration
-            if ((key.startsWith(overridePrefix))) {
-                if (key.length() != prefixLength) {
-                    overrideKey = key.substring(prefixLength);
+            if (key.startsWith(overridePrefix) && key.length() != prefixLength) {
+                overrideKey = key.substring(prefixLength);
 
-                    // put in override configuration
-                    overrideConfiguration.setProperty(overrideKey, value);
-                }
+                // put in override configuration
+                overrideConfiguration.setProperty(overrideKey, value);
             }
 
             // put in new configuration

@@ -92,7 +92,7 @@ import org.fax4j.spi.process.ProcessFaxClientSpi;
  * <li>Required linux efax utility.
  * </ul>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.04
  * @since 0.21e
@@ -100,7 +100,7 @@ import org.fax4j.spi.process.ProcessFaxClientSpi;
 public class LinuxFaxClientSpi extends ProcessFaxClientSpi {
     /**
      * This class holds the SPI configuration constants.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.03
      * @since 0.21e
@@ -114,17 +114,17 @@ public class LinuxFaxClientSpi extends ProcessFaxClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxClientSpiConfigurationConstants(String value) {
+        FaxClientSpiConfigurationConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -158,7 +158,7 @@ public class LinuxFaxClientSpi extends ProcessFaxClientSpi {
      * different configuration blocks.<br>
      * Property parts will be replaced with the {0} values in the key, for example org.fax4j.{0}.somekey with part abc
      * will be replaced to org.fax4j.abc.somekey
-     * 
+     *
      * @return The property part
      */
     @Override
