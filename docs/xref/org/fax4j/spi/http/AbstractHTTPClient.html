@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>AbstractHTTPClient xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../apidocs/org/fax4j/spi/http/AbstractHTTPClient.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> org.fax4j.spi.http;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> org.fax4j.FaxException;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> org.fax4j.Provider;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> org.fax4j.common.ConfigurationHolder;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.fax4j.common.Fax4JProvider;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.fax4j.common.FaxActionType;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.fax4j.spi.http.CommonHTTPClientConfiguration.HTTPClientConfigurationConstants;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * This abstract HTTP client provides partial implementation for common functionality.</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * @author Sagie Gur-Ari</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> * @version 1.03</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * @since 0.34</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a name="AbstractHTTPClient" href="../../../../org/fax4j/spi/http/AbstractHTTPClient.html#AbstractHTTPClient">AbstractHTTPClient</a> <strong class="jxr_keyword">implements</strong> <a name="HTTPClient" href="../../../../org/fax4j/spi/http/HTTPClient.html#HTTPClient">HTTPClient</a> {
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment">     * This is the default constructor.</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">public</strong> <a name="AbstractHTTPClient" href="../../../../org/fax4j/spi/http/AbstractHTTPClient.html#AbstractHTTPClient">AbstractHTTPClient</a>() {
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>          <strong class="jxr_keyword">super</strong>();
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>      }
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment">     * This function returns the provider.</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment">     * @return The provider</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <a name="Provider" href="../../../../org/fax4j/Provider.html#Provider">Provider</a> getProvider() {
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          <strong class="jxr_keyword">return</strong> Fax4JProvider.FAX4J_PROVIDER;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      }
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment">     * This function creates the HTTP client configuration to be used later on by this HTTP client type.</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">     * @param configurationHolder</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">     *            The configuration holder</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">     * @return The HTTP client configuration</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">public</strong> <a name="HTTPClientConfiguration" href="../../../../org/fax4j/spi/http/HTTPClientConfiguration.html#HTTPClientConfiguration">HTTPClientConfiguration</a> createHTTPClientConfiguration(<a name="ConfigurationHolder" href="../../../../org/fax4j/common/ConfigurationHolder.html#ConfigurationHolder">ConfigurationHolder</a> configurationHolder) {
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>          <em class="jxr_comment">// get server values</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>          String hostName = configurationHolder
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>                  .getConfigurationValue(HTTPClientConfigurationConstants.HOST_NAME_PROPERTY_KEY);
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>          <strong class="jxr_keyword">if</strong> (hostName == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="FaxException" href="../../../../org/fax4j/FaxException.html#FaxException">FaxException</a>(
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>                      <span class="jxr_string">"Host name not defined in property: "</span> + HTTPClientConfigurationConstants.HOST_NAME_PROPERTY_KEY);
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>          }
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          String value = configurationHolder.getConfigurationValue(HTTPClientConfigurationConstants.PORT_PROPERTY_KEY);
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">if</strong> (value == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>              value = String.valueOf(-1);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          }
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>          <strong class="jxr_keyword">int</strong> port = Integer.parseInt(value);
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          <strong class="jxr_keyword">boolean</strong> ssl = Boolean.parseBoolean(
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>                  configurationHolder.getConfigurationValue(HTTPClientConfigurationConstants.SSL_PROPERTY_KEY));
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          <em class="jxr_comment">// create configuration</em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          <a name="CommonHTTPClientConfiguration" href="../../../../org/fax4j/spi/http/CommonHTTP<a name="CommonHTTPClientConfiguration" href="../../../../org/fax4j/spi/http/CommonHTTPClientConfiguration.html#CommonHTTPClientConfiguration">CommonHTTPClientConfiguration</a>onHTTPClientConfiguration">CommonHTTPClientConfiguration</a> configuration = <strong class="jxr_keyword">new</strong> <a name="CommonHTTPClientConfiguration" href="../../../../org/fax4j/spi/http/CommonHTTPClientConfiguration.html#CommonHTTPClientConfiguration">CommonHTTPClientConfiguration</a>();
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          <em class="jxr_comment">// set values</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          configuration.setHostName(hostName);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          configuration.setPort(port);
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          configuration.setSSL(ssl);
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          <em class="jxr_comment">// set methods</em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>          Enum&lt;?&gt;[] methodProperties = <strong class="jxr_keyword">new</strong> Enum&lt;?&gt;[] { HTTPClientConfigurationConstants.SUBMIT_HTTP_METHOD_PROPERTY_KEY,
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>                  HTTPClientConfigurationConstants.SUSPEND_HTTP_METHOD_PROPERTY_KEY,
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>                  HTTPClientConfigurationConstants.RESUME_HTTP_METHOD_PROPERTY_KEY,
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>                  HTTPClientConfigurationConstants.CANCEL_HTTP_METHOD_PROPERTY_KEY,
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>                  HTTPClientConfigurationConstants.GET_STATUS_HTTP_METHOD_PROPERTY_KEY };
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          <a name="FaxActionType" href="../../../../org/fax4j/common/FaxActionType.h<a name="FaxActionType" href="../../../../org/fax4j/common/FaxActionType.html#FaxActionType">FaxActionType</a>Type">FaxActionType</a>[] faxActionTypes = <strong class="jxr_keyword">new</strong> <a name="FaxActionType" href="../../../../org/fax4j/common/FaxActionType.html#FaxActionType">FaxActionType</a>[] { FaxActionType.SUBMIT_FAX_JOB,
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>                  FaxActionType.SUSPEND_FAX_JOB, FaxActionType.RESUME_FAX_JOB, FaxActionType.CANCEL_FAX_JOB,
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>                  FaxActionType.GET_FAX_JOB_STATUS };
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          HTTPMethod httpMethod = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> index = 0; index &lt; methodProperties.length; index++) {
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>              <em class="jxr_comment">// set next method</em>
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>              value = configurationHolder.getConfigurationValue(methodProperties[index]);
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>              httpMethod = HTTPMethod.POST;
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>              <strong class="jxr_keyword">if</strong> (value != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>                  httpMethod = HTTPMethod.valueOf(value);
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>              }
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>              configuration.setMethod(faxActionTypes[index], httpMethod);
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>          }
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          <strong class="jxr_keyword">return</strong> configuration;
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>      }
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>  }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2009&#x2013;2020 <a href="https://github.com/sagiegurari/fax4j">fax4j</a>. All rights reserved.</div>
+</body>
+</html>
