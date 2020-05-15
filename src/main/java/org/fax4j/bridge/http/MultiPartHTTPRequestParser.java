@@ -82,7 +82,8 @@ import org.fax4j.util.IOHelper;
  * <tr>
  * <td>org.fax4j.bridge.http.request.parser.multi.part.sender.email.parameter</td>
  * <td>The sender email parameter name.</td>
- * <td>senderemail</tstatic final d><td>senderemail</td>
+ * <td>senderemail</td>
+ * <td>senderemail</td>
  * <td>false</td>
  * </tr>
  * </table>
