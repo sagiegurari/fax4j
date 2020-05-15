@@ -82,8 +82,7 @@ import org.fax4j.util.IOHelper;
  * <tr>
  * <td>org.fax4j.bridge.http.request.parser.multi.part.sender.email.parameter</td>
  * <td>The sender email parameter name.</td>
- * <td>senderemail</td>
- * <td>senderemail</td>
+ * <td>senderemail</tstatic final d><td>senderemail</td>
  * <td>false</td>
  * </tr>
  * </table>
@@ -280,39 +279,39 @@ public class MultiPartHTTPRequestParser extends AbstractRequestParser<HTTPReques
 
         // set priority
         String value = this.getContentPartAsString(contentPartsMap, this.priorityParameter);
-        if ((value != null) && (value.length() > 0)) {
+        if (value != null && value.length() > 0) {
             FaxJobPriority priority = FaxJobPriority.valueOf(value);
             faxJob.setPriority(priority);
         }
 
         // set target address
         value = this.getContentPartAsString(contentPartsMap, this.targetAddressParameter);
-        if ((value == null) || (value.length() == 0)) {
+        if (value == null || value.length() == 0) {
             throw new FaxException("Target address not provided.");
         }
         faxJob.setTargetAddress(value);
 
         // set target address
         value = this.getContentPartAsString(contentPartsMap, this.targetNameParameter);
-        if ((value != null) && (value.length() > 0)) {
+        if (value != null && value.length() > 0) {
             faxJob.setTargetName(value);
         }
 
         // set target address
         value = this.getContentPartAsString(contentPartsMap, this.senderNameParameter);
-        if ((value != null) && (value.length() > 0)) {
+        if (value != null && value.length() > 0) {
             faxJob.setSenderName(value);
         }
 
         // set target address
         value = this.getContentPartAsString(contentPartsMap, this.senderFaxNumberParameter);
-        if ((value != null) && (value.length() > 0)) {
+        if (value != null && value.length() > 0) {
             faxJob.setSenderFaxNumber(value);
         }
 
         // set target address
         value = this.getContentPartAsString(contentPartsMap, this.senderEMailParameter);
-        if ((value != null) && (value.length() > 0)) {
+        if (value != null && value.length() > 0) {
             faxJob.setSenderEmail(value);
         }
     }

@@ -30,7 +30,7 @@ import org.fax4j.util.SpiUtil;
  * <li>property:[property name] [property value]
  * </ul>
  * The request Payload should hold the file content only.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.03
  * @since 0.40.6
@@ -45,7 +45,7 @@ public class SimpleHTTPRequestParser extends AbstractRequestParser<HTTPRequest> 
 
     /**
      * This function initializes the component.
-     * 
+     *
      * @param configuration
      *            The component configuration
      */
@@ -56,7 +56,7 @@ public class SimpleHTTPRequestParser extends AbstractRequestParser<HTTPRequest> 
 
     /**
      * This function returns the file info from the request data.
-     * 
+     *
      * @param inputData
      *            The input data
      * @return The file info
@@ -75,7 +75,7 @@ public class SimpleHTTPRequestParser extends AbstractRequestParser<HTTPRequest> 
     /**
      * This function update the fax job from the request data.<br>
      * This fax job will not have any file data.
-     * 
+     *
      * @param inputData
      *            The input data
      * @param faxJob
@@ -92,7 +92,7 @@ public class SimpleHTTPRequestParser extends AbstractRequestParser<HTTPRequest> 
 
     /**
      * This function converts the provided query string to a map object.
-     * 
+     *
      * @param request
      *            The HTTP request
      * @return The query string broken to key/value
@@ -105,7 +105,7 @@ public class SimpleHTTPRequestParser extends AbstractRequestParser<HTTPRequest> 
         String parametersText = request.getParametersText();
 
         if (parametersText != null) {
-            // split to key/value pairs (key=value)
+            // split to key/vastatic final lue pairs (key=value)
             String[] keyValuePairs = parametersText.split("&");
 
             // get amount
@@ -146,7 +146,7 @@ public class SimpleHTTPRequestParser extends AbstractRequestParser<HTTPRequest> 
 
     /**
      * This function returns the file info from the request data.
-     * 
+     *
      * @param request
      *            The HTTP request
      * @param queryStringMap
@@ -174,7 +174,7 @@ public class SimpleHTTPRequestParser extends AbstractRequestParser<HTTPRequest> 
         default:
             throw new FaxException("Unsupported content type: " + contentType);
         }
-        if ((content == null) || (content.length == 0)) {
+        if (content == null || content.length == 0) {
             throw new FaxException("File content not provided in request payload.");
         }
 
@@ -187,7 +187,7 @@ public class SimpleHTTPRequestParser extends AbstractRequestParser<HTTPRequest> 
     /**
      * This function update the fax job from the request data.<br>
      * This fax job will not have any file data.
-     * 
+     *
      * @param request
      *            The HTTP request
      * @param queryStringMap
@@ -246,17 +246,15 @@ public class SimpleHTTPRequestParser extends AbstractRequestParser<HTTPRequest> 
             // get next key
             key = entry.getKey();
 
-            if (key.startsWith(propertyPrefix)) {
-                if (key.length() > propertyPrefixLength) {
-                    // get key
-                    key = key.substring(propertyPrefixLength);
+            if (key.startsWith(propertyPrefix) && key.length() > propertyPrefixLength) {
+                // get key
+                key = key.substring(propertyPrefixLength);
 
-                    // get value
-                    value = entry.getValue();
+                // get value
+                value = entry.getValue();
 
-                    // set property
-                    faxJob.setProperty(key, value);
-                }
+                // set property
+                faxJob.setProperty(key, value);
             }
         }
     }
