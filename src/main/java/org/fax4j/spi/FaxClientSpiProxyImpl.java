@@ -61,7 +61,7 @@ import java.lang.reflect.Method;
  * </tr>
  * </table>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.02
  * @since 0.17
@@ -84,7 +84,7 @@ public class FaxClientSpiProxyImpl extends AbstractFaxClientSpiProxy {
 
     /**
      * This function invokes the interceptor for the given event.
-     * 
+     *
      * @param eventType
      *            The event type
      * @param method
@@ -99,16 +99,12 @@ public class FaxClientSpiProxyImpl extends AbstractFaxClientSpiProxy {
     @Override
     protected void invokeInterceptors(FaxClientSpiProxyEventType eventType, Method method, Object[] arguments,
             Object output, Throwable throwable) {
-        try {
-            this.invokeInterceptorsImpl(eventType, method, arguments, output, throwable);
-        } catch (Throwable ignore) {
-            // ignore
-        }
+        this.invokeInterceptorsImpl(eventType, method, arguments, output, throwable);
     }
 
     /**
      * This function invokes the interceptor for the given event.
-     * 
+     *
      * @param eventType
      *            The event type
      * @param method

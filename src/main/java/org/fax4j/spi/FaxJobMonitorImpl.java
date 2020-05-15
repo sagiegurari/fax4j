@@ -12,7 +12,7 @@ import org.fax4j.FaxMonitorEvent.FaxMonitorEventID;
 
 /**
  * This class provides the default implementation of the fax job monitor.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.0
  * @since 0.40.2
@@ -74,8 +74,7 @@ public class FaxJobMonitorImpl extends AbstractFaxJobMonitor {
         this.pollingThreadPriority = 2;
         if (value != null) {
             this.pollingThreadPriority = Integer.parseInt(value);
-            if ((this.pollingThreadPriority < Thread.MIN_PRIORITY)
-                    || (this.pollingThreadPriority > Thread.MAX_PRIORITY)) {
+            if (this.pollingThreadPriority < Thread.MIN_PRIORITY || this.pollingThreadPriority > Thread.MAX_PRIORITY) {
                 throw new FaxException(
                         "Polling thread priority set to an invalid value: " + this.pollingThreadPriority);
             }
@@ -87,7 +86,7 @@ public class FaxJobMonitorImpl extends AbstractFaxJobMonitor {
 
     /**
      * This function starts monitoring the requested fax job.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      * @param faxJob
@@ -120,7 +119,7 @@ public class FaxJobMonitorImpl extends AbstractFaxJobMonitor {
     /**
      * This function will stop the monitoring of all fax jobs registered by the provided fax client SPI.<br>
      * Other fax jobs registered by other SPIs will keep on being monitored.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      */
@@ -250,7 +249,7 @@ public class FaxJobMonitorImpl extends AbstractFaxJobMonitor {
 
     /**
      * This class used the start the polling cycle.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.02
      * @since 0.40.2
@@ -263,7 +262,7 @@ public class FaxJobMonitorImpl extends AbstractFaxJobMonitor {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param faxJobMonitor
          *            The fax job monitor
          */
@@ -276,7 +275,7 @@ public class FaxJobMonitorImpl extends AbstractFaxJobMonitor {
 
         /**
          * This function sets the running flag.
-         * 
+         *
          * @param running
          *            The running flag
          */
