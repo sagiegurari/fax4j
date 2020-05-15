@@ -10,53 +10,49 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class ExitCodeProcessOutputValidatorTest
-{
-    /**The validator to test*/
+public class ExitCodeProcessOutputValidatorTest {
+    /** The validator to test */
     private ExitCodeProcessOutputValidator validator;
-    /**Empty fax client SPI*/
+    /** Empty fax client SPI */
     private FaxClientSpi faxClientSpi;
 
     /**
      * Sets up the test objects.
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Before
-    public void setUp() throws Exception
-    {
-        this.validator=new ExitCodeProcessOutputValidator();
-        this.faxClientSpi=TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(),null);
+    public void setUp() throws Exception {
+        this.validator = new ExitCodeProcessOutputValidator();
+        this.faxClientSpi = TestUtil.createFaxClientSpi(EmptyFaxClientSpi.class.getName(), null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void validateProcessOutputValidTest() throws Exception
-    {
-        ProcessOutput processOutput=new ProcessOutput("out","err",0);
-        this.validator.validateProcessOutput(this.faxClientSpi,processOutput,FaxActionType.SUBMIT_FAX_JOB);
+    public void validateProcessOutputValidTest() throws Exception {
+        ProcessOutput processOutput = new ProcessOutput("out", "err", 0);
+        this.validator.validateProcessOutput(this.faxClientSpi, processOutput, FaxActionType.SUBMIT_FAX_JOB);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void validateProcessOutputInvalidTest() throws Exception
-    {
-        ProcessOutput processOutput=new ProcessOutput("out","err",1);
-        this.validator.validateProcessOutput(this.faxClientSpi,processOutput,FaxActionType.SUBMIT_FAX_JOB);
+    @Test(expected = FaxException.class)
+    public void validateProcessOutputInvalidTest() throws Exception {
+        ProcessOutput processOutput = new ProcessOutput("out", "err", 1);
+        this.validator.validateProcessOutput(this.faxClientSpi, processOutput, FaxActionType.SUBMIT_FAX_JOB);
     }
 }

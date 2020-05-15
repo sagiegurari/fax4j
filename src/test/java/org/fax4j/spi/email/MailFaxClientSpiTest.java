@@ -23,70 +23,65 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class MailFaxClientSpiTest extends PredefinedMailFaxClientSpiTest
-{
+public class MailFaxClientSpiTest extends PredefinedMailFaxClientSpiTest {
     /**
      * This is the class constructor.
      */
-    public MailFaxClientSpiTest()
-    {
-        super(MailFaxClientSpi.class.getName(),"{0}@myprovider.com","fax:{0}");
+    public MailFaxClientSpiTest() {
+        super(MailFaxClientSpi.class.getName(), "{0}@myprovider.com", "fax:{0}");
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void connectionFactoryClassNameMissingValueTest() throws Exception
-    {
-        Assert.assertEquals(this.faxClientSpi.createMailConnectionFactoryImpl(null).getClass(),MailConnectionFactoryImpl.class);
+    public void connectionFactoryClassNameMissingValueTest() throws Exception {
+        Assert.assertEquals(this.faxClientSpi.createMailConnectionFactoryImpl(null).getClass(),
+                MailConnectionFactoryImpl.class);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void mailAddressTemplateMissingValueTest() throws Exception
-    {
-        this.configuration.setProperty("org.fax4j.spi.mail.address.template","");
-        TestUtil.createFaxClientSpi(MailFaxClientSpi.class.getName(),this.configuration);
+    @Test(expected = FaxException.class)
+    public void mailAddressTemplateMissingValueTest() throws Exception {
+        this.configuration.setProperty("org.fax4j.spi.mail.address.template", "");
+        TestUtil.createFaxClientSpi(MailFaxClientSpi.class.getName(), this.configuration);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void mailSubjectTemplateMissingValueTest() throws Exception
-    {
-        this.configuration.setProperty("org.fax4j.spi.mail.subject.template","");
-        TestUtil.createFaxClientSpi(MailFaxClientSpi.class.getName(),this.configuration);
+    @Test(expected = FaxException.class)
+    public void mailSubjectTemplateMissingValueTest() throws Exception {
+        this.configuration.setProperty("org.fax4j.spi.mail.subject.template", "");
+        TestUtil.createFaxClientSpi(MailFaxClientSpi.class.getName(), this.configuration);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void createMailConnectionTest() throws Exception
-    {
-        Connection<MailResourcesHolder> connection=this.faxClientSpi.createMailConnection();
+    public void createMailConnectionTest() throws Exception {
+        Connection<MailResourcesHolder> connection = this.faxClientSpi.createMailConnection();
         Assert.assertNotNull(connection);
-        MailResourcesHolder holder=connection.getResource();
+        MailResourcesHolder holder = connection.getResource();
         Assert.assertNotNull(holder);
         Assert.assertNotNull(holder.getSession());
         Assert.assertNotNull(holder.getTransport());
@@ -94,17 +89,16 @@ public class MailFaxClientSpiTest extends PredefinedMailFaxClientSpiTest
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void closeMailConnectionTest() throws Exception
-    {
-        Connection<MailResourcesHolder> connection=this.faxClientSpi.createMailConnection();
+    public void closeMailConnectionTest() throws Exception {
+        Connection<MailResourcesHolder> connection = this.faxClientSpi.createMailConnection();
         Assert.assertNotNull(connection);
-        MailResourcesHolder holder=connection.getResource();
+        MailResourcesHolder holder = connection.getResource();
         Assert.assertNotNull(holder);
         Assert.assertNotNull(holder.getSession());
         Assert.assertNotNull(holder.getTransport());
@@ -114,17 +108,16 @@ public class MailFaxClientSpiTest extends PredefinedMailFaxClientSpiTest
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getMailConnectionTest() throws Exception
-    {
-        Connection<MailResourcesHolder> connection=this.faxClientSpi.getMailConnection();
+    public void getMailConnectionTest() throws Exception {
+        Connection<MailResourcesHolder> connection = this.faxClientSpi.getMailConnection();
         Assert.assertNotNull(connection);
-        MailResourcesHolder holder=connection.getResource();
+        MailResourcesHolder holder = connection.getResource();
         Assert.assertNotNull(holder);
         Assert.assertNotNull(holder.getSession());
         Assert.assertNotNull(holder.getTransport());
@@ -132,142 +125,137 @@ public class MailFaxClientSpiTest extends PredefinedMailFaxClientSpiTest
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void sendMailValidMessageTest() throws Exception
-    {
-        File file=File.createTempFile("temp_",".txt");
+    public void sendMailValidMessageTest() throws Exception {
+        File file = File.createTempFile("temp_", ".txt");
         file.deleteOnExit();
-        IOHelper.writeTextFile("abc",file);
+        IOHelper.writeTextFile("abc", file);
 
-        Connection<MailResourcesHolder> connection=this.faxClientSpi.getMailConnection();
+        Connection<MailResourcesHolder> connection = this.faxClientSpi.getMailConnection();
         Assert.assertNotNull(connection);
-        Message message=new MimeMessage(connection.getResource().getSession());
-        message.addRecipient(RecipientType.TO,new InternetAddress("aaa@aaa"));
-        DataSource source=new FileDataSource(file);
-        MimeBodyPart messageFileAttachmentBodyPart=new MimeBodyPart();
+        Message message = new MimeMessage(connection.getResource().getSession());
+        message.addRecipient(RecipientType.TO, new InternetAddress("aaa@aaa"));
+        DataSource source = new FileDataSource(file);
+        MimeBodyPart messageFileAttachmentBodyPart = new MimeBodyPart();
         messageFileAttachmentBodyPart.setDataHandler(new DataHandler(source));
         messageFileAttachmentBodyPart.setFileName(file.getName());
-        MimeMultipart multipart=new MimeMultipart();
+        MimeMultipart multipart = new MimeMultipart();
         multipart.addBodyPart(messageFileAttachmentBodyPart);
         message.setContent(multipart);
-        this.faxClientSpi.sendMail(null,connection,message);
-        
+        this.faxClientSpi.sendMail(null, connection, message);
+
         file.delete();
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void sendMailNullMessageTest() throws Exception
-    {
-        this.faxClientSpi.sendMail(null,null,null);
+    @Test(expected = FaxException.class)
+    public void sendMailNullMessageTest() throws Exception {
+        this.faxClientSpi.sendMail(null, null, null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void createSubmitFaxJobMessageTest() throws Exception
-    {
-        File file=File.createTempFile("temp_",".txt");
+    public void createSubmitFaxJobMessageTest() throws Exception {
+        File file = File.createTempFile("temp_", ".txt");
         file.deleteOnExit();
-        IOHelper.writeTextFile("abc",file);
-        FaxJob faxJob=new FaxJobImpl();
+        IOHelper.writeTextFile("abc", file);
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setSenderName("mysender");
         faxJob.setTargetName("mytargetname");
         faxJob.setTargetAddress("123");
         faxJob.setSenderEmail("aaa@aaaaaa.com");
-        faxJob.setFilePath(file.getPath()); 
+        faxJob.setFilePath(file.getPath());
 
-        Connection<MailResourcesHolder> connection=this.faxClientSpi.getMailConnection();
+        Connection<MailResourcesHolder> connection = this.faxClientSpi.getMailConnection();
         Assert.assertNotNull(connection);
-        MailResourcesHolder holder=connection.getResource();
-        Message message=this.faxClientSpi.createSubmitFaxJobMessage(faxJob,holder);
+        MailResourcesHolder holder = connection.getResource();
+        Message message = this.faxClientSpi.createSubmitFaxJobMessage(faxJob, holder);
         Assert.assertNotNull(message);
-        Assert.assertEquals("aaa@aaaaaa.com",message.getFrom()[0].toString());
-        String value=MessageFormat.format(this.faxClientSpi.mailAddressTemplate,new Object[]{"123"});
-        Assert.assertEquals(value,message.getRecipients(RecipientType.TO)[0].toString());
-        value=MessageFormat.format(this.faxClientSpi.mailSubjectTemplate,new Object[]{"123"});
-        Assert.assertEquals(value,message.getSubject());
-        Assert.assertEquals(file,((FileDataSource)((Multipart)message.getContent()).getBodyPart(0).getDataHandler().getDataSource()).getFile());
-        
+        Assert.assertEquals("aaa@aaaaaa.com", message.getFrom()[0].toString());
+        String value = MessageFormat.format(this.faxClientSpi.mailAddressTemplate, new Object[] { "123" });
+        Assert.assertEquals(value, message.getRecipients(RecipientType.TO)[0].toString());
+        value = MessageFormat.format(this.faxClientSpi.mailSubjectTemplate, new Object[] { "123" });
+        Assert.assertEquals(value, message.getSubject());
+        Assert.assertEquals(file,
+                ((FileDataSource) ((Multipart) message.getContent()).getBodyPart(0).getDataHandler().getDataSource())
+                        .getFile());
+
         file.delete();
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void submitFaxJobTest() throws Exception
-    {
-        File file=File.createTempFile("temp_",".txt");
+    public void submitFaxJobTest() throws Exception {
+        File file = File.createTempFile("temp_", ".txt");
         file.deleteOnExit();
-        IOHelper.writeTextFile("abc",file);
-        FaxJob faxJob=new FaxJobImpl();
+        IOHelper.writeTextFile("abc", file);
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setSenderName("mysender");
         faxJob.setTargetName("mytargetname");
         faxJob.setTargetAddress("123");
         faxJob.setSenderEmail("aaa@aaaaaa.com");
-        faxJob.setFilePath(file.getPath()); 
+        faxJob.setFilePath(file.getPath());
 
         this.faxClientSpi.submitFaxJob(faxJob);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void suspendFaxJobImplTest() throws Exception
-    {
-        FaxJob faxJob=new FaxJobImpl();
+    @Test(expected = FaxException.class)
+    public void suspendFaxJobImplTest() throws Exception {
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setID("123");
 
         this.faxClientSpi.suspendFaxJobImpl(faxJob);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void resumeFaxJobImplTest() throws Exception
-    {
-        FaxJob faxJob=new FaxJobImpl();
+    @Test(expected = FaxException.class)
+    public void resumeFaxJobImplTest() throws Exception {
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setID("123");
 
         this.faxClientSpi.resumeFaxJobImpl(faxJob);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void cancelFaxJobImplTest() throws Exception
-    {
-        FaxJob faxJob=new FaxJobImpl();
+    @Test(expected = FaxException.class)
+    public void cancelFaxJobImplTest() throws Exception {
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setID("123");
 
         this.faxClientSpi.cancelFaxJobImpl(faxJob);

@@ -22,103 +22,97 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class EMail2FaxBridgeTest
-{
-    /**The fax bridge to test*/
+public class EMail2FaxBridgeTest {
+    /** The fax bridge to test */
     private EMail2FaxBridge faxBridge;
 
     /**
      * Sets up the test objects.
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Before
-    public void setUp() throws Exception
-    {
-        this.faxBridge=new EMail2FaxBridge();
+    public void setUp() throws Exception {
+        this.faxBridge = new EMail2FaxBridge();
 
-        Properties configuration=new Properties();
-        configuration.setProperty("org.fax4j.proxy.enabled","false");
-        configuration.setProperty("org.fax4j.spi.type.map.test",EmptyFaxClientSpi.class.getName());
-        this.faxBridge.initialize("test",configuration,new Object());
+        Properties configuration = new Properties();
+        configuration.setProperty("org.fax4j.proxy.enabled", "false");
+        configuration.setProperty("org.fax4j.spi.type.map.test", EmptyFaxClientSpi.class.getName());
+        this.faxBridge.initialize("test", configuration, new Object());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void initializeInvalidParserClassNameTest() throws Exception
-    {
-        this.faxBridge=new EMail2FaxBridge();
+    @Test(expected = FaxException.class)
+    public void initializeInvalidParserClassNameTest() throws Exception {
+        this.faxBridge = new EMail2FaxBridge();
 
-        Properties configuration=new Properties();
-        configuration.setProperty(EMail2FaxBridge.MAIL_MESSAGE_PARSER_CLASS_NAME_PROPERTY_KEY,"123");
-        configuration.setProperty("org.fax4j.proxy.enabled","false");
-        configuration.setProperty("org.fax4j.spi.type.map.test",EmptyFaxClientSpi.class.getName());
-        this.faxBridge.initialize("test",configuration,new Object());
+        Properties configuration = new Properties();
+        configuration.setProperty(EMail2FaxBridge.MAIL_MESSAGE_PARSER_CLASS_NAME_PROPERTY_KEY, "123");
+        configuration.setProperty("org.fax4j.proxy.enabled", "false");
+        configuration.setProperty("org.fax4j.spi.type.map.test", EmptyFaxClientSpi.class.getName());
+        this.faxBridge.initialize("test", configuration, new Object());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void submitFaxJobValidTest() throws Exception
-    {
-        Message message=new MimeMessage((Session)null);
+    public void submitFaxJobValidTest() throws Exception {
+        Message message = new MimeMessage((Session) null);
         message.setSubject("fax:123456789");
         message.setFrom(new InternetAddress("test@test.test"));
 
-        File file=File.createTempFile("temp_",".txt");
+        File file = File.createTempFile("temp_", ".txt");
         file.deleteOnExit();
-        IOHelper.writeTextFile("abc",file);
-        DataSource source=new FileDataSource(file);
-        BodyPart messageFileAttachmentBodyPart=new MimeBodyPart();
+        IOHelper.writeTextFile("abc", file);
+        DataSource source = new FileDataSource(file);
+        BodyPart messageFileAttachmentBodyPart = new MimeBodyPart();
         messageFileAttachmentBodyPart.setDataHandler(new DataHandler(source));
         messageFileAttachmentBodyPart.setFileName(file.getName());
-        Multipart multipart=new MimeMultipart();
+        Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(messageFileAttachmentBodyPart);
         message.setContent(multipart);
 
-        FaxJob faxJob=this.faxBridge.submitFaxJob(message);
+        FaxJob faxJob = this.faxBridge.submitFaxJob(message);
         Assert.assertNotNull(faxJob);
         Assert.assertNotNull(faxJob.getFile());
-        
+
         file.delete();
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void submitFaxJobNullRequestTest() throws Exception
-    {
+    @Test(expected = FaxException.class)
+    public void submitFaxJobNullRequestTest() throws Exception {
         this.faxBridge.submitFaxJob(null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void submitFaxJobNullFileInfoTest() throws Exception
-    {
-        Message message=new MimeMessage((Session)null);
+    @Test(expected = FaxException.class)
+    public void submitFaxJobNullFileInfoTest() throws Exception {
+        Message message = new MimeMessage((Session) null);
         message.setSubject("fax:123456789");
         message.setFrom(new InternetAddress("test@test.test"));
         this.faxBridge.submitFaxJob(message);

@@ -22,219 +22,195 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class AbstractFaxBridgeTest
-{
-    /**The fax bridge to test*/
+public class AbstractFaxBridgeTest {
+    /** The fax bridge to test */
     private AbstractFaxBridge faxBridge;
 
     /**
      * Sets up the test objects.
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Before
-    public void setUp() throws Exception
-    {
-        this.faxBridge=new AbstractFaxBridge()
-        {
-            public Provider getProvider()
-            {
+    public void setUp() throws Exception {
+        this.faxBridge = new AbstractFaxBridge() {
+            public Provider getProvider() {
                 return null;
             }
+
             @Override
-            protected void updateFaxJobWithFileInfo(FaxJob faxJob,FileInfo fileInfo)
-            {
-                try
-                {
-                    File file=File.createTempFile("temp_",".txt");
+            protected void updateFaxJobWithFileInfo(FaxJob faxJob, FileInfo fileInfo) {
+                try {
+                    File file = File.createTempFile("temp_", ".txt");
                     file.deleteOnExit();
-                    IOHelper.writeTextFile("My Text Data",file);
+                    IOHelper.writeTextFile("My Text Data", file);
 
                     faxJob.setFile(file);
-                }
-                catch(IOException exception)
-                {
+                } catch (IOException exception) {
                     throw new RuntimeException(exception);
                 }
             }
+
             @Override
-            protected VendorPolicy createVendorPolicy()
-            {
+            protected VendorPolicy createVendorPolicy() {
                 return new EmptyVendorPolicy();
             }
         };
 
-        Properties configuration=new Properties();
-        configuration.setProperty("org.fax4j.proxy.enabled","false");
-        configuration.setProperty("org.fax4j.spi.type.map.test",EmptyFaxClientSpi.class.getName());
-        for(int index=0;index<10;index++)
-        {
-            configuration.setProperty("KEY"+index,"value"+index);
+        Properties configuration = new Properties();
+        configuration.setProperty("org.fax4j.proxy.enabled", "false");
+        configuration.setProperty("org.fax4j.spi.type.map.test", EmptyFaxClientSpi.class.getName());
+        for (int index = 0; index < 10; index++) {
+            configuration.setProperty("KEY" + index, "value" + index);
         }
-        for(int index=0;index<10;index++)
-        {
-            configuration.setProperty("EMPTY"+index,"");
+        for (int index = 0; index < 10; index++) {
+            configuration.setProperty("EMPTY" + index, "");
         }
-        this.faxBridge.initialize("test",configuration,new Object());
+        this.faxBridge.initialize("test", configuration, new Object());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void initializeAgainTest() throws Exception
-    {
-        this.faxBridge.initialize("test",null,new Object());
+    @Test(expected = FaxException.class)
+    public void initializeAgainTest() throws Exception {
+        this.faxBridge.initialize("test", null, new Object());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void initializeWithListenerVendorPolicy() throws Exception
-    {
-        this.faxBridge=new AbstractFaxBridge()
-        {
-            public Provider getProvider()
-            {
+    public void initializeWithListenerVendorPolicy() throws Exception {
+        this.faxBridge = new AbstractFaxBridge() {
+            public Provider getProvider() {
                 return null;
             }
+
             @Override
-            protected void updateFaxJobWithFileInfo(FaxJob faxJob,FileInfo fileInfo)
-            {
-                try
-                {
-                    File file=File.createTempFile("temp_",".txt");
+            protected void updateFaxJobWithFileInfo(FaxJob faxJob, FileInfo fileInfo) {
+                try {
+                    File file = File.createTempFile("temp_", ".txt");
                     file.deleteOnExit();
-                    IOHelper.writeTextFile("My Text Data",file);
+                    IOHelper.writeTextFile("My Text Data", file);
 
                     faxJob.setFile(file);
-                }
-                catch(IOException exception)
-                {
+                } catch (IOException exception) {
                     throw new RuntimeException(exception);
                 }
             }
+
             @Override
-            protected VendorPolicy createVendorPolicy()
-            {
+            protected VendorPolicy createVendorPolicy() {
                 return new TestVendorPolicy2();
             }
         };
 
-        Properties configuration=new Properties();
-        configuration.setProperty("org.fax4j.proxy.enabled","false");
-        configuration.setProperty("org.fax4j.spi.type.map.test",EmptyFaxClientSpi.class.getName());
-        for(int index=0;index<10;index++)
-        {
-            configuration.setProperty("KEY"+index,"value"+index);
+        Properties configuration = new Properties();
+        configuration.setProperty("org.fax4j.proxy.enabled", "false");
+        configuration.setProperty("org.fax4j.spi.type.map.test", EmptyFaxClientSpi.class.getName());
+        for (int index = 0; index < 10; index++) {
+            configuration.setProperty("KEY" + index, "value" + index);
         }
-        for(int index=0;index<10;index++)
-        {
-            configuration.setProperty("EMPTY"+index,"");
+        for (int index = 0; index < 10; index++) {
+            configuration.setProperty("EMPTY" + index, "");
         }
-        this.faxBridge.initialize("test",configuration,new Object());
-        FaxClient faxClient=this.faxBridge.getFaxClient();
-        FaxClientSpi faxClientSpi=(FaxClientSpi)ReflectionHelper.invokeMethod(FaxClient.class,faxClient,"getFaxClientSpi",null,null);
+        this.faxBridge.initialize("test", configuration, new Object());
+        FaxClient faxClient = this.faxBridge.getFaxClient();
+        FaxClientSpi faxClientSpi = (FaxClientSpi) ReflectionHelper.invokeMethod(FaxClient.class, faxClient,
+                "getFaxClientSpi", null, null);
         @SuppressWarnings("unchecked")
-        Set<FaxMonitorEventListener> listeners=(Set<FaxMonitorEventListener>)ReflectionHelper.getField(AbstractFaxClientSpi.class,"faxMonitorEventListeners").get(faxClientSpi);
-        Assert.assertEquals(1,listeners.size());
+        Set<FaxMonitorEventListener> listeners = (Set<FaxMonitorEventListener>) ReflectionHelper
+                .getField(AbstractFaxClientSpi.class, "faxMonitorEventListeners").get(faxClientSpi);
+        Assert.assertEquals(1, listeners.size());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void initializeNullVendorPolicyTest() throws Exception
-    {
-        this.faxBridge=new AbstractFaxBridge()
-        {
-            public Provider getProvider()
-            {
+    @Test(expected = FaxException.class)
+    public void initializeNullVendorPolicyTest() throws Exception {
+        this.faxBridge = new AbstractFaxBridge() {
+            public Provider getProvider() {
                 return null;
             }
+
             @Override
-            protected void updateFaxJobWithFileInfo(FaxJob faxJob,FileInfo fileInfo)
-            {
-                //empty
+            protected void updateFaxJobWithFileInfo(FaxJob faxJob, FileInfo fileInfo) {
+                // empty
             }
+
             @Override
-            protected VendorPolicy createVendorPolicy()
-            {
+            protected VendorPolicy createVendorPolicy() {
                 return null;
             }
         };
 
-        Properties configuration=new Properties();
-        configuration.setProperty("org.fax4j.proxy.enabled","false");
-        configuration.setProperty("org.fax4j.spi.type.map.test",EmptyFaxClientSpi.class.getName());
-        this.faxBridge.initialize("test",configuration,new Object());
+        Properties configuration = new Properties();
+        configuration.setProperty("org.fax4j.proxy.enabled", "false");
+        configuration.setProperty("org.fax4j.spi.type.map.test", EmptyFaxClientSpi.class.getName());
+        this.faxBridge.initialize("test", configuration, new Object());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getVendorPolicyTest() throws Exception
-    {
-        VendorPolicy output=this.faxBridge.getVendorPolicy();
+    public void getVendorPolicyTest() throws Exception {
+        VendorPolicy output = this.faxBridge.getVendorPolicy();
         Assert.assertNotNull(output);
-        Assert.assertEquals(EmptyVendorPolicy.class,output.getClass());
+        Assert.assertEquals(EmptyVendorPolicy.class, output.getClass());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void createFaxJobValidTest() throws Exception
-    {
-        FaxJob faxJob=this.faxBridge.createFaxJob();
+    public void createFaxJobValidTest() throws Exception {
+        FaxJob faxJob = this.faxBridge.createFaxJob();
         Assert.assertNotNull(faxJob);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void createFaxJobNotInitializedTest() throws Exception
-    {
-        AbstractFaxBridge bridge=new AbstractFaxBridge()
-        {
-            public Provider getProvider()
-            {
+    @Test(expected = FaxException.class)
+    public void createFaxJobNotInitializedTest() throws Exception {
+        AbstractFaxBridge bridge = new AbstractFaxBridge() {
+            public Provider getProvider() {
                 return null;
             }
+
             @Override
-            protected void updateFaxJobWithFileInfo(FaxJob faxJob,FileInfo fileInfo)
-            {
-                //empty
+            protected void updateFaxJobWithFileInfo(FaxJob faxJob, FileInfo fileInfo) {
+                // empty
             }
+
             @Override
-            protected VendorPolicy createVendorPolicy()
-            {
+            protected VendorPolicy createVendorPolicy() {
                 return new EmptyVendorPolicy();
             }
         };
@@ -242,130 +218,120 @@ public class AbstractFaxBridgeTest
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void submitFaxJobValidTest() throws Exception
-    {
-        FaxJob faxJob=this.faxBridge.createFaxJob();
+    public void submitFaxJobValidTest() throws Exception {
+        FaxJob faxJob = this.faxBridge.createFaxJob();
         faxJob.setTargetAddress("12345");
-        FileInfo fileInfo=new FileInfo("abc.txt",new byte[10]);
-        this.faxBridge.submitFaxJob(faxJob,fileInfo);
-        
+        FileInfo fileInfo = new FileInfo("abc.txt", new byte[10]);
+        this.faxBridge.submitFaxJob(faxJob, fileInfo);
+
         faxJob.getFile().delete();
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void submitFaxJobNoTargetAddressTest() throws Exception
-    {
-        FaxJob faxJob=this.faxBridge.createFaxJob();
-        FileInfo fileInfo=new FileInfo("abc.txt",new byte[10]);
-        this.faxBridge.submitFaxJob(faxJob,fileInfo);
+    @Test(expected = FaxException.class)
+    public void submitFaxJobNoTargetAddressTest() throws Exception {
+        FaxJob faxJob = this.faxBridge.createFaxJob();
+        FileInfo fileInfo = new FileInfo("abc.txt", new byte[10]);
+        this.faxBridge.submitFaxJob(faxJob, fileInfo);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void submitFaxJobNotInitializedTest() throws Exception
-    {
-        AbstractFaxBridge bridge=new AbstractFaxBridge()
-        {
-            public Provider getProvider()
-            {
+    @Test(expected = FaxException.class)
+    public void submitFaxJobNotInitializedTest() throws Exception {
+        AbstractFaxBridge bridge = new AbstractFaxBridge() {
+            public Provider getProvider() {
                 return null;
             }
+
             @Override
-            protected void updateFaxJobWithFileInfo(FaxJob faxJob,FileInfo fileInfo)
-            {
-                //empty
+            protected void updateFaxJobWithFileInfo(FaxJob faxJob, FileInfo fileInfo) {
+                // empty
             }
+
             @Override
-            protected VendorPolicy createVendorPolicy()
-            {
+            protected VendorPolicy createVendorPolicy() {
                 return new EmptyVendorPolicy();
             }
         };
-        FaxJob faxJob=new FaxJobImpl();
-        FileInfo fileInfo=new FileInfo("abc.txt",new byte[10]);
-        bridge.submitFaxJob(faxJob,fileInfo);
+        FaxJob faxJob = new FaxJobImpl();
+        FileInfo fileInfo = new FileInfo("abc.txt", new byte[10]);
+        bridge.submitFaxJob(faxJob, fileInfo);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void submitFaxJobNullFaxJobTest() throws Exception
-    {
-        FileInfo fileInfo=new FileInfo("abc.txt",new byte[10]);
-        this.faxBridge.submitFaxJob(null,fileInfo);
+    @Test(expected = FaxException.class)
+    public void submitFaxJobNullFaxJobTest() throws Exception {
+        FileInfo fileInfo = new FileInfo("abc.txt", new byte[10]);
+        this.faxBridge.submitFaxJob(null, fileInfo);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void submitFaxJobNullFileInfoTest() throws Exception
-    {
-        FaxJob faxJob=this.faxBridge.createFaxJob();
-        this.faxBridge.submitFaxJob(faxJob,null);
+    @Test(expected = FaxException.class)
+    public void submitFaxJobNullFileInfoTest() throws Exception {
+        FaxJob faxJob = this.faxBridge.createFaxJob();
+        this.faxBridge.submitFaxJob(faxJob, null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFaxClientTest() throws Exception
-    {
+    public void getFaxClientTest() throws Exception {
         Assert.assertNotNull(this.faxBridge.getFaxClient());
-        Assert.assertEquals(FaxClient.class,this.faxBridge.getFaxClient().getClass());
+        Assert.assertEquals(FaxClient.class, this.faxBridge.getFaxClient().getClass());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getConfigurationValueEnumFoundTest() throws Exception
-    {
-        String output=this.faxBridge.getConfigurationValue(TestEnum.KEY1);
+    public void getConfigurationValueEnumFoundTest() throws Exception {
+        String output = this.faxBridge.getConfigurationValue(TestEnum.KEY1);
         Assert.assertNotNull(output);
-        Assert.assertEquals("value1",output);
+        Assert.assertEquals("value1", output);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getConfigurationValueEnumNotFoundTest() throws Exception
-    {
-        String output=this.faxBridge.getConfigurationValue(TestEnum.KEY_TEST);
+    public void getConfigurationValueEnumNotFoundTest() throws Exception {
+        String output = this.faxBridge.getConfigurationValue(TestEnum.KEY_TEST);
         Assert.assertNull(output);
     }
 }

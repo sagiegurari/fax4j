@@ -1,3 +1,5 @@
 .idea
 fax4j.iml
+core
+hs_err*
 target/

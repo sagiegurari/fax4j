@@ -4,17 +4,17 @@ import org.fax4j.spi.metrofax.MetroFaxMailFaxClientSpi.FaxClientSpiConfiguration
 import org.fax4j.test.TestUtil.PredefinedMailFaxClientSpiTest;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class MetroFaxMailFaxClientSpiTest extends PredefinedMailFaxClientSpiTest
-{
+public class MetroFaxMailFaxClientSpiTest extends PredefinedMailFaxClientSpiTest {
     /**
      * This is the class constructor.
      */
-    public MetroFaxMailFaxClientSpiTest()
-    {
-        super(MetroFaxMailFaxClientSpi.class.getName(),FaxClientSpiConfigurationConstants.MAIL_ADDRESS_TEMPLATE_VALUE.toString(),FaxClientSpiConfigurationConstants.MAIL_SUBJECT_TEMPLATE_VALUE.toString());
+    public MetroFaxMailFaxClientSpiTest() {
+        super(MetroFaxMailFaxClientSpi.class.getName(),
+                FaxClientSpiConfigurationConstants.MAIL_ADDRESS_TEMPLATE_VALUE.toString(),
+                FaxClientSpiConfigurationConstants.MAIL_SUBJECT_TEMPLATE_VALUE.toString());
     }
 }

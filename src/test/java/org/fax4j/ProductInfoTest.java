@@ -3,21 +3,19 @@ package org.fax4j;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class ProductInfoTest
-{
+public class ProductInfoTest {
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void printProductInfoTest() throws Exception
-    {
+    public void printProductInfoTest() throws Exception {
         ProductInfo.printProductInfo();
     }
 }

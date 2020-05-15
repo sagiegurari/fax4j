@@ -9,104 +9,95 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class AbstractRequestParserTest
-{
-    /**The parser to test*/
+public class AbstractRequestParserTest {
+    /** The parser to test */
     private AbstractRequestParser<String> parser;
 
     /**
      * Sets up the test objects.
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Before
-    public void setUp() throws Exception
-    {
-        this.parser=new AbstractRequestParser<String>()
-        {
+    public void setUp() throws Exception {
+        this.parser = new AbstractRequestParser<String>() {
             @Override
-            protected void initializeImpl(Map<String,String> configuration)
-            {
-                //empty
+            protected void initializeImpl(Map<String, String> configuration) {
+                // empty
             }
+
             @Override
-            protected FileInfo getFileInfoFromInputDataImpl(String inputData)
-            {
+            protected FileInfo getFileInfoFromInputDataImpl(String inputData) {
                 return null;
-            }           
+            }
+
             @Override
-            protected void updateFaxJobFromInputDataImpl(String inputData,FaxJob faxJob)
-            {
-                //empty
+            protected void updateFaxJobFromInputDataImpl(String inputData, FaxJob faxJob) {
+                // empty
             }
         };
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void initializeAgainTest() throws Exception
-    {
-        this.parser.initialize(new HashMap<String,String>());
-        this.parser.initialize(new HashMap<String,String>());
+    @Test(expected = FaxException.class)
+    public void initializeAgainTest() throws Exception {
+        this.parser.initialize(new HashMap<String, String>());
+        this.parser.initialize(new HashMap<String, String>());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void getFileInfoFromInputDataNotInitializedTest() throws Exception
-    {
+    @Test(expected = FaxException.class)
+    public void getFileInfoFromInputDataNotInitializedTest() throws Exception {
         this.parser.getFileInfoFromInputData("abc");
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFileInfoFromInputDataValidTest() throws Exception
-    {
-        this.parser.initialize(new HashMap<String,String>());
+    public void getFileInfoFromInputDataValidTest() throws Exception {
+        this.parser.initialize(new HashMap<String, String>());
         this.parser.getFileInfoFromInputData("abc");
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void updateFaxJobFromInputDataNotInitializedTest() throws Exception
-    {
-        this.parser.updateFaxJobFromInputData("NullFaxJobTest",new FaxJobImpl());
+    @Test(expected = FaxException.class)
+    public void updateFaxJobFromInputDataNotInitializedTest() throws Exception {
+        this.parser.updateFaxJobFromInputData("NullFaxJobTest", new FaxJobImpl());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void updateFaxJobFromInputDataValidTest() throws Exception
-    {
-        this.parser.initialize(new HashMap<String,String>());
-        this.parser.updateFaxJobFromInputData("NullFaxJobTest",new FaxJobImpl());
+    public void updateFaxJobFromInputDataValidTest() throws Exception {
+        this.parser.initialize(new HashMap<String, String>());
+        this.parser.updateFaxJobFromInputData("NullFaxJobTest", new FaxJobImpl());
     }
 }

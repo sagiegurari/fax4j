@@ -1,0 +1,44 @@
+name: CI
+on: [push, pull_request]
+env:
+  CLICOLOR_FORCE: 1
+jobs:
+  ci-linux:
+    name: CI Linux
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Maven
+      run: mvn clean install site
+  ci-windows:
+    name: CI Windows
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install vcexpress2010
+      run: choco install vcexpress2010
+    - name: Setup Env
+      run: |
+        echo "::add-path::C:\Windows\Microsoft.NET\Framework\v4.0.30319"
+        echo "::add-path::C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE"
+        echo "::add-path::C:\Program Files\Microsoft Visual Studio 10.0\VC\BIN"
+        echo "::set-env name=LIB::C:\Program Files\Microsoft Visual Studio 10.0\VC\LIB;%LIB%"
+        echo "::set-env name=LIB::C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib;%LIB%"
+        echo "::set-env name=LIB::C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib;%LIB%"
+        echo "::set-env name=INCLUDE::C:\Program FilesMicrosoft Visual Studio 10.0\VC\include;%INCLUDE%"
+    - name: Setup JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Maven
+      run: mvn -B clean install site
+    - uses: actions/upload-artifact@v2
+      with:
+        path: target/fax4j-*-full.zip
+

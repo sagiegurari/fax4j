@@ -3,22 +3,20 @@ package com.java4less.rfax;
 import java.awt.Image;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class TextFaxProducer implements FaxProducer
-{
-    /**Class member*/
+public class TextFaxProducer implements FaxProducer {
+    /** Class member */
     public String text;
-    /**Class member*/
+    /** Class member */
     public Image pageImage;
-    
+
     /**
      * Test method.
      */
-    public void prepare()
-    {
-        //empty
+    public void prepare() {
+        // empty
     }
 }

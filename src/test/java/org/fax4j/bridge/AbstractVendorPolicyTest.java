@@ -10,188 +10,172 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class AbstractVendorPolicyTest
-{
-    /**The vendor policy to test*/
+public class AbstractVendorPolicyTest {
+    /** The vendor policy to test */
     private AbstractVendorPolicy policy;
 
     /**
      * Sets up the test objects.
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Before
-    public void setUp() throws Exception
-    {
-        this.policy=new AbstractVendorPolicy(Fax4JProvider.FAX4J_PROVIDER)
-        {
+    public void setUp() throws Exception {
+        this.policy = new AbstractVendorPolicy(Fax4JProvider.FAX4J_PROVIDER) {
             @Override
-            protected void initializeImpl()
-            {
-                //empty
+            protected void initializeImpl() {
+                // empty
             }
+
             @Override
-            protected boolean invokePolicyForRequestImpl(Object requestDataHolder)
-            {
+            protected boolean invokePolicyForRequestImpl(Object requestDataHolder) {
                 return true;
             }
+
             @Override
-            protected boolean invokePolicyForResponseImpl(Object requestDataHolder,FaxJob faxJob)
-            {
+            protected boolean invokePolicyForResponseImpl(Object requestDataHolder, FaxJob faxJob) {
                 return true;
             }
         };
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void nullProviderTest() throws Exception
-    {
-        this.policy=new AbstractVendorPolicy(null)
-        {
+    @Test(expected = FaxException.class)
+    public void nullProviderTest() throws Exception {
+        this.policy = new AbstractVendorPolicy(null) {
             @Override
-            protected void initializeImpl()
-            {
-                //empty
+            protected void initializeImpl() {
+                // empty
             }
+
             @Override
-            protected boolean invokePolicyForRequestImpl(Object requestDataHolder)
-            {
+            protected boolean invokePolicyForRequestImpl(Object requestDataHolder) {
                 return true;
             }
+
             @Override
-            protected boolean invokePolicyForResponseImpl(Object requestDataHolder,FaxJob faxJob)
-            {
+            protected boolean invokePolicyForResponseImpl(Object requestDataHolder, FaxJob faxJob) {
                 return true;
             }
         };
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void initializeAgainTest() throws Exception
-    {
+    @Test(expected = FaxException.class)
+    public void initializeAgainTest() throws Exception {
         this.policy.initialize(new Object());
         this.policy.initialize(new Object());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void initializeNullFlowOwnerTest() throws Exception
-    {
+    @Test(expected = FaxException.class)
+    public void initializeNullFlowOwnerTest() throws Exception {
         this.policy.initialize(null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getProviderTest() throws Exception
-    {
-        Provider output=this.policy.getProvider();
-        Assert.assertEquals(Fax4JProvider.FAX4J_PROVIDER,output);
+    public void getProviderTest() throws Exception {
+        Provider output = this.policy.getProvider();
+        Assert.assertEquals(Fax4JProvider.FAX4J_PROVIDER, output);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFlowOwnerTest() throws Exception
-    {
-        Object output=this.policy.getFlowOwner();
+    public void getFlowOwnerTest() throws Exception {
+        Object output = this.policy.getFlowOwner();
         Assert.assertNull(output);
-        Object owner=new Object();
+        Object owner = new Object();
         this.policy.initialize(owner);
-        output=this.policy.getFlowOwner();
+        output = this.policy.getFlowOwner();
         Assert.assertNotNull(output);
-        Assert.assertEquals(owner,output);
+        Assert.assertEquals(owner, output);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void invokePolicyForRequestNullRequestDataHolderTest() throws Exception
-    {
+    @Test(expected = FaxException.class)
+    public void invokePolicyForRequestNullRequestDataHolderTest() throws Exception {
         this.policy.invokePolicyForRequest(null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void invokePolicyForRequestValidTest() throws Exception
-    {
-        boolean output=this.policy.invokePolicyForRequest(new Object());
+    public void invokePolicyForRequestValidTest() throws Exception {
+        boolean output = this.policy.invokePolicyForRequest(new Object());
         Assert.assertTrue(output);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void invokePolicyForResponseNullRequestDataHolderTest() throws Exception
-    {
-        this.policy.invokePolicyForResponse(null,new FaxJobImpl());
+    @Test(expected = FaxException.class)
+    public void invokePolicyForResponseNullRequestDataHolderTest() throws Exception {
+        this.policy.invokePolicyForResponse(null, new FaxJobImpl());
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void invokePolicyForResponseNullFaxJobTest() throws Exception
-    {
-        this.policy.invokePolicyForResponse(new Object(),null);
+    @Test(expected = FaxException.class)
+    public void invokePolicyForResponseNullFaxJobTest() throws Exception {
+        this.policy.invokePolicyForResponse(new Object(), null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void invokePolicyForResponseValidTest() throws Exception
-    {
-        boolean output=this.policy.invokePolicyForResponse(new Object(),new FaxJobImpl());
+    public void invokePolicyForResponseValidTest() throws Exception {
+        boolean output = this.policy.invokePolicyForResponse(new Object(), new FaxJobImpl());
         Assert.assertTrue(output);
     }
 }

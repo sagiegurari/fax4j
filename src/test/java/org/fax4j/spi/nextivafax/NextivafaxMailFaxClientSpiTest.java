@@ -4,17 +4,17 @@ import org.fax4j.spi.nextivafax.NextivafaxMailFaxClientSpi.FaxClientSpiConfigura
 import org.fax4j.test.TestUtil.PredefinedMailFaxClientSpiTest;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class NextivafaxMailFaxClientSpiTest extends PredefinedMailFaxClientSpiTest
-{
+public class NextivafaxMailFaxClientSpiTest extends PredefinedMailFaxClientSpiTest {
     /**
      * This is the class constructor.
      */
-    public NextivafaxMailFaxClientSpiTest()
-    {
-        super(NextivafaxMailFaxClientSpi.class.getName(),FaxClientSpiConfigurationConstants.MAIL_ADDRESS_TEMPLATE_VALUE.toString(),FaxClientSpiConfigurationConstants.MAIL_SUBJECT_TEMPLATE_VALUE.toString());
+    public NextivafaxMailFaxClientSpiTest() {
+        super(NextivafaxMailFaxClientSpi.class.getName(),
+                FaxClientSpiConfigurationConstants.MAIL_ADDRESS_TEMPLATE_VALUE.toString(),
+                FaxClientSpiConfigurationConstants.MAIL_SUBJECT_TEMPLATE_VALUE.toString());
     }
 }

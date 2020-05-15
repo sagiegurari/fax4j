@@ -11,68 +11,65 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class RFaxFaxClientSpiTest
-{
-    /**The fax client SPI*/
+public class RFaxFaxClientSpiTest {
+    /** The fax client SPI */
     private RFaxFaxClientSpi faxClientSpi;
 
     /**
      * Sets up the SPI instance.
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Before
-    public void setUp() throws Exception
-    {
-        Properties configuration=new Properties();
-        configuration.setProperty("org.fax4j.spi.rfax.port.name","COM1");
-        configuration.setProperty("org.fax4j.spi.rfax.fax.class","1");
+    public void setUp() throws Exception {
+        Properties configuration = new Properties();
+        configuration.setProperty("org.fax4j.spi.rfax.port.name", "COM1");
+        configuration.setProperty("org.fax4j.spi.rfax.fax.class", "1");
 
-        this.faxClientSpi=(RFaxFaxClientSpi)TestUtil.createFaxClientSpi(RFaxFaxClientSpi.class.getName(),configuration);
+        this.faxClientSpi = (RFaxFaxClientSpi) TestUtil.createFaxClientSpi(RFaxFaxClientSpi.class.getName(),
+                configuration);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void submitFaxJobImplTypeTextTest() throws Exception
-    {
-        File file=File.createTempFile("text_junit",".txt");
+    public void submitFaxJobImplTypeTextTest() throws Exception {
+        File file = File.createTempFile("text_junit", ".txt");
         file.deleteOnExit();
-        IOHelper.writeTextFile("TEST_DATA",file);
+        IOHelper.writeTextFile("TEST_DATA", file);
 
-        FaxJob faxJob=new FaxJobImpl();
-        faxJob.setProperty(FaxJobExtendedPropertyConstants.DATA_TYPE_FAX_JOB_PROPERTY_KEY.toString(),"TEXT");
-        faxJob.setProperty(FaxJobExtendedPropertyConstants.WIDTH_FAX_JOB_PROPERTY_KEY.toString(),"10");
-        faxJob.setProperty(FaxJobExtendedPropertyConstants.HEIGHT_FAX_JOB_PROPERTY_KEY.toString(),"10");
+        FaxJob faxJob = new FaxJobImpl();
+        faxJob.setProperty(FaxJobExtendedPropertyConstants.DATA_TYPE_FAX_JOB_PROPERTY_KEY.toString(), "TEXT");
+        faxJob.setProperty(FaxJobExtendedPropertyConstants.WIDTH_FAX_JOB_PROPERTY_KEY.toString(), "10");
+        faxJob.setProperty(FaxJobExtendedPropertyConstants.HEIGHT_FAX_JOB_PROPERTY_KEY.toString(), "10");
         faxJob.setFile(file);
         faxJob.setTargetAddress("123123123123123123");
         this.faxClientSpi.submitFaxJobImpl(faxJob);
-        
+
         file.delete();
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void submitFaxJobImplTypePDFTest() throws Exception
-    {
-        FaxJob faxJob=new FaxJobImpl();
-        faxJob.setProperty(FaxJobExtendedPropertyConstants.DATA_TYPE_FAX_JOB_PROPERTY_KEY.toString(),"PDF");
-        faxJob.setProperty(FaxJobExtendedPropertyConstants.WIDTH_FAX_JOB_PROPERTY_KEY.toString(),"10");
-        faxJob.setProperty(FaxJobExtendedPropertyConstants.HEIGHT_FAX_JOB_PROPERTY_KEY.toString(),"10");
+    public void submitFaxJobImplTypePDFTest() throws Exception {
+        FaxJob faxJob = new FaxJobImpl();
+        faxJob.setProperty(FaxJobExtendedPropertyConstants.DATA_TYPE_FAX_JOB_PROPERTY_KEY.toString(), "PDF");
+        faxJob.setProperty(FaxJobExtendedPropertyConstants.WIDTH_FAX_JOB_PROPERTY_KEY.toString(), "10");
+        faxJob.setProperty(FaxJobExtendedPropertyConstants.HEIGHT_FAX_JOB_PROPERTY_KEY.toString(), "10");
         faxJob.setFilePath("./test.pdf");
         faxJob.setTargetAddress("123123123123123123");
         this.faxClientSpi.submitFaxJobImpl(faxJob);

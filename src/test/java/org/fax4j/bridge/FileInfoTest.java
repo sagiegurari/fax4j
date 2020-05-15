@@ -7,142 +7,132 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class FileInfoTest
-{
+public class FileInfoTest {
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void nullFileTest() throws Exception
-    {
-        FileInfo fileInfo=new FileInfo(null);
-        Assert.fail("Event should throw error: "+fileInfo);
+    @Test(expected = FaxException.class)
+    public void nullFileTest() throws Exception {
+        FileInfo fileInfo = new FileInfo(null);
+        Assert.fail("Event should throw error: " + fileInfo);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void nullNameTest() throws Exception
-    {
-        FileInfo fileInfo=new FileInfo(null,new byte[10]);
-        Assert.fail("Event should throw error: "+fileInfo);
+    @Test(expected = FaxException.class)
+    public void nullNameTest() throws Exception {
+        FileInfo fileInfo = new FileInfo(null, new byte[10]);
+        Assert.fail("Event should throw error: " + fileInfo);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void emptyNameTest() throws Exception
-    {
-        FileInfo fileInfo=new FileInfo("",new byte[10]);
-        Assert.fail("Event should throw error: "+fileInfo);
+    @Test(expected = FaxException.class)
+    public void emptyNameTest() throws Exception {
+        FileInfo fileInfo = new FileInfo("", new byte[10]);
+        Assert.fail("Event should throw error: " + fileInfo);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void emptyWithSpacesNameTest() throws Exception
-    {
-        FileInfo fileInfo=new FileInfo("   ",new byte[10]);
-        Assert.fail("Event should throw error: "+fileInfo);
+    @Test(expected = FaxException.class)
+    public void emptyWithSpacesNameTest() throws Exception {
+        FileInfo fileInfo = new FileInfo("   ", new byte[10]);
+        Assert.fail("Event should throw error: " + fileInfo);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void nullContentTest() throws Exception
-    {
-        FileInfo fileInfo=new FileInfo("abc",null);
-        Assert.fail("Event should throw error: "+fileInfo);
+    @Test(expected = FaxException.class)
+    public void nullContentTest() throws Exception {
+        FileInfo fileInfo = new FileInfo("abc", null);
+        Assert.fail("Event should throw error: " + fileInfo);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void emptpyContentTest() throws Exception
-    {
-        FileInfo fileInfo=new FileInfo("abc",new byte[0]);
-        Assert.fail("Event should throw error: "+fileInfo);
+    @Test(expected = FaxException.class)
+    public void emptpyContentTest() throws Exception {
+        FileInfo fileInfo = new FileInfo("abc", new byte[0]);
+        Assert.fail("Event should throw error: " + fileInfo);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFileTest() throws Exception
-    {
-        File file=new File("./abc.txt");
-        FileInfo fileInfo=new FileInfo(file);
-        File output=fileInfo.getFile();
+    public void getFileTest() throws Exception {
+        File file = new File("./abc.txt");
+        FileInfo fileInfo = new FileInfo(file);
+        File output = fileInfo.getFile();
         Assert.assertNotNull(output);
-        Assert.assertEquals(file,output);
+        Assert.assertEquals(file, output);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getNameTest() throws Exception
-    {
-        FileInfo fileInfo=new FileInfo("name",new byte[10]);
-        String output=fileInfo.getName();
+    public void getNameTest() throws Exception {
+        FileInfo fileInfo = new FileInfo("name", new byte[10]);
+        String output = fileInfo.getName();
         Assert.assertNotNull(output);
-        Assert.assertEquals("name",output);
+        Assert.assertEquals("name", output);
 
-        File file=new File("./abc.txt");
-        fileInfo=new FileInfo(file);
-        output=fileInfo.getName();
+        File file = new File("./abc.txt");
+        fileInfo = new FileInfo(file);
+        output = fileInfo.getName();
         Assert.assertNotNull(output);
-        Assert.assertEquals("abc.txt",output);
+        Assert.assertEquals("abc.txt", output);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getContentTest() throws Exception
-    {
-        Random random=new Random();
-        byte[] content=new byte[50];
+    public void getContentTest() throws Exception {
+        Random random = new Random();
+        byte[] content = new byte[50];
         random.nextBytes(content);
-        FileInfo fileInfo=new FileInfo("name",content);
-        byte[] output=fileInfo.getContent();
+        FileInfo fileInfo = new FileInfo("name", content);
+        byte[] output = fileInfo.getContent();
         Assert.assertNotNull(output);
-        Assert.assertArrayEquals(content,output);
+        Assert.assertArrayEquals(content, output);
     }
 }

@@ -8,6 +8,24 @@
 	</properties>
 
 	<body>
+		<release version="0.45.0" date="2020-05-15">
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Upgrade to java 6 as new minimal java version.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Migrate to github actions.
+				]]>
+			</action>
+			<action dev="Sagie Gur-Ari" type="update">
+				<![CDATA[
+					Upgrade dependencies.
+				]]>
+			</action>
+		</release>
+
 		<release version="0.44.2" date="2017-11-22">
 			<action dev="Sagie Gur-Ari" type="fix">
 				<![CDATA[

@@ -10,321 +10,303 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test Class 
+ * Test Class
  * 
- * @author  Sagie Gur-Ari
+ * @author Sagie Gur-Ari
  */
-public class WindowsFaxClientSpiHelperTest
-{
+public class WindowsFaxClientSpiHelperTest {
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getServerNameFromConfigurationEmptyValueTest() throws Exception
-    {
-        Properties configuration=new Properties();
-        configuration.setProperty("org.fax4j.spi.windows.server.name","");
-        WindowsFaxClientSpi faxClientSpi=(WindowsFaxClientSpi)TestUtil.createFaxClientSpi(WindowsFaxClientSpi.class.getName(),configuration);
-        String output=WindowsFaxClientSpiHelper.getServerNameFromConfiguration(faxClientSpi);
+    public void getServerNameFromConfigurationEmptyValueTest() throws Exception {
+        Properties configuration = new Properties();
+        configuration.setProperty("org.fax4j.spi.windows.server.name", "");
+        WindowsFaxClientSpi faxClientSpi = (WindowsFaxClientSpi) TestUtil
+                .createFaxClientSpi(WindowsFaxClientSpi.class.getName(), configuration);
+        String output = WindowsFaxClientSpiHelper.getServerNameFromConfiguration(faxClientSpi);
         Assert.assertNull(output);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getServerNameFromConfigurationNotEmptyValueTest() throws Exception
-    {
-        Properties configuration=new Properties();
-        configuration.setProperty("org.fax4j.spi.windows.server.name","abc");
-        WindowsFaxClientSpi faxClientSpi=(WindowsFaxClientSpi)TestUtil.createFaxClientSpi(WindowsFaxClientSpi.class.getName(),configuration);
-        String output=WindowsFaxClientSpiHelper.getServerNameFromConfiguration(faxClientSpi);
+    public void getServerNameFromConfigurationNotEmptyValueTest() throws Exception {
+        Properties configuration = new Properties();
+        configuration.setProperty("org.fax4j.spi.windows.server.name", "abc");
+        WindowsFaxClientSpi faxClientSpi = (WindowsFaxClientSpi) TestUtil
+                .createFaxClientSpi(WindowsFaxClientSpi.class.getName(), configuration);
+        String output = WindowsFaxClientSpiHelper.getServerNameFromConfiguration(faxClientSpi);
         Assert.assertNotNull(output);
-        Assert.assertEquals("abc",output);
+        Assert.assertEquals("abc", output);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void validateFaxJobIDIntValidTest() throws Exception
-    {
+    public void validateFaxJobIDIntValidTest() throws Exception {
         WindowsFaxClientSpiHelper.validateFaxJobID(1);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void validateFaxJobIDIntInvalidTest() throws Exception
-    {
+    @Test(expected = FaxException.class)
+    public void validateFaxJobIDIntInvalidTest() throws Exception {
         WindowsFaxClientSpiHelper.validateFaxJobID(0);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void validateFaxJobIDStringValidTest() throws Exception
-    {
+    public void validateFaxJobIDStringValidTest() throws Exception {
         WindowsFaxClientSpiHelper.validateFaxJobID("123");
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void validateFaxJobIDStringInvalidZeroTest() throws Exception
-    {
+    @Test(expected = FaxException.class)
+    public void validateFaxJobIDStringInvalidZeroTest() throws Exception {
         WindowsFaxClientSpiHelper.validateFaxJobID("0");
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void validateFaxJobIDStringInvalidEmptyTest() throws Exception
-    {
+    @Test(expected = FaxException.class)
+    public void validateFaxJobIDStringInvalidEmptyTest() throws Exception {
         WindowsFaxClientSpiHelper.validateFaxJobID("");
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void validateFaxJobIDStringInvalidNullStringTest() throws Exception
-    {
-        WindowsFaxClientSpiHelper.validateFaxJobID((String)null);
+    @Test(expected = FaxException.class)
+    public void validateFaxJobIDStringInvalidNullStringTest() throws Exception {
+        WindowsFaxClientSpiHelper.validateFaxJobID((String) null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=NumberFormatException.class)
-    public void validateFaxJobIDStringInvalidNonNumericTest() throws Exception
-    {
+    @Test(expected = NumberFormatException.class)
+    public void validateFaxJobIDStringInvalidNonNumericTest() throws Exception {
         WindowsFaxClientSpiHelper.validateFaxJobID("abc");
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=FaxException.class)
-    public void validateFaxJobIDStringInvalidNullFaxJobTest() throws Exception
-    {
-        WindowsFaxClientSpiHelper.validateFaxJobID((FaxJob)null);
+    @Test(expected = FaxException.class)
+    public void validateFaxJobIDStringInvalidNullFaxJobTest() throws Exception {
+        WindowsFaxClientSpiHelper.validateFaxJobID((FaxJob) null);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void validateFaxJobIDIntValidFaxJobTest() throws Exception
-    {
-        FaxJob faxJob=new FaxJobImpl();
+    public void validateFaxJobIDIntValidFaxJobTest() throws Exception {
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setID("123");
         WindowsFaxClientSpiHelper.validateFaxJobID(faxJob);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFaxJobIDValidTest() throws Exception
-    {
-        FaxJob faxJob=new FaxJobImpl();
+    public void getFaxJobIDValidTest() throws Exception {
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setID("123");
-        int faxJobID=WindowsFaxClientSpiHelper.getFaxJobID(faxJob);
-        Assert.assertEquals(123,faxJobID);
+        int faxJobID = WindowsFaxClientSpiHelper.getFaxJobID(faxJob);
+        Assert.assertEquals(123, faxJobID);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
-    @Test(expected=NumberFormatException.class)
-    public void getFaxJobIDInvalidTest() throws Exception
-    {
-        FaxJob faxJob=new FaxJobImpl();
+    @Test(expected = NumberFormatException.class)
+    public void getFaxJobIDInvalidTest() throws Exception {
+        FaxJob faxJob = new FaxJobImpl();
         faxJob.setID("abc");
         WindowsFaxClientSpiHelper.getFaxJobID(faxJob);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFaxJobStatusFromWindowsFaxJobStatusStringNullTest() throws Exception
-    {
-        FaxJobStatus faxJobStatus=WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString(null);
+    public void getFaxJobStatusFromWindowsFaxJobStatusStringNullTest() throws Exception {
+        FaxJobStatus faxJobStatus = WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString(null);
         Assert.assertNotNull(faxJobStatus);
-        Assert.assertSame(FaxJobStatus.UNKNOWN,faxJobStatus);
+        Assert.assertSame(FaxJobStatus.UNKNOWN, faxJobStatus);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFaxJobStatusFromWindowsFaxJobStatusStringEmptyStringTest() throws Exception
-    {
-        FaxJobStatus faxJobStatus=WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("");
+    public void getFaxJobStatusFromWindowsFaxJobStatusStringEmptyStringTest() throws Exception {
+        FaxJobStatus faxJobStatus = WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("");
         Assert.assertNotNull(faxJobStatus);
-        Assert.assertSame(FaxJobStatus.UNKNOWN,faxJobStatus);
+        Assert.assertSame(FaxJobStatus.UNKNOWN, faxJobStatus);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFaxJobStatusFromWindowsFaxJobStatusStringUnknownValueTest() throws Exception
-    {
-        FaxJobStatus faxJobStatus=WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("abcd");
+    public void getFaxJobStatusFromWindowsFaxJobStatusStringUnknownValueTest() throws Exception {
+        FaxJobStatus faxJobStatus = WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("abcd");
         Assert.assertNotNull(faxJobStatus);
-        Assert.assertSame(FaxJobStatus.UNKNOWN,faxJobStatus);
+        Assert.assertSame(FaxJobStatus.UNKNOWN, faxJobStatus);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsPendingValueTest() throws Exception
-    {
-        FaxJobStatus faxJobStatus=WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("JS_PENDING");
+    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsPendingValueTest() throws Exception {
+        FaxJobStatus faxJobStatus = WindowsFaxClientSpiHelper
+                .getFaxJobStatusFromWindowsFaxJobStatusString("JS_PENDING");
         Assert.assertNotNull(faxJobStatus);
-        Assert.assertSame(FaxJobStatus.PENDING,faxJobStatus);
+        Assert.assertSame(FaxJobStatus.PENDING, faxJobStatus);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsPausedValueTest() throws Exception
-    {
-        FaxJobStatus faxJobStatus=WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("JS_PAUSED");
+    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsPausedValueTest() throws Exception {
+        FaxJobStatus faxJobStatus = WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("JS_PAUSED");
         Assert.assertNotNull(faxJobStatus);
-        Assert.assertSame(FaxJobStatus.PENDING,faxJobStatus);
+        Assert.assertSame(FaxJobStatus.PENDING, faxJobStatus);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsRetryingValueTest() throws Exception
-    {
-        FaxJobStatus faxJobStatus=WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("JS_RETRYING");
+    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsRetryingValueTest() throws Exception {
+        FaxJobStatus faxJobStatus = WindowsFaxClientSpiHelper
+                .getFaxJobStatusFromWindowsFaxJobStatusString("JS_RETRYING");
         Assert.assertNotNull(faxJobStatus);
-        Assert.assertSame(FaxJobStatus.PENDING,faxJobStatus);
+        Assert.assertSame(FaxJobStatus.PENDING, faxJobStatus);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsInProgressValueTest() throws Exception
-    {
-        FaxJobStatus faxJobStatus=WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("JS_INPROGRESS");
+    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsInProgressValueTest() throws Exception {
+        FaxJobStatus faxJobStatus = WindowsFaxClientSpiHelper
+                .getFaxJobStatusFromWindowsFaxJobStatusString("JS_INPROGRESS");
         Assert.assertNotNull(faxJobStatus);
-        Assert.assertSame(FaxJobStatus.IN_PROGRESS,faxJobStatus);
+        Assert.assertSame(FaxJobStatus.IN_PROGRESS, faxJobStatus);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsFailedValueTest() throws Exception
-    {
-        FaxJobStatus faxJobStatus=WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("JS_FAILED");
+    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsFailedValueTest() throws Exception {
+        FaxJobStatus faxJobStatus = WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("JS_FAILED");
         Assert.assertNotNull(faxJobStatus);
-        Assert.assertSame(FaxJobStatus.ERROR,faxJobStatus);
+        Assert.assertSame(FaxJobStatus.ERROR, faxJobStatus);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsNoLineValueTest() throws Exception
-    {
-        FaxJobStatus faxJobStatus=WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("JS_NOLINE");
+    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsNoLineValueTest() throws Exception {
+        FaxJobStatus faxJobStatus = WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("JS_NOLINE");
         Assert.assertNotNull(faxJobStatus);
-        Assert.assertSame(FaxJobStatus.ERROR,faxJobStatus);
+        Assert.assertSame(FaxJobStatus.ERROR, faxJobStatus);
     }
 
     /**
-     * Test 
+     * Test
      * 
-     * @throws  Exception
-     *          Any exception
+     * @throws Exception
+     *             Any exception
      */
     @Test
-    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsRetriesExceededValueTest() throws Exception
-    {
-        FaxJobStatus faxJobStatus=WindowsFaxClientSpiHelper.getFaxJobStatusFromWindowsFaxJobStatusString("JS_RETRIES_EXCEEDED");
+    public void getFaxJobStatusFromWindowsFaxJobStatusStringWindowsRetriesExceededValueTest() throws Exception {
+        FaxJobStatus faxJobStatus = WindowsFaxClientSpiHelper
+                .getFaxJobStatusFromWindowsFaxJobStatusString("JS_RETRIES_EXCEEDED");
         Assert.assertNotNull(faxJobStatus);
-        Assert.assertSame(FaxJobStatus.ERROR,faxJobStatus);
+        Assert.assertSame(FaxJobStatus.ERROR, faxJobStatus);
     }
 }
