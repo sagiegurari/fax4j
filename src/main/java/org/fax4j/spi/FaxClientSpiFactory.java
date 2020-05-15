@@ -442,7 +442,7 @@ public final class FaxClientSpiFactory {
                 // get next type
                 type = types[index];
 
-                if ((type != null) && (type.length() > 0)) {
+                if (type != null && type.length() > 0) {
                     // get property key
                     propertyKey = FaxClientSpiFactory.SPI_INTERCEPTOR_TYPE_PROPERTY_KEY_PREFIX + type;
 
