@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * This is a common basic implementation of the configuration holder.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.01
  * @since 0.41.7
@@ -22,7 +22,7 @@ public final class ConfigurationHolderImpl implements ConfigurationHolder {
 
     /**
      * This is the class constructor.
-     * 
+     *
      * @param map
      *            The configuration as map
      */
@@ -32,7 +32,7 @@ public final class ConfigurationHolderImpl implements ConfigurationHolder {
 
     /**
      * This is the class constructor.
-     * 
+     *
      * @param map
      *            The configuration as map
      * @param propertyPart
@@ -61,19 +61,19 @@ public final class ConfigurationHolderImpl implements ConfigurationHolder {
      * words the top context of the configuration.<br>
      * For example: org.fax4j.[partvalue].some.key<br>
      * The org.fax4j is the common prefix, the some.key is the suffix and partvalue is the part to be replaced.
-     * 
+     *
      * @return The property part
      */
-    public final String getPropertyPart() {
+    public String getPropertyPart() {
         return this.PROPERTY_PART;
     }
 
     /**
      * Returns the configuration.
-     * 
+     *
      * @return The configuration
      */
-    public final Map<String, String> getConfiguration() {
+    public Map<String, String> getConfiguration() {
         return this.CONFIGURATION;
     }
 
@@ -81,12 +81,12 @@ public final class ConfigurationHolderImpl implements ConfigurationHolder {
      * Returns the value from the component configuration based on the provided configuration key. The value will be
      * trimmed.<br>
      * If the trimmed configuration value is an empty string, null will be returned instead.
-     * 
+     *
      * @param key
      *            The configuration key
      * @return The value
      */
-    public final String getConfigurationValue(String key) {
+    public String getConfigurationValue(String key) {
         // format property key
         String propertyKey = key;
         if (this.PROPERTY_PART != null) {
@@ -116,12 +116,12 @@ public final class ConfigurationHolderImpl implements ConfigurationHolder {
      * Returns the value from the component configuration based on the provided configuration key. The value will be
      * trimmed.<br>
      * If the trimmed configuration value is an empty string, null will be returned instead.
-     * 
+     *
      * @param key
      *            The configuration key (toString value will be used)
      * @return The value
      */
-    public final String getConfigurationValue(Enum<?> key) {
+    public String getConfigurationValue(Enum<?> key) {
         // get string key
         String keyStr = key.toString();
 

@@ -22,7 +22,7 @@ import org.fax4j.bridge.FileInfo;
  * <li>-sender_email [sender email]
  * <li>-property:[property name] [property value]
  * </ul>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.02
  * @since 0.40.6
@@ -38,7 +38,7 @@ public class DefaultCommandLineArgumentsParser extends AbstractRequestParser<Str
 
     /**
      * This function initializes the component.
-     * 
+     *
      * @param configuration
      *            The component configuration
      */
@@ -49,7 +49,7 @@ public class DefaultCommandLineArgumentsParser extends AbstractRequestParser<Str
 
     /**
      * This function returns the file info from the request data.
-     * 
+     *
      * @param inputData
      *            The input data
      * @return The file info
@@ -60,7 +60,7 @@ public class DefaultCommandLineArgumentsParser extends AbstractRequestParser<Str
         int amount = inputData.length;
 
         FileInfo fileInfo = null;
-        if ((amount % 2) == 0) {
+        if (amount % 2 == 0) {
             String argument = null;
             String value = null;
             for (int index = 0; index < inputData.length; index = index + 2) {
@@ -90,7 +90,7 @@ public class DefaultCommandLineArgumentsParser extends AbstractRequestParser<Str
     /**
      * This function update the fax job from the request data.<br>
      * This fax job will not have any file data.
-     * 
+     *
      * @param inputData
      *            The input data
      * @param faxJob
@@ -101,7 +101,7 @@ public class DefaultCommandLineArgumentsParser extends AbstractRequestParser<Str
         // get amount
         int amount = inputData.length;
 
-        if ((amount % 2) == 0) {
+        if (amount % 2 == 0) {
             String argument = null;
             String key = null;
             String value = null;
