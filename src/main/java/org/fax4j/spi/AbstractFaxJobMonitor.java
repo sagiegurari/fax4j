@@ -9,7 +9,7 @@ import org.fax4j.common.Logger;
 
 /**
  * This class provides partial implementation of the fax job monitor capabilities.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.02
  * @since 0.40.2
@@ -32,7 +32,7 @@ public abstract class AbstractFaxJobMonitor implements FaxJobMonitor {
     /**
      * This function initializes the fax job monitor.<br>
      * This method is called by the FaxClientSpiFactory.
-     * 
+     *
      * @param configuration
      *            The fax job monitor configuration
      * @param logger
@@ -63,7 +63,7 @@ public abstract class AbstractFaxJobMonitor implements FaxJobMonitor {
 
     /**
      * Returns the internal logger.
-     * 
+     *
      * @return The internal logger
      */
     protected final Logger getLogger() {
@@ -72,7 +72,7 @@ public abstract class AbstractFaxJobMonitor implements FaxJobMonitor {
 
     /**
      * Returns the value from the monitor configuration based on the provided configuration key.
-     * 
+     *
      * @param key
      *            The configuration key
      * @return The value
@@ -98,7 +98,7 @@ public abstract class AbstractFaxJobMonitor implements FaxJobMonitor {
 
     /**
      * This function starts monitoring the requested fax job.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      * @param faxJob
@@ -112,7 +112,7 @@ public abstract class AbstractFaxJobMonitor implements FaxJobMonitor {
             throw new FaxException("Fax job not provided.");
         }
         String id = faxJob.getID();
-        if ((id == null) || (id.length() == 0)) {
+        if (id == null || id.length() == 0) {
             throw new FaxException("Missing fax job ID in provided fax job.");
         }
 
@@ -124,7 +124,7 @@ public abstract class AbstractFaxJobMonitor implements FaxJobMonitor {
     /**
      * This function will stop the monitoring of all fax jobs registered by the provided fax client SPI.<br>
      * Other fax jobs registered by other SPIs will keep on being monitored.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      */
@@ -145,7 +145,7 @@ public abstract class AbstractFaxJobMonitor implements FaxJobMonitor {
 
     /**
      * This function starts monitoring the requested fax job.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      * @param faxJob
@@ -156,7 +156,7 @@ public abstract class AbstractFaxJobMonitor implements FaxJobMonitor {
     /**
      * This function will stop the monitoring of all fax jobs registered by the provided fax client SPI.<br>
      * Other fax jobs registered by other SPIs will keep on being monitored.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      */

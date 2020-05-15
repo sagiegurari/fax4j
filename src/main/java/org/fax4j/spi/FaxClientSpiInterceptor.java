@@ -45,7 +45,7 @@ import java.lang.reflect.Method;
  * </tr>
  * </table>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.01
  * @since 0.17
@@ -54,25 +54,25 @@ public interface FaxClientSpiInterceptor {
     /**
      * This function initializes the fax client SPI interceptor.<br>
      * This method is called by the FaxClientSpiFactory.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      */
-    public void initialize(FaxClientSpi faxClientSpi);
+    void initialize(FaxClientSpi faxClientSpi);
 
     /**
      * This function is invoked by the fax client SPI proxy before invoking the method in the fax client SPI itself.
-     * 
+     *
      * @param method
      *            The method invoked
      * @param arguments
      *            The method arguments
      */
-    public void preMethodInvocation(Method method, Object[] arguments);
+    void preMethodInvocation(Method method, Object[] arguments);
 
     /**
      * This function is invoked by the fax client SPI proxy after invoking the method in the fax client SPI itself.
-     * 
+     *
      * @param method
      *            The method invoked
      * @param arguments
@@ -80,12 +80,12 @@ public interface FaxClientSpiInterceptor {
      * @param output
      *            The method output
      */
-    public void postMethodInvocation(Method method, Object[] arguments, Object output);
+    void postMethodInvocation(Method method, Object[] arguments, Object output);
 
     /**
      * This function is invoked by the fax client SPI proxy in of an error while invoking the method in the fax client
      * SPI itself.
-     * 
+     *
      * @param method
      *            The method invoked
      * @param arguments
@@ -93,5 +93,5 @@ public interface FaxClientSpiInterceptor {
      * @param throwable
      *            The throwable while invoking the method
      */
-    public void onMethodInvocationError(Method method, Object[] arguments, Throwable throwable);
+    void onMethodInvocationError(Method method, Object[] arguments, Throwable throwable);
 }

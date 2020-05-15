@@ -38,7 +38,7 @@ import org.fax4j.common.Logger;
  * These properties enable to override the configuration of the lower 2 layers.<br>
  * <br>
  * For SPI specific configuration, see the relevant SPI class javadoc.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.15
  * @since 0.1
@@ -59,7 +59,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This class holds the fax job extended properties.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.01
      * @since 0.38
@@ -73,17 +73,17 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
         /**
          * This is the class constructor.
-         * 
+         *
          * @param value
          *            The string value
          */
-        private FaxJobExtendedPropertyConstants(String value) {
+        FaxJobExtendedPropertyConstants(String value) {
             this.value = value;
         }
 
         /**
          * This function returns the string value.
-         * 
+         *
          * @return The string value
          */
         @Override
@@ -105,7 +105,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
     /**
      * This function initializes the fax client SPI.<br>
      * This method is called by the FaxClientSpiFactory.
-     * 
+     *
      * @param configuration
      *            The fax client configuration
      * @param logger
@@ -149,7 +149,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * Returns the internal logger.
-     * 
+     *
      * @return The internal logger
      */
     public final Logger getLogger() {
@@ -158,7 +158,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * Returns the fax job monitor.
-     * 
+     *
      * @return The fax job monitor
      */
     public final FaxJobMonitor getFaxJobMonitor() {
@@ -171,7 +171,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
      * different configuration blocks.<br>
      * Property parts will be replaced with the {0} values in the key, for example org.fax4j.{0}.somekey with part abc
      * will be replaced to org.fax4j.abc.somekey
-     * 
+     *
      * @return The property part
      */
     public String getPropertyPart() {
@@ -180,7 +180,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * Returns the configuration.
-     * 
+     *
      * @return The configuration
      */
     public Map<String, String> getConfiguration() {
@@ -191,7 +191,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
      * Returns the value from the component configuration based on the provided configuration key. The value will be
      * trimmed.<br>
      * If the trimmed configuration value is an empty string, null will be returned instead.
-     * 
+     *
      * @param key
      *            The configuration key
      * @return The value
@@ -207,7 +207,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
      * Returns the value from the component configuration based on the provided configuration key. The value will be
      * trimmed.<br>
      * If the trimmed configuration value is an empty string, null will be returned instead.
-     * 
+     *
      * @param key
      *            The configuration key (toString value will be used)
      * @return The value
@@ -221,7 +221,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function fires a new fax monitor event.
-     * 
+     *
      * @param id
      *            The fax monitor event ID
      * @param faxJob
@@ -235,7 +235,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function creates a new fax job instance to be used by the caller to submit a new fax job and so on.
-     * 
+     *
      * @return The fax job instance
      */
     public FaxJob createFaxJob() {
@@ -251,7 +251,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -261,7 +261,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
         // validate fax job target address
         String targetAddress = faxJob.getTargetAddress();
-        if ((targetAddress == null) || (targetAddress.length() == 0)) {
+        if (targetAddress == null || targetAddress.length() == 0) {
             throw new FaxException("Fax job target address not provided.");
         }
 
@@ -296,7 +296,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function will suspend an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -313,7 +313,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function will resume an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -330,7 +330,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function will cancel an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -350,7 +350,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
      * Not all SPIs support extraction of the fax job status.<br>
      * In case the SPI is unable to extract or does not support extracting of the fax job status, it will return the
      * UNKNOWN status.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @return The fax job status
@@ -367,7 +367,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function adds the fax client action event listener to the internal fax event listeners data structure.
-     * 
+     *
      * @param listener
      *            The fax client action event listener
      */
@@ -379,7 +379,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function removes the fax client action event listener from the internal fax event listeners data structure.
-     * 
+     *
      * @param listener
      *            The fax client action event listener
      */
@@ -403,7 +403,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
      * Fax jobs will be monitored only if there are active listeners registered.<br>
      * If the listeners are added after a fob job was submitted, that fax job would not be monitored.<br>
      * <b>Not all SPIs support monitoring events, in which case this method will throw an exception.</b>
-     * 
+     *
      * @param listener
      *            The fax monitor event listener
      */
@@ -421,7 +421,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
     /**
      * This function removes the fax monitor event listener from the internal fax event listeners data structure.<br>
      * <b>Not all SPIs support monitoring events.</b>
-     * 
+     *
      * @param listener
      *            The fax monitor event listener
      */
@@ -453,16 +453,14 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
      */
     private synchronized void checkAndStopMonitoringAllFaxJobs() {
         // stop fax job monitoring for this SPI
-        if (this.isFaxMonitorEventsSupported()) {
-            if (this.faxMonitorEventListeners.size() == 0) {
-                this.spiFaxJobMonitor.stopMonitoringAllFaxJobs(this);
-            }
+        if (this.isFaxMonitorEventsSupported() && this.faxMonitorEventListeners.size() == 0) {
+            this.spiFaxJobMonitor.stopMonitoringAllFaxJobs(this);
         }
     }
 
     /**
      * This function fires a new fax event.
-     * 
+     *
      * @param id
      *            The fax event ID
      * @param faxJob
@@ -512,7 +510,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function fires a new fax event.
-     * 
+     *
      * @param id
      *            The fax event ID
      * @param faxJob
@@ -552,7 +550,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function invokes the fax job null validation.
-     * 
+     *
      * @param faxJob
      *            The fax job
      */
@@ -564,7 +562,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function invokes the fax job null validation.
-     * 
+     *
      * @param faxJob
      *            The fax job
      */
@@ -574,7 +572,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
         // validate fax job ID
         String faxJobID = faxJob.getID();
-        if ((faxJobID == null) || (faxJobID.length() == 0)) {
+        if (faxJobID == null || faxJobID.length() == 0) {
             throw new FaxException("Fax job ID not provided.");
         }
     }
@@ -588,7 +586,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function creates a new fax job instance to be used by the caller to submit a new fax job and so on.
-     * 
+     *
      * @return The fax job instance
      */
     protected FaxJob createFaxJobImpl() {
@@ -609,7 +607,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
     /**
      * This function will submit a new fax job.<br>
      * The fax job ID may be populated by this method in the provided fax job object.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -617,7 +615,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function will suspend an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -625,7 +623,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function will resume an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -633,7 +631,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
 
     /**
      * This function will cancel an existing fax job.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      */
@@ -644,7 +642,7 @@ public abstract class AbstractFaxClientSpi implements FaxClientSpi {
      * Not all SPIs support extraction of the fax job status.<br>
      * In case the SPI is unable to extract or does not support extracting of the fax job status, it will return the
      * UNKNOWN status.
-     * 
+     *
      * @param faxJob
      *            The fax job object containing the needed information
      * @return The fax job status

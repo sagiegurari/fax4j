@@ -28,7 +28,7 @@ import org.fax4j.common.Logger;
  * These properties enable to override the configuration of the lower 2 layers.<br>
  * <br>
  * For SPI specific configuration, see the relevant SPI class javadoc.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.11
  * @since 0.1
@@ -37,7 +37,7 @@ public interface FaxClientSpi extends FaxClientActions, ConfigurationHolder {
     /**
      * This function initializes the fax client SPI.<br>
      * This method is called by the FaxClientSpiFactory.
-     * 
+     *
      * @param configuration
      *            The fax client configuration
      * @param logger
@@ -45,41 +45,41 @@ public interface FaxClientSpi extends FaxClientActions, ConfigurationHolder {
      * @param faxJobMonitor
      *            The fax job monitor
      */
-    public void initialize(Map<String, String> configuration, Logger logger, FaxJobMonitor faxJobMonitor);
+    void initialize(Map<String, String> configuration, Logger logger, FaxJobMonitor faxJobMonitor);
 
     /**
      * Returns the internal logger.
-     * 
+     *
      * @return The internal logger
      */
-    public Logger getLogger();
+    Logger getLogger();
 
     /**
      * Returns the fax job monitor.
-     * 
+     *
      * @return The fax job monitor
      */
-    public FaxJobMonitor getFaxJobMonitor();
+    FaxJobMonitor getFaxJobMonitor();
 
     /**
      * This function returns true if the fax monitor events are supported by this SPI.
-     * 
+     *
      * @return True if the fax monitor events are supported by this SPI
      */
-    public boolean isFaxMonitorEventsSupported();
+    boolean isFaxMonitorEventsSupported();
 
     /**
      * This function polls the new statues for the provided fax jobs.
-     * 
+     *
      * @param faxJobs
      *            The fax jobs to poll
      * @return The fax job statues
      */
-    public FaxJobStatus[] pollForFaxJobStatues(FaxJob[] faxJobs);
+    FaxJobStatus[] pollForFaxJobStatues(FaxJob[] faxJobs);
 
     /**
      * This function fires a new fax monitor event.
-     * 
+     *
      * @param id
      *            The fax monitor event ID
      * @param faxJob
@@ -87,5 +87,5 @@ public interface FaxClientSpi extends FaxClientActions, ConfigurationHolder {
      * @param faxJobStatus
      *            The fax job status
      */
-    public void fireFaxMonitorEvent(FaxMonitorEventID id, FaxJob faxJob, FaxJobStatus faxJobStatus);
+    void fireFaxMonitorEvent(FaxMonitorEventID id, FaxJob faxJob, FaxJobStatus faxJobStatus);
 }

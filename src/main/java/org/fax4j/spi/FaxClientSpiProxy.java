@@ -61,7 +61,7 @@ import java.lang.reflect.InvocationHandler;
  * </tr>
  * </table>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.0
  * @since 0.17
@@ -69,12 +69,12 @@ import java.lang.reflect.InvocationHandler;
 public interface FaxClientSpiProxy extends InvocationHandler {
     /**
      * This is the fax client SPI proxy event type.
-     * 
+     *
      * @author Sagie Gur-Ari
      * @version 1.0
      * @since 0.1
      */
-    public enum FaxClientSpiProxyEventType {
+    enum FaxClientSpiProxyEventType {
         /** The pre event type */
         PRE_EVENT_TYPE,
         /** The post event type */
@@ -86,11 +86,11 @@ public interface FaxClientSpiProxy extends InvocationHandler {
     /**
      * This function initializes the fax client SPI proxy.<br>
      * This method is called by the FaxClientSpiFactory.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      * @param interceptors
      *            The interceptors (may be null)
      */
-    public void initialize(FaxClientSpi faxClientSpi, FaxClientSpiInterceptor[] interceptors);
+    void initialize(FaxClientSpi faxClientSpi, FaxClientSpiInterceptor[] interceptors);
 }

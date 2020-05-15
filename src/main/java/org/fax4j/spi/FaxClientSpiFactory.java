@@ -140,7 +140,7 @@ import org.fax4j.util.SpiUtil;
  * </tr>
  * </table>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.19
  * @since 0.1
@@ -177,7 +177,7 @@ public final class FaxClientSpiFactory {
     /**
      * This function creates a new fax client SPI based on the provided configuration.<br>
      * This is an internal framework method and should not be invoked by classes outside the fax4j framework.
-     * 
+     *
      * @param type
      *            The fax client type (may be null for default type)
      * @param configuration
@@ -194,7 +194,7 @@ public final class FaxClientSpiFactory {
     /**
      * This function creates a new fax client SPI based on the provided configuration.<br>
      * This is an internal framework method and should not be invoked by classes outside the fax4j framework.
-     * 
+     *
      * @param type
      *            The fax client type (may be null for default type)
      * @param configuration
@@ -211,7 +211,7 @@ public final class FaxClientSpiFactory {
     /**
      * This function creates a new fax client SPI based on the provided configuration.<br>
      * This is an internal framework method and should not be invoked by classes outside the fax4j framework.
-     * 
+     *
      * @param type
      *            The fax client type (may be null for default type)
      * @param configuration
@@ -225,11 +225,11 @@ public final class FaxClientSpiFactory {
         Map<String, String> layeredConfiguration = FaxClientSpiFactory.getConfiguration(configuration);
 
         String updatedType = type;
-        if ((updatedType == null) || (updatedType.length() == 0)) {
+        if (updatedType == null || updatedType.length() == 0) {
             // get default type
             updatedType = layeredConfiguration.get(FaxClientSpiFactory.DEFAULT_SPI_TYPE_PROPERTY_KEY);
 
-            if ((updatedType == null) || (updatedType.length() == 0)) {
+            if (updatedType == null || updatedType.length() == 0) {
                 throw new FaxException("Type value not provided and not configured in fax4j.properties");
             }
         }
@@ -237,7 +237,7 @@ public final class FaxClientSpiFactory {
         // get SPI class name
         String key = FaxClientSpiFactory.SPI_CLASS_NAME_TYPE_MAP_PROPERTY_KEY_PREFIX + updatedType;
         String className = layeredConfiguration.get(key);
-        if ((className == null) || (className.length() == 0)) {
+        if (className == null || className.length() == 0) {
             throw new FaxException("Class name for type: " + updatedType + " not configured in fax4j.properties");
         }
 
@@ -293,7 +293,7 @@ public final class FaxClientSpiFactory {
      * is the external fax4j.properties file that is located on the classpath. This file is optional and provides the
      * ability to override the internal configuration. The top most layer is the optional properties object provided by
      * the external classes. These properties enable to override the configuration of the lower 2 layers.
-     * 
+     *
      * @param configuration
      *            The fax client configuration (may be null)
      * @return The fax client layered configuration
@@ -314,7 +314,7 @@ public final class FaxClientSpiFactory {
 
     /**
      * This function returns the internal logger for the fax4j framework.
-     * 
+     *
      * @return The logger
      */
     private static Logger getLogger() {
@@ -341,7 +341,7 @@ public final class FaxClientSpiFactory {
 
     /**
      * This function returns the fax job monitor.
-     * 
+     *
      * @return The fax job monitor
      */
     private static FaxJobMonitor getFaxJobMonitor() {
@@ -371,7 +371,7 @@ public final class FaxClientSpiFactory {
 
     /**
      * This function creates the fax job monitor used by the fax4j framework.
-     * 
+     *
      * @param systemConfig
      *            The system configuration
      * @return The logger
@@ -379,7 +379,7 @@ public final class FaxClientSpiFactory {
     private static FaxJobMonitor createFaxJobMonitor(Map<String, String> systemConfig) {
         // get class name
         String className = systemConfig.get(FaxClientSpiFactory.FAX_JOB_MONITOR_CLASS_NAME_PROPERTY_KEY);
-        if ((className == null) || (className.length() == 0)) {
+        if (className == null || className.length() == 0) {
             className = FaxJobMonitorImpl.class.getName();
         }
 
@@ -391,7 +391,7 @@ public final class FaxClientSpiFactory {
 
     /**
      * This function creates the fax client SPI proxy.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      * @return The fax client SPI proxy
@@ -417,7 +417,7 @@ public final class FaxClientSpiFactory {
 
     /**
      * This function creates the fax client SPI interceptors.
-     * 
+     *
      * @param faxClientSpi
      *            The fax client SPI
      * @return The interceptors
