@@ -4,7 +4,7 @@ import org.fax4j.FaxException;
 
 /**
  * This is the logger log levels.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.03
  * @since 0.1
@@ -33,7 +33,7 @@ public final class LogLevel {
 
     /**
      * This is the default constructor.
-     * 
+     *
      * @param name
      *            The log level name
      * @param value
@@ -43,7 +43,7 @@ public final class LogLevel {
         super();
 
         // validate values
-        if ((name == null) || (name.length() == 0)) {
+        if (name == null || name.length() == 0) {
             throw new FaxException("Log leve name not provided.");
         }
 
@@ -54,7 +54,7 @@ public final class LogLevel {
 
     /**
      * This function returns the log level name.
-     * 
+     *
      * @return The log level name
      */
     public String getName() {
@@ -63,7 +63,7 @@ public final class LogLevel {
 
     /**
      * This function returns the log level value.
-     * 
+     *
      * @return The log level value
      */
     public int getValue() {

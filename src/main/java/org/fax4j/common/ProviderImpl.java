@@ -5,7 +5,7 @@ import org.fax4j.Provider;
 
 /**
  * This class implements the provider interface.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.03
  * @since 0.17
@@ -18,7 +18,7 @@ public class ProviderImpl implements Provider {
 
     /**
      * This is the class constructor.
-     * 
+     *
      * @param name
      *            The provider name
      * @param description
@@ -45,7 +45,7 @@ public class ProviderImpl implements Provider {
 
     /**
      * This function returns the provider name, for example mycompany.
-     * 
+     *
      * @return The provider name
      */
     public final String getName() {
@@ -54,7 +54,7 @@ public class ProviderImpl implements Provider {
 
     /**
      * This function returns the provider description.
-     * 
+     *
      * @return The provider description
      */
     public final String getDescription() {
@@ -63,7 +63,7 @@ public class ProviderImpl implements Provider {
 
     /**
      * This function string value of the provider used for printing purposes.
-     * 
+     *
      * @return The string value
      */
     @Override
@@ -86,7 +86,7 @@ public class ProviderImpl implements Provider {
 
     /**
      * This function returns true if the provided object is equal to this object.
-     * 
+     *
      * @param object
      *            The object to compare to
      * @return The comparison result
@@ -95,16 +95,14 @@ public class ProviderImpl implements Provider {
     public boolean equals(Object object) {
         boolean result = super.equals(object);
 
-        if (!result) {
-            if (object instanceof Provider) {
-                // get provider
-                Provider provider = (Provider) object;
+        if (!result && object instanceof Provider) {
+            // get provider
+            Provider provider = (Provider) object;
 
-                // validate values
-                if (this.NAME.equals(provider.getName())) {
-                    if (this.DESCRIPTION.equals(provider.getDescription())) {
-                        result = true;
-                    }
+            // validate values
+            if (this.NAME.equals(provider.getName())) {
+                if (this.DESCRIPTION.equals(provider.getDescription())) {
+                    result = true;
                 }
             }
         }
@@ -114,7 +112,7 @@ public class ProviderImpl implements Provider {
 
     /**
      * This function returns the hash code value of the object.
-     * 
+     *
      * @return The hash code value of the object
      */
     @Override

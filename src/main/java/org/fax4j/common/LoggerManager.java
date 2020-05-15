@@ -6,7 +6,7 @@ import org.fax4j.util.ReflectionHelper;
 
 /**
  * Manages the internal fax4j logger.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.04
  * @since 0.40.6
@@ -33,7 +33,7 @@ public final class LoggerManager {
 
     /**
      * This function returns the global instance.
-     * 
+     *
      * @return The global instance
      */
     public static LoggerManager getInstance() {
@@ -53,7 +53,7 @@ public final class LoggerManager {
 
     /**
      * This function returns the fax4j internal logger.
-     * 
+     *
      * @return The fax4j internal logger
      */
     public Logger getLogger() {
@@ -65,14 +65,14 @@ public final class LoggerManager {
      * The logger must extend org.fax4j.util.Logger and it's class name is defined by the org.fax4j.logger.class.name
      * property in the fax4j configuration.<br>
      * The org.fax4j.logger.log.level property is used to set the intial log level of the logger.
-     * 
+     *
      * @param systemConfiguration
      *            The system configuration
      */
     private void createLogger(Map<String, String> systemConfiguration) {
         // get class name
         String className = systemConfiguration.get(LoggerManager.LOGGER_CLASS_NAME_PROPERTY_KEY);
-        if ((className == null) || (className.length() == 0)) {
+        if (className == null || className.length() == 0) {
             className = SimpleLogger.class.getName();
         }
 
