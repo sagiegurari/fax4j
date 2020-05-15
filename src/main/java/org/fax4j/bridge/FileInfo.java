@@ -8,7 +8,7 @@ import org.fax4j.FaxException;
  * Since bridges may get fax requests for file data which is part of the payload and not for a local file, the bridge
  * will have to have enough information of the file data and type to pass to the fax client.<br>
  * The file info object serves that purpose of holding all of the file information needed to send the fax.
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.0
  * @since 0.40.6
@@ -23,7 +23,7 @@ public class FileInfo {
 
     /**
      * This is the class constructor.
-     * 
+     *
      * @param file
      *            The file
      * @param name
@@ -36,10 +36,10 @@ public class FileInfo {
 
         // validate input
         if (file == null) {
-            if ((name == null) || (name.length() == 0)) {
+            if (name == null || name.length() == 0) {
                 throw new FaxException("File name not provided.");
             }
-            if ((content == null) || (content.length == 0)) {
+            if (content == null || content.length == 0) {
                 throw new FaxException("File content not provided.");
             }
 
@@ -62,7 +62,7 @@ public class FileInfo {
 
     /**
      * This is the class constructor.
-     * 
+     *
      * @param file
      *            The file
      */
@@ -72,7 +72,7 @@ public class FileInfo {
 
     /**
      * This is the class constructor.
-     * 
+     *
      * @param name
      *            The file name (no path)
      * @param content
@@ -84,7 +84,7 @@ public class FileInfo {
 
     /**
      * This function returns the file.
-     * 
+     *
      * @return The file
      */
     public final File getFile() {
@@ -93,7 +93,7 @@ public class FileInfo {
 
     /**
      * This function returns the file name (no path).
-     * 
+     *
      * @return The file name
      */
     public final String getName() {
@@ -102,7 +102,7 @@ public class FileInfo {
 
     /**
      * This function returns the file content.
-     * 
+     *
      * @return The file content
      */
     public final byte[] getContent() {

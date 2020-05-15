@@ -24,7 +24,7 @@ import org.fax4j.util.IOHelper;
  * <li>From email address would be used as sender email
  * <li>First attachment (or in case of none, the body text) would be used as the fax data
  * </ul>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.01
  * @since 0.41.3
@@ -39,7 +39,7 @@ public class DefaultMailMessageParser extends AbstractRequestParser<Message> imp
 
     /**
      * This function initializes the component.
-     * 
+     *
      * @param configuration
      *            The component configuration
      */
@@ -50,7 +50,7 @@ public class DefaultMailMessageParser extends AbstractRequestParser<Message> imp
 
     /**
      * This function returns the file info from the request data.
-     * 
+     *
      * @param inputData
      *            The input data
      * @return The file info
@@ -73,7 +73,7 @@ public class DefaultMailMessageParser extends AbstractRequestParser<Message> imp
     /**
      * This function update the fax job from the request data.<br>
      * This fax job will not have any file data.
-     * 
+     *
      * @param inputData
      *            The input data
      * @param faxJob
@@ -100,7 +100,7 @@ public class DefaultMailMessageParser extends AbstractRequestParser<Message> imp
 
     /**
      * Returns the target address from the provided mail object.
-     * 
+     *
      * @param mailMessage
      *            The mail message with the fax data
      * @return The target address
@@ -112,7 +112,7 @@ public class DefaultMailMessageParser extends AbstractRequestParser<Message> imp
         // is expected to be in the format of: fax:<number>
         String subject = mailMessage.getSubject();
         String targetAddress = null;
-        if ((subject != null) && (subject.startsWith("fax:")) && (subject.length() > 4)) {
+        if (subject != null && subject.startsWith("fax:") && subject.length() > 4) {
             targetAddress = subject.substring(4);
         }
 
@@ -121,7 +121,7 @@ public class DefaultMailMessageParser extends AbstractRequestParser<Message> imp
 
     /**
      * Returns the sender email from the provided mail object.
-     * 
+     *
      * @param mailMessage
      *            The mail message with the fax data
      * @return The sender email
@@ -131,7 +131,7 @@ public class DefaultMailMessageParser extends AbstractRequestParser<Message> imp
     protected String getSenderEmail(Message mailMessage) throws MessagingException {
         Address[] addresses = mailMessage.getFrom();
         String senderEmail = null;
-        if ((addresses != null) && (addresses.length > 0)) {
+        if (addresses != null && addresses.length > 0) {
             // get sender mail address (only first from is used)
             Address address = addresses[0];
 
@@ -145,7 +145,7 @@ public class DefaultMailMessageParser extends AbstractRequestParser<Message> imp
     /**
      * Returns the file info from the provided mail object.<br>
      * This function does not handle multiple file attachments.
-     * 
+     *
      * @param mailMessage
      *            The mail message with the fax data
      * @return The file info

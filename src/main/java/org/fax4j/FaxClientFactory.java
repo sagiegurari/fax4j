@@ -10,14 +10,14 @@ import org.fax4j.util.ReflectionHelper;
  * This is the fax client factory which is used to create new instances of the fax client.<br>
  * To create a new instance of the fax client, you will need to invoke the FaxClientFactory.createFaxClient method.<br>
  * Here is a sample code that creates a new fax client and submits a new fax job:<br>
- * 
+ *
  * <pre>
  * // get new instance of a fax client (based on internal + external fax4j.properties file data)
  * FaxClient faxClient = FaxClientFactory.createFaxClient();
- * 
+ *
  * // create a new fax job
  * FaxJob faxJob = faxClient.createFaxJob();
- * 
+ *
  * // set fax job values
  * faxJob.setFile(new File("./my_document.txt"));
  * faxJob.setPriority(FaxJobPriority.HIGH_PRIORITY);
@@ -25,14 +25,14 @@ import org.fax4j.util.ReflectionHelper;
  * faxJob.setTargetName("YourName");
  * faxJob.setSenderEmail("myemail@mycompany.com");
  * faxJob.setSenderName("MyName");
- * 
+ *
  * // submit fax job
  * faxClient.submitFaxJob(faxJob);
- * 
+ *
  * // print submitted fax job ID (may not be supported by all SPIs)
  * System.out.println("Fax job submitted, ID: " + faxJob.getID());
  * </pre>
- * 
+ *
  * The engine behind the fax client is the fax client SPI which is used internally.<br>
  * <br>
  * The configuration of the fax4j framework is made up of 3 layers.<br>
@@ -128,7 +128,7 @@ import org.fax4j.util.ReflectionHelper;
  * </tr>
  * </table>
  * <br>
- * 
+ *
  * @author Sagie Gur-Ari
  * @version 1.02
  * @since 0.1
@@ -146,7 +146,7 @@ public final class FaxClientFactory {
 
     /**
      * This function creates a new fax client based on the default configuration.
-     * 
+     *
      * @return The fax client instance
      */
     public static FaxClient createFaxClient() {
@@ -155,7 +155,7 @@ public final class FaxClientFactory {
 
     /**
      * This function creates a new fax client based on the provided configuration.
-     * 
+     *
      * @param type
      *            The fax client type (may be null for default type)
      * @param configuration
@@ -168,7 +168,7 @@ public final class FaxClientFactory {
 
     /**
      * This function creates a new fax client based on the provided configuration.
-     * 
+     *
      * @param type
      *            The fax client type (may be null for default type)
      * @param configuration
@@ -181,7 +181,7 @@ public final class FaxClientFactory {
 
         // get fax client class name
         String className = faxClientSpi.getConfigurationValue(FaxClientFactory.FAX_CLIENT_CLASS_NAME_PROPERTY_KEY);
-        if ((className == null) || (className.length() == 0)) {
+        if (className == null || className.length() == 0) {
             className = FaxClient.class.getName();
         }
 

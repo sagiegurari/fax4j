@@ -1,7 +1,6 @@
 package org.fax4j.bridge;
 
 import java.util.Properties;
-import org.fax4j.FaxClient;
 import org.fax4j.FaxJob;
 import org.fax4j.common.ConfigurationHolder;
 import org.fax4j.common.Logger;
@@ -35,7 +34,7 @@ import org.fax4j.common.ProviderImplementation;
  */
 public interface FaxBridge extends ProviderImplementation, ConfigurationHolder {
     /** The vendor policy class name property key */
-    static final String VENDOR_POLICY_CLASS_NAME = "org.fax4j.bridge.vendor.policy.class.name";
+    String VENDOR_POLICY_CLASS_NAME = "org.fax4j.bridge.vendor.policy.class.name";
 
     /**
      * This function initializes the fax bridge.
