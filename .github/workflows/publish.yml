@@ -1,13 +1,11 @@
 name: Publish
 on:
-  release:
-    types: [created]
   repository_dispatch:
     types: [publish]
 jobs:
   release:
     name: Release
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
