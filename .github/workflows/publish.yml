@@ -6,6 +6,7 @@ on:
     types: [publish]
 jobs:
   release:
+    name: Release
     runs-on: ubuntu-18.04
     steps:
       - name: Check out Git repository
