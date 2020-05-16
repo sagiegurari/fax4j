@@ -2,6 +2,8 @@ name: Publish
 on:
   release:
     types: [created]
+  repository_dispatch
+    types: [publish]
 jobs:
   release:
     runs-on: ubuntu-18.04
