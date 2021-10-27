@@ -475,6 +475,8 @@
 											<arg value="build" />
 											<arg value="-G" />
 											<arg value="Visual Studio 16 2019" />
+											<arg value="-A" />
+											<arg value="Win32" />
 											<arg value="--debug-output" />
 										</exec>
 										<exec executable="cmake" failonerror="true" dir="${project.build.directory}/native/windows/dll">
@@ -503,6 +505,8 @@
 											<arg value="build" />
 											<arg value="-G" />
 											<arg value="Visual Studio 16 2019" />
+											<arg value="-A" />
+											<arg value="Win32" />
 											<arg value="--debug-output" />
 										</exec>
 										<exec executable="cmake" failonerror="true" dir="${project.build.directory}/native/windows/exe">
