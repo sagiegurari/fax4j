@@ -244,6 +244,11 @@ if(MSVC)
         )
     endif()
 
+    file(GLOB JVM_LIB "${JavaHomeDir}/../jvm.lib")
+    file(GLOB JAWT_LIB "${JavaHomeDir}/../jawt.lib")
+    message("JVM_LIB: ${JVM_LIB}")
+    message("JAWT_LIB: ${JAWT_LIB}")
+
     if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "64")
         target_link_options(${PROJECT_NAME} PRIVATE
             /MACHINE:X86;
@@ -252,8 +257,8 @@ if(MSVC)
             /OPT:ICF;
             /INCREMENTAL:NO;
             winfax.lib;
-            "${JavaHomeDir}/../lib/jvm.lib";
-            "${JavaHomeDir}/../lib/jawt.lib"
+            "${JVM_LIB}";
+            "${JAWT_LIB}";
         )
     elseif("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "Win32")
         target_link_options(${PROJECT_NAME} PRIVATE
@@ -263,8 +268,8 @@ if(MSVC)
             /OPT:ICF;
             /INCREMENTAL:NO;
             winfax.lib;
-            "${JavaHomeDir}/../lib/jvm.lib";
-            "${JavaHomeDir}/../lib/jawt.lib"
+            "${JVM_LIB}";
+            "${JAWT_LIB}";
         )
     endif()
 endif()
