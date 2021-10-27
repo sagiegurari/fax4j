@@ -108,7 +108,10 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(PROJECT_NAME fax4j_exe)
 
-include_directories("../dll/")
+set(JavaHomeDir $ENV{JAVA_HOME})
+string(REPLACE "\\" "/" JavaHomeDir "${JavaHomeDir}")
+message("JavaHomeDir: ${JavaHomeDir}")
+include_directories("${JavaHomeDir}/include" "${JavaHomeDir}/include/win32" "../dll/")
 
 ################################################################################
 # Source groups
