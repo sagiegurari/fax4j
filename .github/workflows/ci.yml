@@ -22,8 +22,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Install vcexpress2010
-      run: choco install vcexpress2010
     - name: Setup Env
       run: |
         echo "::add-path::C:\Windows\Microsoft.NET\Framework\v4.0.30319"
