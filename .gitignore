@@ -3,3 +3,7 @@ fax4j.iml
 core
 hs_err*
 target/
+.classpath
+.project
+.settings/
+.vscode/
