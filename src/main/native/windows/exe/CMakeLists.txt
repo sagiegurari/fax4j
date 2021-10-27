@@ -108,6 +108,8 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(PROJECT_NAME fax4j_exe)
 
+include_directories("../dll/")
+
 ################################################################################
 # Source groups
 ################################################################################
