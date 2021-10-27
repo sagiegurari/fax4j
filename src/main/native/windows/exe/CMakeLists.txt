@@ -189,13 +189,8 @@ if(MSVC)
         ${DEFAULT_CXX_EXCEPTION_HANDLING}
     )
     target_link_options(${PROJECT_NAME} PRIVATE
-        $<$<CONFIG:Debug>:
-            /INCREMENTAL
-        >
-        $<$<CONFIG:Release>:
-            /INCREMENTAL:NO;
-            "${FAX4J_LIB}"
-        >
+        /INCREMENTAL:NO;
+        "${FAX4J_LIB}";
         /DEBUG
     )
 endif()
