@@ -514,7 +514,7 @@
 											<arg value="build" />
 										</exec>
 										<!-- copy exe -->
-										<copy todir="${project.build.directory}/native/windows/lib" file="${project.build.directory}/native/windows/exe/Debug/fax4j.exe" />
+										<rename src="${project.build.directory}/native/windows/exe/Debug/fax4j_exe.exe" dest="${project.build.directory}/native/windows/lib/fax4j.exe"/>
 
 										<!-- copy all native resources to class directory so it will be packaged inside the jar -->
 										<copy todir="${project.build.outputDirectory}/org/fax4j/spi/windows">
