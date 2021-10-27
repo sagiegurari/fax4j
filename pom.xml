@@ -483,6 +483,7 @@
 											<arg value="--build" />
 											<arg value="build" />
 										</exec>
+										<exec executable="tree" failonerror="true" dir="${project.build.directory}/native/windows/dll" />
 										<!-- copy dll -->
 										<mkdir dir="${project.build.directory}/native/windows/lib" />
 										<copy todir="${project.build.directory}/native/windows/lib" file="${project.build.directory}/native/windows/dll/Release/fax4j.dll" />
