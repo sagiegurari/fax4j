@@ -109,6 +109,11 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(PROJECT_NAME fax4j_dll)
 
+set(JavaHomeDir $ENV{JAVA_HOME})
+string(REPLACE "\\" "/" JavaHomeDir "${JavaHomeDir}")
+message("JavaHomeDir: ${JavaHomeDir}")
+include_directories("${JavaHomeDir}/include")
+
 ################################################################################
 # Source groups
 ################################################################################
@@ -238,8 +243,6 @@ if(MSVC)
             /Y-
         )
     endif()
-    set(JavaHomeDir $ENV{JAVA_HOME})
-    string(REPLACE "\\" "/" JavaHomeDir "${JavaHomeDir}")
 
     if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "64")
         target_link_options(${PROJECT_NAME} PRIVATE
