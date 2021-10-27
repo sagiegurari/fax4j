@@ -477,6 +477,7 @@
 											<arg value="Visual Studio 16 2019" />
 											<arg value="-A" />
 											<arg value="Win32" />
+											<arg value="-DCMAKE_BUILD_TYPE=Release" />
 											<arg value="--debug-output" />
 										</exec>
 										<exec executable="cmake" failonerror="true" dir="${project.build.directory}/native/windows/dll">
