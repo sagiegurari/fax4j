@@ -470,13 +470,14 @@
 										<!-- run native build to create dll -->
 										<exec executable="cmake" failonerror="true" dir="${project.build.directory}/native/windows/dll">
 											<arg value="-S" />
-											<arg value="" />
+											<arg value="." />
 											<arg value="-B" />
 											<arg value="build" />
 											<arg value="-G" />
 											<arg value="Visual Studio 16 2019" />
 											<arg value="-A" />
 											<arg value="x64" />
+											<arg value="--debug-output" />
 										</exec>
 										<exec executable="cmake" failonerror="true" dir="${project.build.directory}/native/windows/dll">
 											<arg value="--build" />
@@ -499,13 +500,14 @@
 										<!-- run native build to create exe -->
 										<exec executable="cmake" failonerror="true" dir="${project.build.directory}/native/windows/exe">
 											<arg value="-S" />
-											<arg value="" />
+											<arg value="." />
 											<arg value="-B" />
 											<arg value="build" />
 											<arg value="-G" />
 											<arg value="Visual Studio 16 2019" />
 											<arg value="-A" />
 											<arg value="x64" />
+											<arg value="--debug-output" />
 										</exec>
 										<exec executable="cmake" failonerror="true" dir="${project.build.directory}/native/windows/exe">
 											<arg value="--build" />
