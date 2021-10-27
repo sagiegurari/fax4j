@@ -116,6 +116,9 @@ include_directories("${JavaHomeDir}/include" "${JavaHomeDir}/include/win32" "../
 file(GLOB_RECURSE FAX4J_LIB "../dll/*/fax4j.lib")
 message("FAX4J_LIB:")
 message(${FAX4J_LIB})
+file(GLOB FAX4J_HEADERS "../dll/*.h")
+message("FAX4J_HEADERS:")
+message(${FAX4J_HEADERS})
 
 ################################################################################
 # Source groups
