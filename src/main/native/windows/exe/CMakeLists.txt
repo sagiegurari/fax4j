@@ -169,10 +169,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 # Compile and link options
 ################################################################################
 
-set(FAX4J_WINDOWS_NATIVE_ROOT_DIRECTORY $ENV{FAX4J_WINDOWS_NATIVE_ROOT_DIR})
-string(REPLACE "\\" "/" FAX4J_WINDOWS_NATIVE_ROOT_DIRECTORY "${FAX4J_WINDOWS_NATIVE_ROOT_DIRECTORY}")
-message("FAX4J_WINDOWS_NATIVE_ROOT_DIRECTORY: ${FAX4J_WINDOWS_NATIVE_ROOT_DIRECTORY}")
-
 if(MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE
         $<$<CONFIG:Debug>:
@@ -191,7 +187,7 @@ if(MSVC)
         >
         $<$<CONFIG:Release>:
             /INCREMENTAL:NO;
-            "${FAX4J_WINDOWS_NATIVE_ROOT_DIRECTORY}/dll/Debug/fax4j.lib"
+            "../dll/Debug/fax4j.lib"
         >
         /DEBUG
     )
