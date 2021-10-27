@@ -477,7 +477,6 @@
 											<arg value="Visual Studio 16 2019" />
 											<arg value="-A" />
 											<arg value="Win32" />
-											<arg value="-DCMAKE_BUILD_TYPE=Release" />
 											<arg value="--debug-output" />
 										</exec>
 										<exec executable="cmake" failonerror="true" dir="${project.build.directory}/native/windows/dll">
@@ -486,7 +485,7 @@
 										</exec>
 										<!-- copy dll -->
 										<mkdir dir="${project.build.directory}/native/windows/lib" />
-										<copy todir="${project.build.directory}/native/windows/lib" file="${project.build.directory}/native/windows/dll/Release/fax4j.dll" />
+										<copy todir="${project.build.directory}/native/windows/lib" file="${project.build.directory}/native/windows/dll/Debug/fax4j.dll" />
 
 										<!-- create directory -->
 										<mkdir dir="${project.build.directory}/native/windows/exe" />
