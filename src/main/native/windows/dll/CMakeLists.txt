@@ -238,6 +238,9 @@ if(MSVC)
             /Y-
         )
     endif()
+    set(JavaHomeDir $ENV{JAVA_HOME})
+    string(REPLACE "\\" "/" JavaHomeDir "${JavaHomeDir}")
+
     if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "64")
         target_link_options(${PROJECT_NAME} PRIVATE
             /MACHINE:X86;
@@ -246,8 +249,8 @@ if(MSVC)
             /OPT:ICF;
             /INCREMENTAL:NO;
             winfax.lib;
-            "@JAVA_HOME@/../lib/jvm.lib";
-            "@JAVA_HOME@/../lib/jawt.lib"
+            "${JavaHomeDir}/../lib/jvm.lib";
+            "${JavaHomeDir}/../lib/jawt.lib"
         )
     elseif("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "Win32")
         target_link_options(${PROJECT_NAME} PRIVATE
@@ -257,8 +260,8 @@ if(MSVC)
             /OPT:ICF;
             /INCREMENTAL:NO;
             winfax.lib;
-            "@JAVA_HOME@/../lib/jvm.lib";
-            "@JAVA_HOME@/../lib/jawt.lib"
+            "${JavaHomeDir}/../lib/jvm.lib";
+            "${JavaHomeDir}/../lib/jawt.lib"
         )
     endif()
 endif()
