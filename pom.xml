@@ -468,9 +468,19 @@
 											</filterset>
 										</copy>
 										<!-- run native build to create dll -->
-										<exec executable="msbuild.exe" failonerror="true" dir="${project.build.directory}/native/windows/dll">
-											<arg value="fax4j_dll.sln" />
-											<arg value="/p:Configuration=Release" />
+										<exec executable="cmake" failonerror="true" dir="${project.build.directory}/native/windows/dll">
+											<arg value="-S" />
+											<arg value="" />
+											<arg value="-B" />
+											<arg value="build" />
+											<arg value="-G" />
+											<arg value="Visual Studio 16 2019" />
+											<arg value="-A" />
+											<arg value="x64" />
+										</exec>
+										<exec executable="cmake" failonerror="true" dir="${project.build.directory}/native/windows/dll">
+											<arg value="--build" />
+											<arg value="build" />
 										</exec>
 										<!-- copy dll -->
 										<mkdir dir="${project.build.directory}/native/windows/lib" />
@@ -487,9 +497,19 @@
 											</filterset>
 										</copy>
 										<!-- run native build to create exe -->
-										<exec executable="msbuild.exe" failonerror="true" dir="${project.build.directory}/native/windows/exe">
-											<arg value="fax4j_exe.sln" />
-											<arg value="/p:Configuration=Release" />
+										<exec executable="cmake" failonerror="true" dir="${project.build.directory}/native/windows/exe">
+											<arg value="-S" />
+											<arg value="" />
+											<arg value="-B" />
+											<arg value="build" />
+											<arg value="-G" />
+											<arg value="Visual Studio 16 2019" />
+											<arg value="-A" />
+											<arg value="x64" />
+										</exec>
+										<exec executable="cmake" failonerror="true" dir="${project.build.directory}/native/windows/exe">
+											<arg value="--build" />
+											<arg value="build" />
 										</exec>
 										<!-- copy exe -->
 										<copy todir="${project.build.directory}/native/windows/lib" file="${project.build.directory}/native/windows/exe/Release/fax4j.exe" />
