@@ -191,7 +191,7 @@ if(MSVC)
         >
         $<$<CONFIG:Release>:
             /INCREMENTAL:NO;
-            "../dll/Debug/fax4j.lib"
+            "${FAX4J_LIB}"
         >
         /DEBUG
     )
