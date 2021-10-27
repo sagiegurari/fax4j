@@ -110,8 +110,12 @@ set(PROJECT_NAME fax4j_exe)
 
 set(JavaHomeDir $ENV{JAVA_HOME})
 string(REPLACE "\\" "/" JavaHomeDir "${JavaHomeDir}")
-message("JavaHomeDir: ${JavaHomeDir}")
+message("JavaHomeDir:")
+message(${JavaHomeDir})
 include_directories("${JavaHomeDir}/include" "${JavaHomeDir}/include/win32" "../dll/")
+file(GLOB_RECURSE FAX4J_LIB "../dll/*/fax4j.lib")
+message("FAX4J_LIB:")
+message(${FAX4J_LIB})
 
 ################################################################################
 # Source groups
