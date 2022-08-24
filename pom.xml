@@ -276,7 +276,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.16.0</version>
+				<version>3.18.0</version>
 				<configuration>
 					<minimumTokens>75</minimumTokens>
                     <format>txt</format>
@@ -354,7 +354,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.16.0</version>
+				<version>3.18.0</version>
 				<configuration>
 					<minimumTokens>75</minimumTokens>
 				</configuration>
